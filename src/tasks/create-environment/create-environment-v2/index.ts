@@ -10,6 +10,7 @@ import { getCredentials } from "../../../params/auth/getCredentials";
 import { AzurePipelineTaskDefiniton } from "../../../parser/AzurePipelineDefinitions";
 import { BuildToolsRunnerParams } from "../../../host/BuildToolsRunnerParams";
 import { EnvIdVariableName, EnvUrlVariableName, SetTaskOutputVariable } from "../../../host/PipelineVariables";
+import { ErrorHandler } from "../../../utilities/ErrorHandler";
 
 import * as taskDefinitionData from "./task.json";
 
@@ -18,7 +19,8 @@ import * as taskDefinitionData from "./task.json";
     await main();
   }
 })().catch(error => {
-  tl.setResult(tl.TaskResult.Failed, error);
+  tl.debug(ErrorHandler.sanitizeError(error)); // Full error for debugging
+  tl.setResult(tl.TaskResult.Failed, ErrorHandler.sanitizeError(error)); // Sanitized for user
 });
 
 export async function main(): Promise<void> {
@@ -26,25 +28,37 @@ export async function main(): Promise<void> {
   const parameterMap = taskParser.getHostParameterEntries((taskDefinitionData as unknown) as AzurePipelineTaskDefiniton);
   const isDiagnosticsMode = tl.getVariable('agent.diagnostic');
 
-  const createResult: EnvironmentResult = await createEnvironment({
-    credentials: getCredentials(),
-    environmentName: parameterMap['DisplayName'],
-    environmentType: parameterMap['EnvironmentSku'],
-    user: parameterMap['User'],
-    region: parameterMap['LocationName'],
-    currency: parameterMap['CurrencyName'],
-    language: parameterMap['LanguageName'],
-    templates: parameterMap['AppsTemplate'],
-    domainName: parameterMap['DomainName'],
-    teamId: parameterMap['TeamId'],
-    securityGroupId: parameterMap['SecurityGroupId'],
-    logToConsole: isDiagnosticsMode ? true : false
-  }, new BuildToolsRunnerParams(), new BuildToolsHost());
+  const environmentName = parameterMap['DisplayName'];
 
-  if (!createResult.environmentUrl || !createResult.environmentId) {
-    return tl.setResult(tl.TaskResult.SucceededWithIssues, 'CreateEnvironment call did NOT return the expected environment URL!');
+  try {
+    const createResult: EnvironmentResult = await createEnvironment({
+      credentials: getCredentials(),
+      environmentName: environmentName,
+      environmentType: parameterMap['EnvironmentSku'],
+      user: parameterMap['User'],
+      region: parameterMap['LocationName'],
+      currency: parameterMap['CurrencyName'],
+      language: parameterMap['LanguageName'],
+      templates: parameterMap['AppsTemplate'],
+      domainName: parameterMap['DomainName'],
+      teamId: parameterMap['TeamId'],
+      securityGroupId: parameterMap['SecurityGroupId'],
+      logToConsole: isDiagnosticsMode ? true : false
+    }, new BuildToolsRunnerParams(), new BuildToolsHost());
+
+    if (!createResult.environmentUrl || !createResult.environmentId) {
+      return tl.setResult(tl.TaskResult.SucceededWithIssues, 'CreateEnvironment call did NOT return the expected environment URL!');
+    }
+    // set output variables:
+    SetTaskOutputVariable(EnvUrlVariableName, createResult.environmentUrl);
+    SetTaskOutputVariable(EnvIdVariableName, createResult.environmentId);
+
+  } catch (error) {
+    // Enhanced error handling for environment creation
+    ErrorHandler.handleEnvironmentError(
+      `create environment '${environmentName?.defaultValue || 'Unknown'}'`,
+      'N/A', // No specific environment URL for creation
+      error instanceof Error ? error : String(error)
+    );
   }
-  // set output variables:
-  SetTaskOutputVariable(EnvUrlVariableName, createResult.environmentUrl);
-  SetTaskOutputVariable(EnvIdVariableName, createResult.environmentId);
 }

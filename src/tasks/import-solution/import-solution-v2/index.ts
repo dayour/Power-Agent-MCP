@@ -10,6 +10,8 @@ import { getCredentials } from "../../../params/auth/getCredentials";
 import { getEnvironmentUrl } from "../../../params/auth/getEnvironmentUrl";
 import { AzurePipelineTaskDefiniton } from "../../../parser/AzurePipelineDefinitions";
 import { BuildToolsRunnerParams } from "../../../host/BuildToolsRunnerParams";
+import { ErrorHandler } from "../../../utilities/ErrorHandler";
+import { ParameterValidator } from "../../../utilities/ParameterValidator";
 
 import * as taskDefinitionData from "./task.json";
 
@@ -18,7 +20,8 @@ import * as taskDefinitionData from "./task.json";
     await main();
   }
   })().catch(error => {
-  tl.setResult(tl.TaskResult.Failed, error);
+  tl.debug(ErrorHandler.sanitizeError(error)); // Full error for debugging
+  tl.setResult(tl.TaskResult.Failed, ErrorHandler.sanitizeError(error)); // Sanitized for user
 });
 
 export async function main(): Promise<void> {
@@ -32,26 +35,45 @@ export async function main(): Promise<void> {
   const activatePluginsMerged = publishWorkflows === 'true' || activatePlugins === 'true';
   const isDiagnosticsMode = tl.getVariable('agent.diagnostic');
 
-  await importSolution({
-    credentials: getCredentials(),
-    environmentUrl: getEnvironmentUrl(),
-    path: parameterMap['SolutionInputFile'],
-    useDeploymentSettingsFile: parameterMap['UseDeploymentSettingsFile'],
-    deploymentSettingsFile: parameterMap['DeploymentSettingsFile'],
-    async: parameterMap['AsyncOperation'],
-    maxAsyncWaitTimeInMin: parameterMap['MaxAsyncWaitTime'],
-    importAsHolding: parameterMap['HoldingSolution'],
-    stageAndUpgrade: parameterMap['StageAndUpgrade'],
-    forceOverwrite: parameterMap['OverwriteUnmanagedCustomizations'],
-    publishChanges: parameterMap['PublishCustomizationChanges'],
-    skipDependencyCheck: parameterMap['SkipProductUpdateDependencies'],
-    skipLowerVersion: parameterMap['SkipLowerVersion'],
-    convertToManaged: parameterMap['ConvertToManaged'],
-    // WORKAROUND: current IHostAbstractions and its input processing in cli-wrapper will only look at the default value
-    // IFF the actual property name does NOT exist in task.json -> MergedActivePlugin is NOT defined in task, thus forcing
-    // cli-wrapper to accept the calculated activatePluginMerged as default value.
-    // TODO: reconsider cli-wrapper's host abstraction design, but beyond this hot fix
-    activatePlugins: { name: "MergedActivatePlugin", required: false, defaultValue: activatePluginsMerged },
-    logToConsole: isDiagnosticsMode ? true : false
-  }, new BuildToolsRunnerParams(), new BuildToolsHost());
+  const solutionPath = parameterMap['SolutionInputFile'];
+  const environmentUrl = getEnvironmentUrl();
+
+  try {
+    // Enhanced parameter validation
+    ParameterValidator.validateAndThrow({
+      solutionPath: solutionPath?.defaultValue as string,
+      environmentUrl: environmentUrl
+    });
+
+    await importSolution({
+      credentials: getCredentials(),
+      environmentUrl: environmentUrl,
+      path: solutionPath,
+      useDeploymentSettingsFile: parameterMap['UseDeploymentSettingsFile'],
+      deploymentSettingsFile: parameterMap['DeploymentSettingsFile'],
+      async: parameterMap['AsyncOperation'],
+      maxAsyncWaitTimeInMin: parameterMap['MaxAsyncWaitTime'],
+      importAsHolding: parameterMap['HoldingSolution'],
+      stageAndUpgrade: parameterMap['StageAndUpgrade'],
+      forceOverwrite: parameterMap['OverwriteUnmanagedCustomizations'],
+      publishChanges: parameterMap['PublishCustomizationChanges'],
+      skipDependencyCheck: parameterMap['SkipProductUpdateDependencies'],
+      skipLowerVersion: parameterMap['SkipLowerVersion'],
+      convertToManaged: parameterMap['ConvertToManaged'],
+      // WORKAROUND: current IHostAbstractions and its input processing in cli-wrapper will only look at the default value
+      // IFF the actual property name does NOT exist in task.json -> MergedActivePlugin is NOT defined in task, thus forcing
+      // cli-wrapper to accept the calculated activatePluginMerged as default value.
+      // TODO: reconsider cli-wrapper's host abstraction design, but beyond this hot fix
+      activatePlugins: { name: "MergedActivatePlugin", required: false, defaultValue: activatePluginsMerged },
+      logToConsole: isDiagnosticsMode ? true : false
+    }, new BuildToolsRunnerParams(), new BuildToolsHost());
+
+  } catch (error) {
+    // Enhanced error handling with troubleshooting guidance
+    ErrorHandler.handleSolutionImportError(
+      solutionPath?.defaultValue as string || 'Unknown',
+      environmentUrl,
+      error instanceof Error ? error : String(error)
+    );
+  }
 }
