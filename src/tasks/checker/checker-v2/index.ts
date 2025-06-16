@@ -12,6 +12,7 @@ import { AuthenticationType } from '../../../params/auth/getAuthenticationType';
 import { AzurePipelineTaskDefiniton } from "../../../parser/AzurePipelineDefinitions";
 import { BuildToolsRunnerParams } from "../../../host/BuildToolsRunnerParams";
 import { readEnvUrlFromServiceConnection } from '../../../params/auth/getEnvironmentUrl';
+import { ErrorHandler } from "../../../utilities/ErrorHandler";
 
 import * as taskDefinitionData from "./task.json";
 
@@ -20,7 +21,8 @@ import * as taskDefinitionData from "./task.json";
     await main();
   }
 })().catch(error => {
-  tl.setResult(tl.TaskResult.Failed, error);
+  tl.debug(ErrorHandler.sanitizeError(error)); // Full error for debugging
+  tl.setResult(tl.TaskResult.Failed, ErrorHandler.sanitizeError(error)); // Sanitized for user
 });
 
 export async function main(): Promise<void> {
