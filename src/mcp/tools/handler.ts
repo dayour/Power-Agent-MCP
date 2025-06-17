@@ -26,9 +26,11 @@ import { PagesTools } from './pages.js';
 import { PowerFxTools } from './powerfx.js';
 import { PipelineTools } from './pipeline.js';
 import { TestTools } from './test.js';
+import { TelemetryTools } from './telemetry.js';
 import { ToolsManagementTools } from './toolsmanagement.js';
 import { ModelBuilderTools } from './modelbuilder.js';
 import { HelpTools } from './help.js';
+import { AdaptiveCardTools } from './adaptivecards.js';
 
 export class PowerPlatformToolHandler {
   private tools: Map<string, Tool> = new Map();
@@ -68,6 +70,7 @@ export class PowerPlatformToolHandler {
     const toolsManagementTools = new ToolsManagementTools();
     const modelBuilderTools = new ModelBuilderTools();
     const helpTools = new HelpTools();
+    const adaptiveCardTools = new AdaptiveCardTools();
 
     // Register all tools
     this.registerToolCategory(environmentTools);
@@ -98,6 +101,7 @@ export class PowerPlatformToolHandler {
     this.registerToolCategory(toolsManagementTools);
     this.registerToolCategory(modelBuilderTools);
     this.registerToolCategory(helpTools);
+    this.registerToolCategory(adaptiveCardTools);
   }
 
   private registerToolCategory(toolCategory: ToolCategory): void {

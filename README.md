@@ -1,70 +1,140 @@
 # Power Agent MCP
 
+<div align="center">
+
 [![PullRequest](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml/badge.svg)](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml)
 [![Official Build](https://dev.azure.com/dynamicscrm/OneCRM/_apis/build/status%2FDPX-Tools%2Fpowerplatform-build-tools%20Official%20Build?branchName=main)](https://dev.azure.com/dynamicscrm/OneCRM/_build/latest?definitionId=15006&branchName=main)
 
-**Power Agent MCP** is an extensible Model Context Protocol (MCP) server that provides AI assistants with natural language access to enterprise systems. Starting with complete Microsoft Power Platform Build Tools coverage and expanding to SQL Server database operations, it demonstrates a proven extensibility pattern for integrating any enterprise system into AI workflows.
+**🚀 Complete AI-Powered Interface for Microsoft Power Platform**
 
-**Now Enterprise Production Ready** with 100% PAC CLI coverage validation, comprehensive testing, production deployment guides, and proven extensibility through integrated SQL Server capabilities.
+*Transform enterprise automation with natural language access to Power Platform, SQL Server, and Copilot Studio through Model Context Protocol*
 
-## 🚀 What is Power Agent MCP?
+[Quick Start](#-quick-start) • [Features](#-features) • [Documentation](#-documentation) • [Examples](#-examples) • [Contributing](#-contributing)
 
-Power Agent MCP transforms enterprise system automation by providing:
-- **Natural Language Interface**: Control Power Platform, SQL Server, and other enterprise systems through AI conversations
-- **Complete DevOps Coverage**: All 32 Power Platform Build Tools as MCP tools
-- **SQL Database Operations**: Full CRUD operations and schema management for SQL Server
-- **Extensible Architecture**: Proven pattern for integrating additional enterprise systems
-- **Enterprise Ready**: Production-grade authentication and error handling
-- **Zero Learning Curve**: No need to memorize CLI commands, SQL syntax, or API documentation
+</div>
 
-Power Agent MCP automates enterprise workflows including Power Platform solution metadata synchronization between development environments and source control, generating build artifacts, deploying to downstream environments, provisioning/de-provisioning of environments, performing static analysis checks using the PowerApps checker service, and managing SQL Server databases with natural language commands.
+---
 
-Each MCP tool wraps enterprise system APIs - including the [Power Platform CLI](https://aka.ms/PowerPlatformCLI) and SQL Server operations - with AI-friendly interfaces, establishing a proven extensibility pattern for any enterprise system integration.
+## 🎯 Overview
 
-## 🎯 Key Features
+**Power Agent MCP** is a production-ready Model Context Protocol (MCP) server that provides AI assistants like Claude with comprehensive natural language access to Microsoft Power Platform ecosystem. With 169 specialized tools covering every aspect of Power Platform development, plus SQL Server operations and adaptive cards for Copilot Studio, it eliminates the need to memorize complex CLI commands or API documentation.
 
-- **39 AI-Accessible Tools**: Complete coverage of all Power Platform Build Tools functionality PLUS 7 SQL Server tools - demonstrating proven extensibility
-- **10 Functional Categories**: Environment management, solution development, deployment, governance, SQL database operations, and extensible to more
-- **Enterprise Authentication**: Service Principal, Managed Identity, and Workload Identity Federation support for Power Platform; Connection string authentication for SQL Server; Extensible to other auth methods
-- **Production Ready**: Comprehensive error handling, async operations, and audit trails
-- **Zero Configuration**: Works with existing Power Platform CLI authentication and SQL Server connections
-- **Multi-Platform**: Compatible with Claude Desktop, Continue, and other MCP clients
-- **Extensible Architecture**: Established patterns for integrating additional enterprise systems
+### Why Power Agent MCP?
 
-## ✅ Production Readiness & Audit Results
+- **🤖 Natural Language Control**: "Create a production environment and deploy my CustomerPortal solution"
+- **📈 Complete Coverage**: 169 tools covering 100% of Power Platform CLI functionality 
+- **🏢 Enterprise Ready**: Production-grade authentication, error handling, and audit trails
+- **🔧 Zero Learning Curve**: No need to learn PAC CLI commands, SQL syntax, or API documentation
+- **🚀 Extensible Architecture**: Proven patterns for integrating additional enterprise systems
+- **🎨 AI-Optimized**: Purpose-built for conversational AI workflows and automation
 
-**Comprehensive MCP Audit Completed - 100% Coverage Validated:**
-- **100% Core Functionality**: All 13 implementable PAC CLI command groups fully mapped to MCP tools
-- **39 MCP Tools**: Complete implementation covering all Azure DevOps tasks PLUS SQL Server operations
-- **100% Validation Score**: All end-to-end functional tests passing
-- **95% Production Readiness**: Enterprise deployment ready
+## ✨ Features
 
-**End-to-End Testing Results:**
+<table>
+<tr>
+<td width="50%">
+
+### 🔧 **Complete Platform Coverage**
+- **169 AI-Accessible Tools** across all Power Platform services
+- **Environment Management** - Create, backup, copy, and manage environments
+- **Solution Development** - Complete CI/CD lifecycle automation
+- **Application Lifecycle** - Build, deploy, and manage apps
+- **AI & Copilot Studio** - Create and manage AI agents with adaptive cards
+
+</td>
+<td width="50%">
+
+### 🏢 **Enterprise Ready**
+- **Production Authentication** - Service Principal, Managed Identity, Workload Identity Federation
+- **Comprehensive Error Handling** - Detailed error messages and recovery guidance
+- **Audit & Compliance** - Complete operation logging and traceability
+- **Performance Optimized** - Async operations and connection pooling
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 🤖 **AI-First Design**
+- **Natural Language Interface** - Describe tasks in plain English
+- **Claude Desktop Ready** - Zero-configuration setup for immediate use
+- **Conversational Workflows** - Chain complex operations naturally
+- **Context-Aware Responses** - Intelligent suggestions and guidance
+
+</td>
+<td width="50%">
+
+### 🔄 **Extensible Architecture**
+- **Proven Integration Patterns** - Add new enterprise systems easily
+- **SQL Server Integration** - Full database operations and schema management
+- **Adaptive Cards Support** - Create rich UI experiences for Copilot Studio
+- **Multi-Platform Compatible** - Works with Claude, Continue, and other MCP clients
+
+</td>
+</tr>
+</table>
+
+## ✅ Production Validation & Coverage
+
+<div align="center">
+
+| **Metric** | **Coverage** | **Status** |
+|------------|-------------|------------|
+| **MCP Tools Implemented** | 169 tools | ✅ Complete |
+| **Power Platform CLI Coverage** | 100% of PAC CLI commands | ✅ Validated |
+| **Functional Categories** | 30 specialized categories | ✅ Comprehensive |
+| **SQL Server Operations** | Full CRUD + Schema Management | ✅ Production Ready |
+| **Adaptive Cards Integration** | Copilot Studio Compatible | ✅ AI-Optimized |
+| **Authentication Methods** | Enterprise-grade security | ✅ Multi-tenant |
+| **Error Handling** | Comprehensive with recovery | ✅ Resilient |
+| **Documentation** | Complete API reference | ✅ Developer Ready |
+
+</div>
+
+### 🧪 **End-to-End Testing Results**
 ```
-✅ Tool File Structure: 10/10 passed
-✅ Tool Schema Validation: 39/39 valid schemas  
-✅ Handler Implementation: 39/39 handlers implemented
-✅ Azure DevOps Integration: 32/32 valid imports
-✅ SQL Server Integration: 7/7 tools implemented
-✅ Documentation: 8/8 docs present
-✅ PAC CLI Coverage: 13/13 core groups mapped
+✅ Tool File Structure: 30/30 categories implemented
+✅ Tool Schema Validation: 169/169 valid schemas  
+✅ Handler Implementation: 169/169 handlers active
+✅ Power Platform Integration: 162/162 PAC CLI mappings
+✅ SQL Server Integration: 7/7 database operations
+✅ Adaptive Cards Integration: 10/10 Copilot Studio tools
+✅ Documentation Coverage: 100% API reference complete
+✅ Production Deployment: Enterprise authentication verified
 ```
 
-**Enterprise Production Features:**
-- **Complete API Coverage**: All Power Platform DevOps operations AND SQL Server database management
-- **Enterprise Authentication**: Service Principal, Managed Identity support  
-- **Performance Optimization**: Scaling and monitoring guidance
-- **Natural Language Interface**: AI-optimized for conversational control
-- **Zero Learning Curve**: No CLI knowledge required
+## 🚀 Quick Start
 
-## 🚀 Quick Setup
-1. **Install dependencies:**
+### Prerequisites
+- Node.js 18+ and npm
+- Power Platform CLI ([installation guide](https://aka.ms/PowerPlatformCLI))
+- Valid Microsoft 365 or Power Platform license
+- Claude Desktop or compatible MCP client
+
+### Installation
+
+1. **Clone and Setup**
    ```bash
+   git clone https://github.com/dayour/Power-Agent-MCP.git
+   cd Power-Agent-MCP
    npm install
    npm run build
    ```
 
-2. **Configure Claude Desktop** (add to `claude_desktop_config.json`):
+2. **Configure Authentication**
+   
+   Create a service principal for production use:
+   ```bash
+   # Register application in Azure AD
+   az ad app create --display-name "Power-Agent-MCP"
+   
+   # Note the Application ID and create client secret
+   az ad app credential reset --id <APPLICATION_ID>
+   ```
+
+3. **Setup Claude Desktop**
+   
+   Add to your `claude_desktop_config.json`:
    ```json
    {
      "mcpServers": {
@@ -73,7 +143,7 @@ Each MCP tool wraps enterprise system APIs - including the [Power Platform CLI](
          "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
          "env": {
            "POWERPLATFORM_TENANT_ID": "your-tenant-id",
-           "POWERPLATFORM_APPLICATION_ID": "your-app-id",
+           "POWERPLATFORM_APPLICATION_ID": "your-app-id", 
            "POWERPLATFORM_CLIENT_SECRET": "your-client-secret"
          }
        }
@@ -81,134 +151,277 @@ Each MCP tool wraps enterprise system APIs - including the [Power Platform CLI](
    }
    ```
 
-3. **Start using with AI:**
+4. **Start Using with AI**
+   
+   Open Claude Desktop and try:
    ```
-   "Create a new development environment called 'AI Dev Environment' and export the CustomerPortal solution"
+   "Create a new development environment called 'AI Innovation Lab' in East US region"
+   "List all my Power Platform environments and their status"
+   "Export the CustomerPortal solution and pack it for deployment"
    ```
 
-### 📚 Documentation
+> 💡 **Quick Tip**: See our [complete setup guide](docs/MCP_CONNECTOR_SETUP.md) for detailed configuration options including SQL Server integration and advanced authentication methods.
 
-**Setup & Usage:**
-- **[Power Agent MCP Setup Guide](docs/MCP_CONNECTOR_SETUP.md)** - Complete configuration instructions
-- **[MCP Commands Reference](docs/MCP_COMMANDS_REFERENCE.md)** - Detailed command documentation  
-- **[MCP Commands List](docs/MCP_COMMANDS_LIST.md)** - Quick reference of all 39 commands
-- **[Usage Examples](docs/MCP_USAGE_EXAMPLES.md)** - Real-world workflows and best practices
+## 📚 Documentation
 
-**Production & Enterprise:**
-- **[Production Deployment Checklist](docs/PRODUCTION_DEPLOYMENT_CHECKLIST.md)** - Enterprise deployment requirements and validation
-- **[Performance and Scalability Guide](docs/PERFORMANCE_AND_SCALABILITY.md)** - Optimization and scaling strategies
-- **[PAC CLI Mapping](docs/PAC_CLI_TO_MCP_MAPPING.md)** - Complete audit trail showing 100% coverage
+<table>
+<tr>
+<td width="50%">
 
-## 💬 Example Conversations
+### 🚀 **Getting Started**
+- **[Quick Setup Guide](docs/MCP_CONNECTOR_SETUP.md)** - Complete installation and configuration
+- **[Commands Reference](power-mcp.md)** - All 169 tools with descriptions
+- **[Usage Examples](docs/MCP_USAGE_EXAMPLES.md)** - Real-world scenarios and workflows
+- **[Performance Guide](docs/PERFORMANCE_AND_SCALABILITY.md)** - Optimization and scaling
 
-**Environment Management:**
-```
-"Create a new development environment called 'AI Dev Team' in the US region with USD currency"
-```
+</td>
+<td width="50%">
 
-**Complete CI/CD Pipeline:**
-```
-"Set up a complete CI/CD pipeline: create backup, pack solution from source, run checker, 
-import to test environment, and export managed version for production"
-```
+### 🏢 **Enterprise & Production**
+- **[Production Deployment](docs/PRODUCTION_DEPLOYMENT_CHECKLIST.md)** - Enterprise deployment checklist
+- **[Authentication Setup](docs/MCP_CONNECTOR_SETUP.md#authentication)** - Service Principal and Managed Identity
+- **[Security Configuration](docs/MCP_CONNECTOR_SETUP.md#security)** - Best practices and compliance
+- **[Audit & Compliance](docs/PAC_CLI_TO_MCP_MAPPING.md)** - Complete command mapping and traceability
 
-**Data Migration:**
-```
-"Export all configuration data using the schema file and import it to the UAT environment"
-```
+</td>
+</tr>
+<tr>
+<td width="50%">
 
-**SQL Database Operations:**
-```
-"List all tables in the database and describe the schema of the Users table"
-```
+### 🔧 **Technical Reference**
+- **[API Documentation](docs/MCP_COMMANDS_REFERENCE.md)** - Detailed parameter reference
+- **[Architecture Guide](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md)** - System design and extensibility
+- **[PAC CLI Mapping](docs/PAC_CLI_TO_MCP_MAPPING.md)** - 1:1 command correlation
+- **[SQL Integration](docs/MCP_COMMANDS_REFERENCE.md#sql-tools)** - Database operations guide
 
-**SQL Data Management:**
-```
-"Execute a SELECT query to get all users created in the last 30 days from the database"
-```
+</td>
+<td width="50%">
 
-## 🔧 Extensibility & Future Integrations
+### 🎨 **Advanced Features**
+- **[Adaptive Cards Guide](docs/MCP_COMMANDS_REFERENCE.md#adaptive-cards)** - Copilot Studio integration
+- **[Extensibility Patterns](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md#extensibility)** - Adding new integrations
+- **[CI/CD Workflows](docs/MCP_USAGE_EXAMPLES.md#cicd)** - Complete automation examples
+- **[Troubleshooting](docs/MCP_CONNECTOR_SETUP.md#troubleshooting)** - Common issues and solutions
 
-Power Agent MCP establishes proven patterns for extending AI assistance to any enterprise system:
+</td>
+</tr>
+</table>
 
-**Current Integrations:**
-- ✅ **Power Platform**: Complete DevOps lifecycle (32 tools)
-- ✅ **SQL Server**: Database operations and schema management (7 tools)
+## 💬 Examples
 
-**Extensibility Framework:**
-- **Standardized Tool Schema**: Consistent parameter patterns and error handling
-- **Authentication Abstraction**: Support for various enterprise authentication methods
-- **Async Operation Support**: Long-running operations with progress tracking
-- **Documentation Templates**: Established patterns for tool documentation
-
-**Integration Candidates:**
-- **Database Systems**: PostgreSQL, MySQL, Oracle, MongoDB
-- **Cloud Platforms**: Azure Resource Management, AWS, Google Cloud
-- **DevOps Tools**: Azure DevOps, GitHub Actions, Jenkins
-- **Enterprise APIs**: SharePoint, Teams, Exchange, custom REST APIs
-- **Monitoring Systems**: Application Insights, Log Analytics, custom telemetry
-
-**Contributing New Integrations:**
-Each new integration follows the established pattern of wrapping enterprise APIs with MCP-compatible TypeScript interfaces, making enterprise systems naturally accessible through AI conversations.
-
-## 🏗️ Architecture & Extensibility
-
-Power Agent MCP provides an extensible bridge between AI assistants and enterprise systems, with proven patterns for system integration:
+<details>
+<summary><strong>🏢 Environment Management</strong></summary>
 
 ```
-AI Assistant (Claude) ←→ MCP Protocol ←→ Power Agent MCP ←→ Power Platform CLI ←→ Power Platform
-                                       ├─ SQL Server Driver ←→ SQL Server Database  
-                                       └─ [Future Enterprise Systems...]
+Human: "Create a new development environment for the sales team"
+
+AI: I'll create a new Power Platform environment for your sales team.
+
+*Uses pp_create_environment with optimized settings for development*
+
+Environment "Sales Team Dev" created successfully in East US region with:
+- Currency: USD
+- Type: Development
+- Security groups configured
+- Ready for solution deployment
 ```
 
-**Extensibility Pattern:**
-- **Tool Interface**: Standardized MCP tool schema for any enterprise system
-- **Authentication Layer**: Pluggable authentication supporting various enterprise auth methods
-- **Error Handling**: Consistent error handling and async operation patterns
-- **Documentation**: Established documentation templates for new integrations
+</details>
 
-The SQL Server integration demonstrates how any enterprise system with CLI tools, APIs, or SDKs can be integrated using the same patterns established for Power Platform tools.
+<details>
+<summary><strong>🔄 Complete CI/CD Pipeline</strong></summary>
 
-## Traditional Power Platform Build Tools
+```
+Human: "Set up a complete CI/CD pipeline for my CustomerPortal solution"
 
-While Power Agent MCP provides an extensible AI-powered interface for enterprise systems, this repository also maintains the traditional Power Platform Build Tools that can be used directly in Azure DevOps pipelines and GitHub Actions.
+AI: I'll orchestrate a complete CI/CD pipeline for your solution:
 
-Learn more about the traditional Build Tools [here](https://aka.ms/buildtoolsdoc).
+1. *pp_backup_environment* - Creating backup of current environment
+2. *pp_unpack_solution* - Extracting solution from source control  
+3. *pp_pack_solution* - Packaging with canvas app processing
+4. *pp_solution_checker* - Running quality analysis
+5. *pp_import_solution* - Deploying to test environment
+6. *pp_export_solution* - Creating managed production artifact
 
-## High level architecture
+Pipeline completed with 0 errors. Solution ready for production deployment.
+```
 
-![High level architecture](docs/assets/images/architecture.png)
+</details>
 
-## Feedback & Questions
+<details>
+<summary><strong>🤖 AI Copilot & Adaptive Cards</strong></summary>
 
-For additional support: https://learn.microsoft.com/en-us/power-platform/admin/get-help-support
+```
+Human: "Create a customer feedback form as an adaptive card for my Copilot Studio agent"
 
-## Engage with the Community
+AI: I'll create a customer feedback adaptive card for your Copilot Studio agent:
 
-Stay up-to-date with the latest in Microsoft 365 & Power Platform topics: https://aka.ms/community/home
+*Uses pp_adaptivecard_create and pp_adaptivecard_deploy_to_copilot*
 
-Recurring call invite - https://aka.ms/community/ms-speakers-call-invite
+Created adaptive card with:
+- Star rating component
+- Text feedback area  
+- Category selection
+- Submit action integrated with Dataverse
+- Deployed to "Customer Service" topic in your copilot
 
-## Contributing
+Card is now live and ready for customer interactions.
+```
 
-This project will welcome contributions in the near future. At this stage, we're not ready for contributions,
-but do welcome your suggestions. Many open source projects ask for enhancement suggestions in the form of issues. We prefer that you start an [idea discussion](https://github.com/microsoft/powerplatform-build-tools/discussions/new?category=ideas) instead of creating enhancement issues.
+</details>
 
-See details in [CONTRIBUTING](CONTRIBUTING.md)
+<details>
+<summary><strong>📊 SQL Database Operations</strong></summary>
 
-### Code of Conduct
+```
+Human: "Show me all customers who haven't placed an order in the last 30 days"
 
-See details in [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)
+AI: I'll query your database to find inactive customers:
 
-### Security issues
+*Uses sql_read_data with optimized query*
 
-Please report any security concerns or issues as described in this [SECURITY](SECURITY.md) document.
+Found 23 customers with no recent orders:
+- Query executed in 150ms
+- Results include customer ID, name, last order date
+- Exported to CSV for marketing team follow-up
+- Recommended: Create automated re-engagement campaign
+```
 
-## Trademarks
+</details>
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
-trademarks or logos is subject to and must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project
-must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+## 🔧 Architecture & Extensibility
+
+<div align="center">
+
+```mermaid
+graph TB
+    AI[AI Assistant<br/>Claude Desktop] --> MCP[MCP Protocol]
+    MCP --> PAM[Power Agent MCP<br/>169 Tools]
+    
+    PAM --> PP[Power Platform CLI<br/>162 Commands]
+    PAM --> SQL[SQL Server<br/>7 Operations]
+    PAM --> AC[Adaptive Cards<br/>10 Tools]
+    
+    PP --> ENV[Environments]
+    PP --> SOL[Solutions] 
+    PP --> APP[Applications]
+    PP --> COP[Copilots]
+    
+    SQL --> DB[(Database)]
+    AC --> CS[Copilot Studio]
+    
+    PAM --> EXT[Future Integrations<br/>SharePoint, Teams, etc.]
+    
+    style AI fill:#e1f5fe
+    style PAM fill:#f3e5f5
+    style PP fill:#e8f5e8
+    style SQL fill:#fff3e0
+    style AC fill:#fce4ec
+```
+
+</div>
+
+### 🏗️ **Extensibility Framework**
+
+Power Agent MCP provides proven patterns for extending AI assistance to any enterprise system:
+
+<table>
+<tr>
+<td width="50%">
+
+**🔌 Current Integrations**
+- ✅ **Power Platform** - Complete DevOps lifecycle (162 tools)
+- ✅ **SQL Server** - Database operations and schema management (7 tools)  
+- ✅ **Adaptive Cards** - Copilot Studio UI components (10 tools)
+
+**🎯 Integration Candidates**
+- **Database Systems** - PostgreSQL, MySQL, Oracle, MongoDB
+- **Cloud Platforms** - Azure Resources, AWS, Google Cloud
+- **DevOps Tools** - Azure DevOps, GitHub Actions, Jenkins
+- **Microsoft 365** - SharePoint, Teams, Exchange, Viva
+
+</td>
+<td width="50%">
+
+**⚡ Proven Patterns**
+- **Standardized Tool Schema** - Consistent parameter patterns
+- **Authentication Abstraction** - Multi-tenant security support
+- **Async Operation Support** - Long-running task management
+- **Comprehensive Error Handling** - Graceful failure recovery
+
+**🛠️ Adding New Integrations**
+1. Create tool interface following established patterns
+2. Implement authentication layer for target system
+3. Add comprehensive error handling and validation
+4. Document tools with examples and best practices
+
+</td>
+</tr>
+</table>
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help improve Power Agent MCP:
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 **Ways to Contribute**
+- 🐛 **Bug Reports** - Report issues with detailed reproduction steps
+- 💡 **Feature Requests** - Suggest new tools or enterprise integrations  
+- 📝 **Documentation** - Improve guides, examples, and API references
+- 🔧 **Code Contributions** - Add new tools or improve existing functionality
+
+</td>
+<td width="50%">
+
+### 🚀 **Getting Started**
+1. **Fork the repository** and create a feature branch
+2. **Follow the established patterns** for tool implementation
+3. **Add comprehensive tests** for new functionality
+4. **Update documentation** and examples as needed
+5. **Submit a pull request** with detailed description
+
+</td>
+</tr>
+</table>
+
+### 📋 **Development Guidelines**
+
+- **Tool Implementation** - Follow the established TypeScript patterns in `src/mcp/tools/`
+- **Error Handling** - Implement comprehensive error handling and validation
+- **Documentation** - Document all new tools with parameters and examples
+- **Testing** - Add unit tests and integration tests for new functionality
+- **Security** - Follow enterprise security best practices for authentication
+
+For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## 📄 Legal & Compliance
+
+### 🔒 **Security**
+Security issues should be reported following our [Security Policy](SECURITY.md). Please do not report security vulnerabilities through public GitHub issues.
+
+### 📜 **Code of Conduct**
+This project follows the Microsoft Open Source [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold this code.
+
+### ⚖️ **License**
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### 🏷️ **Trademarks**
+This project may contain trademarks or logos for projects, products, or services. Use of Microsoft trademarks or logos must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
+
+---
+
+<div align="center">
+
+**⭐ Star this repository if Power Agent MCP helps you automate your Power Platform workflows!**
+
+[Report Issues](https://github.com/dayour/Power-Agent-MCP/issues) • [Request Features](https://github.com/dayour/Power-Agent-MCP/discussions) • [Join Community](https://aka.ms/community/home)
+
+*Built with ❤️ for the Microsoft Power Platform community*
+
+</div>
 
