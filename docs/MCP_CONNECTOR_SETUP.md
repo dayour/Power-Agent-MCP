@@ -1,10 +1,10 @@
-# Power Platform MCP Connector Configuration Guide
+# Power Agent MCP Configuration Guide
 
-This guide provides comprehensive instructions for configuring and using the Power Platform Model Context Protocol (MCP) connector with AI assistants like Claude.
+This guide provides comprehensive instructions for configuring and using the Power Agent MCP server with AI assistants like Claude.
 
 ## Overview
 
-The Power Platform MCP connector enables AI assistants to interact with Microsoft Power Platform environments through a standardized protocol. It provides access to all 32 Power Platform Build Tools tasks, covering environment management, solution development, deployment, governance, and monitoring.
+Power Agent MCP is a comprehensive Model Context Protocol server that enables AI assistants to interact with Microsoft Power Platform environments through natural language. It provides access to all 32 Power Platform Build Tools tasks, covering environment management, solution development, deployment, governance, and monitoring.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ The Power Platform MCP connector enables AI assistants to interact with Microsof
 - Network access to Power Platform services
 
 ### Authentication Setup
-Before using the MCP connector, ensure you have configured authentication for Power Platform:
+Before using Power Agent MCP, ensure you have configured authentication for Power Platform:
 
 #### Service Principal Authentication (Recommended for Production)
 1. Create an Azure App Registration in the Azure Portal
@@ -71,7 +71,7 @@ Before using the MCP connector, ensure you have configured authentication for Po
 
 ### Claude Desktop Configuration
 
-To use the Power Platform MCP connector with Claude Desktop, add the following configuration to your Claude Desktop settings:
+To use Power Agent MCP with Claude Desktop, add the following configuration to your Claude Desktop settings:
 
 #### On macOS
 Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
@@ -79,7 +79,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "power-platform": {
+    "power-agent-mcp": {
       "command": "node",
       "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
       "env": {
@@ -98,7 +98,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "power-platform": {
+    "power-agent-mcp": {
       "command": "node",
       "args": ["C:\\path\\to\\Power-Agent-MCP\\dist\\mcp\\server.js"],
       "env": {
@@ -117,7 +117,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "power-platform": {
+    "power-agent-mcp": {
       "command": "node",
       "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
       "env": {
@@ -133,7 +133,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "power-platform": {
+    "power-agent-mcp": {
       "command": "node",
       "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
       "env": {

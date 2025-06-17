@@ -1,6 +1,6 @@
-# Power Platform MCP Usage Examples
+# Power Agent MCP Usage Examples
 
-This document provides practical examples of how to use the Power Platform MCP tools with AI assistants like Claude.
+This document provides practical examples of how to use Power Agent MCP tools with AI assistants like Claude.
 
 ## Getting Started
 

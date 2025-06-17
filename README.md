@@ -1,28 +1,32 @@
-# Power Platform Build Tools
+# Power Agent MCP
 
 [![PullRequest](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml/badge.svg)](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml)
 [![Official Build](https://dev.azure.com/dynamicscrm/OneCRM/_apis/build/status%2FDPX-Tools%2Fpowerplatform-build-tools%20Official%20Build?branchName=main)](https://dev.azure.com/dynamicscrm/OneCRM/_build/latest?definitionId=15006&branchName=main)
 
-Power Platform Build Tools automate common build and deployment tasks related to Power Platform.
-This includes synchronization of solution metadata (a.k.a. solutions) between development environments and source control,
-generating build artifacts, deploying to downstream environments, provisioning/de-provisioning of environments,
-and the ability to perform static analysis checks against your solution using the PowerApps checker service.
+**Power Agent MCP** is a comprehensive Model Context Protocol (MCP) server that exposes all 32 Microsoft Power Platform Build Tools as AI-accessible tools. This enables AI assistants like Claude to interact naturally with Power Platform environments, automating complex DevOps workflows through simple conversational commands.
 
-Learn more about the Build Tools [here](https://aka.ms/buildtoolsdoc).
+## 🚀 What is Power Agent MCP?
 
-Each tasks wraps the existing [Power Platform CLI](https://aka.ms/PowerPlatformCLI).
+Power Agent MCP transforms Power Platform operations by providing:
+- **Natural Language Interface**: Control Power Platform through AI conversations
+- **Complete DevOps Coverage**: All 32 Power Platform Build Tools as MCP tools
+- **Enterprise Ready**: Production-grade authentication and error handling
+- **Zero Learning Curve**: No need to memorize CLI commands or parameters
 
-## 🤖 Model Context Protocol (MCP) Support
+Power Agent MCP automates common build and deployment tasks including solution metadata synchronization between development environments and source control, generating build artifacts, deploying to downstream environments, provisioning/de-provisioning of environments, and performing static analysis checks using the PowerApps checker service.
 
-This repository now includes a comprehensive **MCP server implementation** that exposes all 32 Power Platform Build Tools as MCP tools for AI assistants like Claude. This enables natural language interaction with Power Platform environments through AI assistants.
+Each MCP tool wraps the existing [Power Platform CLI](https://aka.ms/PowerPlatformCLI) with AI-friendly interfaces.
 
-### MCP Features
-- **32 MCP Tools**: Complete coverage of all Power Platform Build Tools tasks
-- **Full DevOps Lifecycle**: Environment management, solution development, deployment, governance
-- **Production Ready**: Enterprise-grade authentication and error handling
-- **Easy Configuration**: Simple setup for Claude Desktop and other MCP clients
+## 🎯 Key Features
 
-### Quick MCP Setup
+- **32 AI-Accessible Tools**: Complete coverage of all Power Platform Build Tools functionality
+- **9 Functional Categories**: Environment management, solution development, deployment, governance, and more
+- **Enterprise Authentication**: Service Principal, Managed Identity, and Workload Identity Federation support
+- **Production Ready**: Comprehensive error handling, async operations, and audit trails
+- **Zero Configuration**: Works with existing Power Platform CLI authentication
+- **Multi-Platform**: Compatible with Claude Desktop, Continue, and other MCP clients
+
+## 🚀 Quick Setup
 1. **Install dependencies:**
    ```bash
    npm install
@@ -33,7 +37,7 @@ This repository now includes a comprehensive **MCP server implementation** that 
    ```json
    {
      "mcpServers": {
-       "power-platform": {
+       "power-agent-mcp": {
          "command": "node",
          "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
          "env": {
@@ -51,10 +55,45 @@ This repository now includes a comprehensive **MCP server implementation** that 
    "Create a new development environment called 'AI Dev Environment' and export the CustomerPortal solution"
    ```
 
-### MCP Documentation
-- **[MCP Connector Setup Guide](docs/MCP_CONNECTOR_SETUP.md)** - Complete configuration instructions
+### 📚 Documentation
+
+- **[Power Agent MCP Setup Guide](docs/MCP_CONNECTOR_SETUP.md)** - Complete configuration instructions
 - **[MCP Commands Reference](docs/MCP_COMMANDS_REFERENCE.md)** - Detailed command documentation  
 - **[MCP Commands List](docs/MCP_COMMANDS_LIST.md)** - Quick reference of all 32 commands
+- **[Usage Examples](docs/MCP_USAGE_EXAMPLES.md)** - Real-world workflows and best practices
+- **[PAC CLI Mapping](docs/PAC_CLI_TO_MCP_MAPPING.md)** - Complete audit trail showing 100% coverage
+
+## 💬 Example Conversations
+
+**Environment Management:**
+```
+"Create a new development environment called 'AI Dev Team' in the US region with USD currency"
+```
+
+**Complete CI/CD Pipeline:**
+```
+"Set up a complete CI/CD pipeline: create backup, pack solution from source, run checker, 
+import to test environment, and export managed version for production"
+```
+
+**Data Migration:**
+```
+"Export all configuration data using the schema file and import it to the UAT environment"
+```
+
+## 🏗️ Architecture
+
+Power Agent MCP provides a bridge between AI assistants and Power Platform operations:
+
+```
+AI Assistant (Claude) ←→ MCP Protocol ←→ Power Agent MCP ←→ Power Platform CLI ←→ Power Platform
+```
+
+## Traditional Power Platform Build Tools
+
+In addition to the AI-powered MCP interface, this repository also contains the traditional Power Platform Build Tools that can be used directly in Azure DevOps pipelines and GitHub Actions.
+
+Learn more about the traditional Build Tools [here](https://aka.ms/buildtoolsdoc).
 
 ## High level architecture
 

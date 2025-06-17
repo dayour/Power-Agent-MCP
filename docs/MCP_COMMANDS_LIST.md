@@ -1,6 +1,6 @@
-# Complete List of Power Platform MCP Commands
+# Complete List of Power Agent MCP Commands
 
-This document provides an extensive list of all 32 MCP commands available in the Power Platform Build Tools MCP server, organized by functional category.
+This document provides an extensive list of all 32 MCP commands available in the Power Agent MCP server, organized by functional category.
 
 ## Environment Management Commands (6 commands)
 
@@ -209,4 +209,4 @@ Commands that read/write files:
 - Invalid parameter values
 - File format errors
 
-This comprehensive command reference provides the foundation for understanding and utilizing all Power Platform MCP capabilities.
+This comprehensive command reference provides the foundation for understanding and utilizing all Power Agent MCP capabilities.

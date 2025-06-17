@@ -1,10 +1,10 @@
-# Power Platform MCP Commands Reference
+# Power Agent MCP Commands Reference
 
-This document provides a comprehensive reference for all Model Context Protocol (MCP) commands available in the Power Platform Build Tools MCP server.
+This document provides a comprehensive reference for all Model Context Protocol (MCP) commands available in the Power Agent MCP server.
 
 ## Overview
 
-The Power Platform MCP server provides 32 tools that expose the complete functionality of Microsoft Power Platform Build Tools through the Model Context Protocol. These tools cover the full Power Platform DevOps lifecycle including environment management, solution development, deployment, governance, and monitoring.
+Power Agent MCP provides 32 tools that expose the complete functionality of Microsoft Power Platform Build Tools through the Model Context Protocol. These tools cover the full Power Platform DevOps lifecycle including environment management, solution development, deployment, governance, and monitoring.
 
 ## Tool Categories
 
