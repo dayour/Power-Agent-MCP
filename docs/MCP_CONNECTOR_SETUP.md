@@ -4,7 +4,7 @@ This guide provides comprehensive instructions for configuring and using the Pow
 
 ## Overview
 
-Power Agent MCP is a comprehensive Model Context Protocol server that enables AI assistants to interact with Microsoft Power Platform environments through natural language. It provides access to all 32 Power Platform Build Tools tasks, covering environment management, solution development, deployment, governance, and monitoring.
+Power Agent MCP is a comprehensive Model Context Protocol server that enables AI assistants to interact with Microsoft Power Platform environments AND SQL Server databases through natural language. It provides access to all 32 Power Platform Build Tools tasks and 7 SQL Server operations, covering environment management, solution development, deployment, governance, monitoring, and database management.
 
 ## Prerequisites
 
@@ -13,6 +13,8 @@ Power Agent MCP is a comprehensive Model Context Protocol server that enables AI
 - Power Platform CLI installed and configured
 - Valid Power Platform credentials
 - Network access to Power Platform services
+- SQL Server access (for SQL database operations)
+- Valid SQL Server connection strings (for SQL features)
 
 ### Authentication Setup
 Before using Power Agent MCP, ensure you have configured authentication for Power Platform:
@@ -31,6 +33,34 @@ Before using Power Agent MCP, ensure you have configured authentication for Powe
 #### Interactive Authentication (For Development)
 1. Install Power Platform CLI: `pac auth create`
 2. Authenticate interactively: `pac auth list`
+
+### SQL Server Configuration
+
+Power Agent MCP includes integrated SQL Server capabilities that require proper connection configuration:
+
+#### SQL Server Connection Strings
+SQL Server tools require connection strings that will be provided as parameters when using the tools. Common connection string formats:
+
+**SQL Server with Windows Authentication:**
+```
+Server=server_name;Database=database_name;Trusted_Connection=True;TrustServerCertificate=True
+```
+
+**SQL Server with SQL Authentication:**
+```
+Server=server_name;Database=database_name;User Id=username;Password=password;TrustServerCertificate=True
+```
+
+**Azure SQL Database:**
+```
+Server=tcp:server_name.database.windows.net,1433;Initial Catalog=database_name;Encrypt=Mandatory;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Interactive
+```
+
+#### SQL Server Requirements
+- SQL Server 2012 or higher, or Azure SQL Database
+- Appropriate database permissions for the operations you plan to perform
+- Network connectivity to the SQL Server instance
+- The `mssql` Node.js package will be automatically installed with Power Agent MCP
 
 ## Installation
 

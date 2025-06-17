@@ -4,7 +4,7 @@ This document provides a comprehensive reference for all Model Context Protocol 
 
 ## Overview
 
-Power Agent MCP provides 32 tools that expose the complete functionality of Microsoft Power Platform Build Tools through the Model Context Protocol. These tools cover the full Power Platform DevOps lifecycle including environment management, solution development, deployment, governance, and monitoring.
+Power Agent MCP provides 39 tools that expose the complete functionality of Microsoft Power Platform Build Tools AND SQL Server database operations through the Model Context Protocol. These tools cover the full Power Platform DevOps lifecycle including environment management, solution development, deployment, governance, monitoring, and comprehensive SQL database management.
 
 ## Tool Categories
 
@@ -321,6 +321,56 @@ Monitor catalog submission status.
 - `catalogSubmissionId`: ID of the catalog submission to check
 - `requestId`: Request ID for status tracking
 
+### SQL Database Management (7 tools)
+
+#### `sql_list_tables`
+List all tables in the SQL Database.
+
+**Parameters:**
+- `connectionString` (required): SQL Server connection string
+
+#### `sql_describe_table`
+Get table schema and details including columns, types, and indexes.
+
+**Parameters:**
+- `connectionString` (required): SQL Server connection string
+- `tableName` (required): Name of the table to describe
+
+#### `sql_create_table`
+Create a new table in the SQL Database.
+
+**Parameters:**
+- `connectionString` (required): SQL Server connection string
+- `sql` (required): CREATE TABLE SQL statement
+
+#### `sql_drop_table`
+Drop an existing table from the SQL Database.
+
+**Parameters:**
+- `connectionString` (required): SQL Server connection string
+- `tableName` (required): Name of the table to drop
+
+#### `sql_insert_data`
+Insert data into a table in the SQL Database.
+
+**Parameters:**
+- `connectionString` (required): SQL Server connection string
+- `sql` (required): INSERT SQL statement
+
+#### `sql_read_data`
+Execute SQL queries to read data from the SQL Database.
+
+**Parameters:**
+- `connectionString` (required): SQL Server connection string
+- `sql` (required): SELECT SQL query to execute
+
+#### `sql_update_data`
+Update data in a table in the SQL Database.
+
+**Parameters:**
+- `connectionString` (required): SQL Server connection string
+- `sql` (required): UPDATE SQL statement
+
 ## Common Workflows
 
 ### Complete Environment-to-Production Pipeline
@@ -344,6 +394,22 @@ Monitor catalog submission status.
 3. pp_apply_solution_upgrade → Upgrade existing solution
 4. pp_assign_user → Configure user permissions
 5. pp_publish_customizations → Activate changes
+```
+
+### SQL Database Schema Management
+```
+1. sql_list_tables → Inventory existing database objects
+2. sql_describe_table → Analyze table structure
+3. sql_create_table → Add new data structures
+4. sql_insert_data → Populate with initial data
+```
+
+### SQL Data Operations Workflow
+```
+1. sql_read_data → Query and analyze existing data
+2. sql_update_data → Modify records as needed
+3. sql_insert_data → Add new records
+4. sql_describe_table → Verify schema changes
 ```
 
 ## Error Handling

@@ -1,6 +1,6 @@
 # Complete List of Power Agent MCP Commands
 
-This document provides an extensive list of all 32 MCP commands available in the Power Agent MCP server, organized by functional category.
+This document provides an extensive list of all 39 MCP commands available in the Power Agent MCP server, organized by functional category.
 
 ## Environment Management Commands (6 commands)
 
@@ -78,6 +78,18 @@ This document provides an extensive list of all 32 MCP commands available in the
 | `pp_tool_installer` | Install Power Platform CLI tools | `addToolsToPath` |
 | `pp_whoami` | Validate authentication status | None |
 | `pp_catalog_status` | Monitor catalog submission status | `catalogSubmissionId`, `requestId` |
+
+## SQL Database Management Commands (7 commands)
+
+| Command | Description | Key Parameters |
+|---------|-------------|----------------|
+| `sql_list_tables` | List all tables in SQL Database | `connectionString` |
+| `sql_describe_table` | Get table schema and details | `connectionString`, `tableName` |
+| `sql_create_table` | Create new table in SQL Database | `connectionString`, `sql` |
+| `sql_drop_table` | Drop existing table from SQL Database | `connectionString`, `tableName` |
+| `sql_insert_data` | Insert data into SQL Database table | `connectionString`, `sql` |
+| `sql_read_data` | Execute SELECT queries on SQL Database | `connectionString`, `sql` |
+| `sql_update_data` | Update data in SQL Database table | `connectionString`, `sql` |
 
 ## Command Usage Patterns
 
