@@ -44,7 +44,7 @@ export class PowerPlatformToolHandler {
     this.registerToolCategory(utilityTools);
   }
 
-  private registerToolCategory(toolCategory: any): void {
+  private registerToolCategory(toolCategory: ToolCategory): void {
     const tools = toolCategory.getTools();
     const handlers = toolCategory.getHandlers();
 
