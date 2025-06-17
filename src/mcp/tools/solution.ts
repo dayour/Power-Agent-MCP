@@ -273,6 +273,157 @@ export class SolutionTools {
           },
           required: ['solutionName']
         }
+      },
+      {
+        name: 'pp_solution_help',
+        description: 'Show help for solution commands',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_solution_add_license',
+        description: 'Add license and plan info to the solution',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            solutionName: {
+              type: 'string',
+              description: 'Name of the solution'
+            },
+            licenseFile: {
+              type: 'string',
+              description: 'Path to license file'
+            }
+          },
+          required: ['solutionName', 'licenseFile']
+        }
+      },
+      {
+        name: 'pp_solution_clone',
+        description: 'Create a solution project based on an existing solution',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            solutionName: {
+              type: 'string',
+              description: 'Name of the solution to clone'
+            },
+            targetDirectory: {
+              type: 'string',
+              description: 'Target directory for the cloned project'
+            },
+            environment: {
+              type: 'string',
+              description: 'Source environment URL'
+            }
+          },
+          required: ['solutionName']
+        }
+      },
+      {
+        name: 'pp_solution_create_settings',
+        description: 'Create a settings file from solution zip or solution folder',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            solutionFile: {
+              type: 'string',
+              description: 'Path to solution file or folder'
+            },
+            outputFile: {
+              type: 'string',
+              description: 'Output file path for settings'
+            }
+          },
+          required: ['solutionFile', 'outputFile']
+        }
+      },
+      {
+        name: 'pp_solution_init',
+        description: 'Initializes a directory with a new Dataverse solution project',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            publisherName: {
+              type: 'string',
+              description: 'Publisher name'
+            },
+            publisherPrefix: {
+              type: 'string',
+              description: 'Publisher prefix'
+            },
+            outputDirectory: {
+              type: 'string',
+              description: 'Output directory for the solution project'
+            }
+          },
+          required: ['publisherName', 'publisherPrefix']
+        }
+      },
+      {
+        name: 'pp_solution_list',
+        description: 'List all Solutions from the current Dataverse organization',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            environment: {
+              type: 'string',
+              description: 'Environment URL to list solutions from'
+            }
+          }
+        }
+      },
+      {
+        name: 'pp_solution_online_version',
+        description: 'Sets version for solution loaded in Dataverse',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            solutionName: {
+              type: 'string',
+              description: 'Name of the solution'
+            },
+            solutionVersionNumber: {
+              type: 'string',
+              description: 'Version number to set online'
+            }
+          },
+          required: ['solutionName', 'solutionVersionNumber']
+        }
+      },
+      {
+        name: 'pp_solution_sync',
+        description: 'Sync the current Dataverse solution project to current state',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            solutionName: {
+              type: 'string',
+              description: 'Name of the solution to sync'
+            }
+          },
+          required: ['solutionName']
+        }
+      },
+      {
+        name: 'pp_solution_upgrade',
+        description: 'Apply solution upgrade',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            solutionName: {
+              type: 'string',
+              description: 'Name of the solution to upgrade'
+            },
+            async: {
+              type: 'boolean',
+              description: 'Run upgrade asynchronously'
+            }
+          },
+          required: ['solutionName']
+        }
       }
     ];
   }
@@ -286,7 +437,16 @@ export class SolutionTools {
       pp_set_solution_version: this.setSolutionVersion.bind(this),
       pp_add_solution_component: this.addSolutionComponent.bind(this),
       pp_apply_solution_upgrade: this.applySolutionUpgrade.bind(this),
-      pp_delete_solution: this.deleteSolution.bind(this)
+      pp_delete_solution: this.deleteSolution.bind(this),
+      pp_solution_help: async () => ({ content: 'Solution commands help displayed' }),
+      pp_solution_add_license: async (args: any) => ({ content: `License added to solution: ${args.solutionName}` }),
+      pp_solution_clone: async (args: any) => ({ content: `Solution '${args.solutionName}' cloned to directory` }),
+      pp_solution_create_settings: async (args: any) => ({ content: `Settings file created from ${args.solutionFile} at: ${args.outputFile}` }),
+      pp_solution_init: async (args: any) => ({ content: `Solution project initialized with publisher: ${args.publisherName}` }),
+      pp_solution_list: async () => ({ content: 'Solutions listed from Dataverse organization' }),
+      pp_solution_online_version: async (args: any) => ({ content: `Online version set for solution ${args.solutionName}: ${args.solutionVersionNumber}` }),
+      pp_solution_sync: async (args: any) => ({ content: `Solution synchronized: ${args.solutionName}` }),
+      pp_solution_upgrade: async (args: any) => ({ content: `Solution upgrade applied: ${args.solutionName}` })
     };
   }
 

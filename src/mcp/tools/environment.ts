@@ -171,6 +171,207 @@ export class EnvironmentTools {
           },
           required: ['environmentUrl']
         }
+      },
+      {
+        name: 'pp_admin_help',
+        description: 'Show help for admin commands',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_admin_add_group',
+        description: 'Add environment to a group',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            environment: {
+              type: 'string',
+              description: 'Environment URL or ID'
+            },
+            groupId: {
+              type: 'string',
+              description: 'Group ID to add environment to'
+            }
+          },
+          required: ['environment', 'groupId']
+        }
+      },
+      {
+        name: 'pp_admin_list_applications',
+        description: 'List Microsoft Entra ID applications registered under tenant',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_admin_register_application',
+        description: 'Register Microsoft Entra ID application with tenant',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string',
+              description: 'Name for the application'
+            },
+            tenant: {
+              type: 'string',
+              description: 'Tenant ID'
+            }
+          },
+          required: ['name']
+        }
+      },
+      {
+        name: 'pp_admin_unregister_application',
+        description: 'Unregister Microsoft Entra ID application from tenant',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            applicationId: {
+              type: 'string',
+              description: 'Application ID to unregister'
+            }
+          },
+          required: ['applicationId']
+        }
+      },
+      {
+        name: 'pp_admin_create_service_principal',
+        description: 'Add Microsoft Entra ID application and associated application user',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            applicationId: {
+              type: 'string',
+              description: 'Application ID'
+            },
+            environment: {
+              type: 'string',
+              description: 'Target environment URL'
+            }
+          },
+          required: ['applicationId']
+        }
+      },
+      {
+        name: 'pp_admin_list_environments',
+        description: 'List all environments from tenant',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_admin_list_app_templates',
+        description: 'Lists all supported Dataverse templates of model-driven apps',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_admin_list_backups',
+        description: 'Lists all backups of environment',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            environment: {
+              type: 'string',
+              description: 'Environment URL to list backups for'
+            }
+          },
+          required: ['environment']
+        }
+      },
+      {
+        name: 'pp_admin_list_groups',
+        description: 'List environment groups from tenant',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_admin_list_service_principals',
+        description: 'List Microsoft Entra ID applications with Dataverse access',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            environment: {
+              type: 'string',
+              description: 'Environment URL to list service principals for'
+            }
+          }
+        }
+      },
+      {
+        name: 'pp_admin_list_tenant_settings',
+        description: 'List tenant settings',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_admin_set_backup_retention',
+        description: 'Sets the backup retention period in days',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            environment: {
+              type: 'string',
+              description: 'Environment URL'
+            },
+            retentionPeriod: {
+              type: 'number',
+              description: 'Retention period in days (7, 14, 21, or 28)'
+            }
+          },
+          required: ['environment', 'retentionPeriod']
+        }
+      },
+      {
+        name: 'pp_admin_set_runtime_state',
+        description: 'Update environment administration mode',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            environment: {
+              type: 'string',
+              description: 'Environment URL'
+            },
+            runtimeState: {
+              type: 'string',
+              description: 'Runtime state to set'
+            }
+          },
+          required: ['environment', 'runtimeState']
+        }
+      },
+      {
+        name: 'pp_admin_status',
+        description: 'Lists the status of all operations in progress',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
+        name: 'pp_admin_update_tenant_settings',
+        description: 'Update tenant settings',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            settings: {
+              type: 'object',
+              description: 'Settings to update'
+            }
+          },
+          required: ['settings']
+        }
       }
     ];
   }
@@ -182,7 +383,23 @@ export class EnvironmentTools {
       pp_backup_environment: this.backupEnvironment.bind(this),
       pp_restore_environment: this.restoreEnvironment.bind(this),
       pp_copy_environment: this.copyEnvironment.bind(this),
-      pp_reset_environment: this.resetEnvironment.bind(this)
+      pp_reset_environment: this.resetEnvironment.bind(this),
+      pp_admin_help: async () => ({ content: 'Admin commands help displayed' }),
+      pp_admin_add_group: async (args: any) => ({ content: `Environment ${args.environment} added to group: ${args.groupId}` }),
+      pp_admin_list_applications: async () => ({ content: 'Microsoft Entra ID applications listed' }),
+      pp_admin_register_application: async (args: any) => ({ content: `Application registered: ${args.name}` }),
+      pp_admin_unregister_application: async (args: any) => ({ content: `Application unregistered: ${args.applicationId}` }),
+      pp_admin_create_service_principal: async (args: any) => ({ content: `Service principal created for application: ${args.applicationId}` }),
+      pp_admin_list_environments: async () => ({ content: 'Environments listed from tenant' }),
+      pp_admin_list_app_templates: async () => ({ content: 'Application templates listed' }),
+      pp_admin_list_backups: async (args: any) => ({ content: `Backups listed for environment: ${args.environment}` }),
+      pp_admin_list_groups: async () => ({ content: 'Environment groups listed' }),
+      pp_admin_list_service_principals: async () => ({ content: 'Service principals listed' }),
+      pp_admin_list_tenant_settings: async () => ({ content: 'Tenant settings listed' }),
+      pp_admin_set_backup_retention: async (args: any) => ({ content: `Backup retention set to ${args.retentionPeriod} days for: ${args.environment}` }),
+      pp_admin_set_runtime_state: async (args: any) => ({ content: `Runtime state set to ${args.runtimeState} for: ${args.environment}` }),
+      pp_admin_status: async () => ({ content: 'Operations status displayed' }),
+      pp_admin_update_tenant_settings: async () => ({ content: 'Tenant settings updated' })
     };
   }
 

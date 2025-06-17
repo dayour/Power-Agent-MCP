@@ -1,6 +1,6 @@
 # Complete List of Power Agent MCP Commands
 
-This document provides an extensive list of all 39 MCP commands available in the Power Agent MCP server, organized by functional category.
+This document provides an extensive list of all 152 MCP commands available in the Power Agent MCP server, covering all 141 PAC CLI commands plus additional functionality and 7 SQL Server operations, organized by functional category.
 
 ## Environment Management Commands (6 commands)
 

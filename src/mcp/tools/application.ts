@@ -7,6 +7,14 @@ export class ApplicationTools {
   getTools(): Tool[] {
     return [
       {
+        name: 'pp_application_help',
+        description: 'Show help for application commands',
+        inputSchema: {
+          type: 'object',
+          properties: {}
+        }
+      },
+      {
         name: 'pp_install_application',
         description: 'Install applications from catalog or AppSource',
         inputSchema: {
@@ -26,6 +34,19 @@ export class ApplicationTools {
             }
           },
           required: ['applicationName']
+        }
+      },
+      {
+        name: 'pp_application_list',
+        description: 'List available Dataverse applications from AppSource',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            environment: {
+              type: 'string',
+              description: 'Target environment URL'
+            }
+          }
         }
       },
       {
