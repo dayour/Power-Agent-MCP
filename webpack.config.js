@@ -2,8 +2,9 @@ const { resolve } = require("path");
 const find = require("find");
 
 const tasks = find.fileSync(/tasks[/\\].*[/\\]index.ts$/, "src");
+const mcpFiles = find.fileSync(/mcp[/\\].*\.ts$/, "src");
 
-module.exports = tasks.map((task) => ({
+const taskConfigs = tasks.map((task) => ({
   entry: `./${task}`,
   target: "node",
   externalsPresets: { node: true },
@@ -26,3 +27,28 @@ module.exports = tasks.map((task) => ({
     path: resolve(__dirname, "dist"),
   },
 }));
+
+const mcpConfigs = mcpFiles.map((mcpFile) => ({
+  entry: `./${mcpFile}`,
+  target: "node",
+  externalsPresets: { node: true },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
+        exclude: [/out/],
+      },
+    ],
+  },
+  mode: "development",
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+  output: {
+    filename: mcpFile.replace(/\.ts$/, ".js").replace(/src[/\\]/, ""),
+    path: resolve(__dirname, "dist"),
+  },
+}));
+
+module.exports = [...taskConfigs, ...mcpConfigs];

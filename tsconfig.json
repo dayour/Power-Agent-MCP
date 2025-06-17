@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "resolveJsonModule": true,
     "strict": true,
@@ -11,7 +12,10 @@
     "paths": {
       "@sinonjs/fake-timers": ["node_modules/@types/sinonjs__fake-timers"]
     },
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
-  "exclude": ["out", "bin"]
+  "exclude": ["out", "bin", "dist", "node_modules"]
 }

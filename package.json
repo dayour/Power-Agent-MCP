@@ -1,6 +1,7 @@
 {
   "name": "@microsoft/powerplatform-build-tools",
   "version": "2.0.0",
+  "type": "module",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -16,6 +17,8 @@
     "ci": "node node_modules/gulp/bin/gulp.js ci --max-old-space-size=5120",
     "prepare-pack": "node node_modules/gulp/bin/gulp.js --max-old-space-size=5120 preparePack",
     "pack": "node node_modules/gulp/bin/gulp.js pack",
+    "mcp:start": "node dist/mcp/server.js",
+    "mcp:dev": "npx tsx src/mcp/server.ts",
     "tfx": "node node_modules/tfx-cli/_build/tfx-cli.js",
     "set-git-authn": "node ./setGitAuthN.js",
     "set-version": "node node_modules/release-it/bin/release-it --increment patch --ci -VV",
@@ -79,6 +82,7 @@
   },
   "dependencies": {
     "@microsoft/powerplatform-cli-wrapper": "^0.1.135",
+    "@modelcontextprotocol/sdk": "^0.5.0",
     "azure-pipelines-task-lib": "^4.13.0",
     "debug": "^4.3.5",
     "fs-extra": "^11.2.0",
