@@ -14,6 +14,21 @@ import { UtilityTools } from './utility.js';
 import { SqlTools } from './sql.js';
 import { AuthTools } from './auth.js';
 import { CanvasTools } from './canvas.js';
+import { CopilotTools } from './copilot.js';
+import { EnvTools } from './env.js';
+import { CodeTools } from './code.js';
+import { ConnectionTools } from './connection.js';
+import { ConnectorTools } from './connector.js';
+import { PcfTools } from './pcf.js';
+import { PluginTools } from './plugin.js';
+import { PackageTools } from './package.js';
+import { PagesTools } from './pages.js';
+import { PowerFxTools } from './powerfx.js';
+import { PipelineTools } from './pipeline.js';
+import { TestTools } from './test.js';
+import { ToolsManagementTools } from './toolsmanagement.js';
+import { ModelBuilderTools } from './modelbuilder.js';
+import { HelpTools } from './help.js';
 
 export class PowerPlatformToolHandler {
   private tools: Map<string, Tool> = new Map();
@@ -37,6 +52,22 @@ export class PowerPlatformToolHandler {
     const sqlTools = new SqlTools();
     const authTools = new AuthTools();
     const canvasTools = new CanvasTools();
+    const copilotTools = new CopilotTools();
+    const envTools = new EnvTools();
+    const codeTools = new CodeTools();
+    const connectionTools = new ConnectionTools();
+    const connectorTools = new ConnectorTools();
+    const pcfTools = new PcfTools();
+    const telemetryTools = new TelemetryTools();
+    const pluginTools = new PluginTools();
+    const packageTools = new PackageTools();
+    const pagesTools = new PagesTools();
+    const powerFxTools = new PowerFxTools();
+    const pipelineTools = new PipelineTools();
+    const testTools = new TestTools();
+    const toolsManagementTools = new ToolsManagementTools();
+    const modelBuilderTools = new ModelBuilderTools();
+    const helpTools = new HelpTools();
 
     // Register all tools
     this.registerToolCategory(environmentTools);
@@ -51,6 +82,22 @@ export class PowerPlatformToolHandler {
     this.registerToolCategory(sqlTools);
     this.registerToolCategory(authTools);
     this.registerToolCategory(canvasTools);
+    this.registerToolCategory(copilotTools);
+    this.registerToolCategory(envTools);
+    this.registerToolCategory(codeTools);
+    this.registerToolCategory(connectionTools);
+    this.registerToolCategory(connectorTools);
+    this.registerToolCategory(pcfTools);
+    this.registerToolCategory(telemetryTools);
+    this.registerToolCategory(pluginTools);
+    this.registerToolCategory(packageTools);
+    this.registerToolCategory(pagesTools);
+    this.registerToolCategory(powerFxTools);
+    this.registerToolCategory(pipelineTools);
+    this.registerToolCategory(testTools);
+    this.registerToolCategory(toolsManagementTools);
+    this.registerToolCategory(modelBuilderTools);
+    this.registerToolCategory(helpTools);
   }
 
   private registerToolCategory(toolCategory: ToolCategory): void {
