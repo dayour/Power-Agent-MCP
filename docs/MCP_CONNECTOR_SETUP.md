@@ -4,7 +4,7 @@ This guide provides comprehensive instructions for configuring and using the Pow
 
 ## Overview
 
-Power Agent MCP is a comprehensive Model Context Protocol server that enables AI assistants to interact with Microsoft Power Platform environments AND SQL Server databases through natural language. It provides access to all 141 Power Platform CLI commands and 7 SQL Server operations, covering the complete Power Platform ecosystem including environment management, solution development, deployment, governance, monitoring, authentication, canvas apps, copilots, connectors, and database management.
+Power Agent MCP is a comprehensive Model Context Protocol server that enables AI assistants to interact with Microsoft Power Platform environments AND SQL Server databases through natural language. It provides access to all 141 Power Platform CLI commands plus additional functionality through 152 MCP tools and 7 SQL Server operations, covering the complete Power Platform ecosystem including environment management, solution development, deployment, governance, monitoring, authentication, canvas apps, copilots, connectors, and database management.
 
 ## Prerequisites
 
