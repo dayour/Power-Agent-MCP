@@ -11,6 +11,7 @@ import { ApplicationTools } from './application.js';
 import { PortalTools } from './portal.js';
 import { GovernanceTools } from './governance.js';
 import { UtilityTools } from './utility.js';
+import { SqlTools } from './sql.js';
 
 export class PowerPlatformToolHandler {
   private tools: Map<string, Tool> = new Map();
@@ -31,6 +32,7 @@ export class PowerPlatformToolHandler {
     const portalTools = new PortalTools();
     const governanceTools = new GovernanceTools();
     const utilityTools = new UtilityTools();
+    const sqlTools = new SqlTools();
 
     // Register all tools
     this.registerToolCategory(environmentTools);
@@ -42,6 +44,7 @@ export class PowerPlatformToolHandler {
     this.registerToolCategory(portalTools);
     this.registerToolCategory(governanceTools);
     this.registerToolCategory(utilityTools);
+    this.registerToolCategory(sqlTools);
   }
 
   private registerToolCategory(toolCategory: ToolCategory): void {
