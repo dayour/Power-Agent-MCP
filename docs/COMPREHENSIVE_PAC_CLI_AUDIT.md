@@ -126,22 +126,92 @@ Commands for custom connector development:
 | `pac connector list` | `pp_connector_list` | ✅ NEW | List connectors |
 | `pac connector update` | `pp_connector_update` | ✅ NEW | Update connector |
 
-### 9. Copilot Commands (10 commands)
-Commands for Copilot management:
+### 9. Copilot Commands (71 commands)
+Commands for comprehensive Copilot management across all lifecycle phases:
 
 | PAC CLI Command | MCP Tool | Status | Description |
 |----------------|----------|---------|-------------|
 | `pac copilot` | `pp_copilot_help` | ✅ NEW | Show copilot command help |
+| **Creation & Cloning** |
 | `pac copilot create` | `pp_copilot_create` | ✅ NEW | Create copilot |
-| `pac copilot extract-template` | `pp_copilot_extract_template` | ✅ NEW | Extract copilot template |
-| `pac copilot extract-translation` | `pp_copilot_extract_translation` | ✅ NEW | Extract copilot translations |
-| `pac copilot list` | `pp_copilot_list` | ✅ NEW | List copilots |
-| `pac copilot merge-translation` | `pp_copilot_merge_translation` | ✅ NEW | Merge copilot translations |
+| `pac copilot clone` | `pp_copilot_clone` | ✅ NEW | Clone existing copilot with options |
+| `pac copilot fork` | `pp_copilot_fork` | ✅ NEW | Fork copilot for development |
+| `pac copilot init` | `pp_copilot_init` | ✅ NEW | Initialize blank copilot |
+| `pac copilot scaffold` | `pp_copilot_scaffold` | ✅ NEW | Scaffold from templates |
+| **Import & Export** |
+| `pac copilot export` | `pp_copilot_export` | ✅ NEW | Export copilot configuration |
+| `pac copilot export solution` | `pp_copilot_export_solution` | ✅ NEW | Export as solution package |
+| `pac copilot export knowledge` | `pp_copilot_export_knowledge` | ✅ NEW | Export knowledge base |
+| `pac copilot export topics` | `pp_copilot_export_topics` | ✅ NEW | Export topics configuration |
+| `pac copilot import` | `pp_copilot_import` | ✅ NEW | Import copilot from file |
+| `pac copilot import knowledge` | `pp_copilot_import_knowledge` | ✅ NEW | Import knowledge content |
+| `pac copilot import topics` | `pp_copilot_import_topics` | ✅ NEW | Import topics configuration |
+| `pac copilot pull` | `pp_copilot_pull` | ✅ NEW | Pull changes for sync |
+| `pac copilot push` | `pp_copilot_push` | ✅ NEW | Push local changes |
+| **Editing & Refactoring** |
+| `pac copilot edit settings` | `pp_copilot_edit_settings` | ✅ NEW | Edit copilot settings |
+| `pac copilot edit manifest` | `pp_copilot_edit_manifest` | ✅ NEW | Edit manifest file |
+| `pac copilot edit topic` | `pp_copilot_edit_topic` | ✅ NEW | Edit, rename, delete topics |
+| `pac copilot edit knowledge` | `pp_copilot_edit_knowledge` | ✅ NEW | Edit knowledge sources |
+| `pac copilot transform state` | `pp_copilot_transform_state` | ✅ NEW | Transform state with patches |
+| `pac copilot refactor intents` | `pp_copilot_refactor_intents` | ✅ NEW | Refactor intent naming |
+| `pac copilot rename` | `pp_copilot_rename` | ✅ NEW | Rename copilot |
+| **Knowledge & Tooling** |
+| `pac copilot add knowledge` | `pp_copilot_add_knowledge` | ✅ NEW | Add knowledge sources |
+| `pac copilot add tool` | `pp_copilot_add_tool` | ✅ NEW | Add connector tools |
+| `pac copilot add prompt` | `pp_copilot_add_prompt` | ✅ NEW | Add custom prompts |
+| `pac copilot knowledge list` | `pp_copilot_knowledge_list` | ✅ NEW | List knowledge sources |
+| `pac copilot tool list` | `pp_copilot_tool_list` | ✅ NEW | List integrated tools |
+| `pac copilot knowledge scrub` | `pp_copilot_knowledge_scrub` | ✅ NEW | Scrub PII from knowledge |
+| `pac copilot knowledge reindex` | `pp_copilot_knowledge_reindex` | ✅ NEW | Reindex knowledge base |
+| **Agents & Topics Management** |
+| `pac copilot list agents` | `pp_copilot_list_agents` | ✅ NEW | List all agents |
+| `pac copilot get agent` | `pp_copilot_get_agent` | ✅ NEW | Get agent details |
+| `pac copilot delete agent` | `pp_copilot_delete_agent` | ✅ NEW | Delete agent |
+| `pac copilot list topics` | `pp_copilot_list_topics` | ✅ NEW | List topics |
+| `pac copilot get topic` | `pp_copilot_get_topic` | ✅ NEW | Get topic details |
+| `pac copilot delete topic` | `pp_copilot_delete_topic` | ✅ NEW | Delete topic |
+| `pac copilot move topic` | `pp_copilot_move_topic` | ✅ NEW | Move topic to section |
+| `pac copilot topic version` | `pp_copilot_topic_version` | ✅ NEW | Version topic with tags |
+| **Security, Governance & Compliance** |
+| `pac copilot secure roles` | `pp_copilot_secure_roles` | ✅ NEW | Manage security roles |
+| `pac copilot secure removeRole` | `pp_copilot_secure_remove_role` | ✅ NEW | Remove security role |
+| `pac copilot secure secrets` | `pp_copilot_secure_secrets` | ✅ NEW | Manage Key Vault secrets |
+| `pac copilot secure dlp-check` | `pp_copilot_secure_dlp_check` | ✅ NEW | DLP policy check |
+| `pac copilot audit trail` | `pp_copilot_audit_trail` | ✅ NEW | Generate audit trail |
+| `pac copilot compliance export` | `pp_copilot_compliance_export` | ✅ NEW | Export compliance reports |
+| **Testing, Validation & Quality** |
+| `pac copilot test conversation` | `pp_copilot_test_conversation` | ✅ NEW | Test conversations |
+| `pac copilot test regression` | `pp_copilot_test_regression` | ✅ NEW | Run regression tests |
+| `pac copilot validate schema` | `pp_copilot_validate_schema` | ✅ NEW | Validate configuration schema |
+| `pac copilot validate intents` | `pp_copilot_validate_intents` | ✅ NEW | Validate intent accuracy |
+| `pac copilot lint topics` | `pp_copilot_lint_topics` | ✅ NEW | Lint topic configurations |
+| **Deployment & Lifecycle** |
+| `pac copilot publish` | `pp_copilot_publish` | ✅ NEW | Publish copilot |
+| `pac copilot status` | `pp_copilot_status` | ✅ NEW | Check deployment status |
+| `pac copilot rollback` | `pp_copilot_rollback` | ✅ NEW | Rollback to version |
+| `pac copilot promote` | `pp_copilot_promote` | ✅ NEW | Promote between environments |
+| `pac copilot package init` | `pp_copilot_package_init` | ✅ NEW | Initialize package |
+| `pac copilot package deploy` | `pp_copilot_package_deploy` | ✅ NEW | Deploy package |
+| `pac copilot containerize` | `pp_copilot_containerize` | ✅ NEW | Create container deployment |
+| **Monitoring & Diagnostics** |
+| `pac copilot logs` | `pp_copilot_logs` | ✅ NEW | Retrieve execution logs |
+| `pac copilot metrics` | `pp_copilot_metrics` | ✅ NEW | Get performance metrics |
+| `pac copilot trace` | `pp_copilot_trace` | ✅ NEW | Trace conversation execution |
+| `pac copilot monitor` | `pp_copilot_monitor` | ✅ NEW | Setup monitoring alerts |
 | `pac copilot model list` | `pp_copilot_model_list` | ✅ NEW | List AI models |
 | `pac copilot model predict` | `pp_copilot_model_predict` | ✅ NEW | Run AI model prediction |
+| **Environment & Configuration** |
+| `pac copilot env set` | `pp_copilot_env_set` | ✅ NEW | Set environment context |
+| `pac copilot env diff` | `pp_copilot_env_diff` | ✅ NEW | Compare environments |
+| `pac copilot config set` | `pp_copilot_config_set` | ✅ NEW | Set CLI configuration |
+| `pac copilot upgrade` | `pp_copilot_upgrade` | ✅ NEW | Upgrade copilot version |
+| `pac copilot version` | `pp_copilot_version` | ✅ NEW | Get version information |
+| **Template & Translation Management** |
+| `pac copilot extract-template` | `pp_copilot_extract_template` | ✅ NEW | Extract copilot template |
+| `pac copilot extract-translation` | `pp_copilot_extract_translation` | ✅ NEW | Extract translations |
+| `pac copilot merge-translation` | `pp_copilot_merge_translation` | ✅ NEW | Merge translations |
 | `pac copilot model prepare-fetch` | `pp_copilot_model_prepare_fetch` | ✅ NEW | Prepare FetchXML |
-| `pac copilot publish` | `pp_copilot_publish` | ✅ NEW | Publish copilot |
-| `pac copilot status` | `pp_copilot_status` | ✅ NEW | Check copilot status |
 
 ### 10. Data Commands (3 commands)
 Commands for data management:
