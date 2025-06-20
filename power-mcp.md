@@ -1,10 +1,14 @@
 # Power Agent MCP Commands Reference
 
-> Complete reference of all 159 MCP tools for Microsoft Power Platform and SQL Server operations through natural language AI interfaces.
+> Complete reference of all 229 MCP tools for Microsoft Power Platform and SQL Server operations through natural language AI interfaces.
 
 ## 🚀 Quick Start
 
 Power Agent MCP provides AI assistants with natural language access to the complete Microsoft Power Platform ecosystem plus SQL Server database operations and adaptive cards for Copilot Studio agents. Simply describe what you want to accomplish in plain English.
+
+**Integration Modes:**
+- **Full Mode** (Default): Exposes all 229 tools - ideal for Claude Desktop and other MCP clients
+- **VSCode Mode**: Exposes 10 hierarchical parent tools - designed for VSCode's 125 tool limit
 
 **Examples:**
 - "Create a new development environment called 'AI Team Dev' in East US region"
@@ -14,6 +18,25 @@ Power Agent MCP provides AI assistants with natural language access to the compl
 - "Show me all tables in the database and describe the Users table schema"
 - "Create an adaptive card for customer feedback form in my Copilot Studio agent"
 - "Generate a data display card from the Contacts entity"
+
+## VSCode Hierarchical Mode
+
+When using VSCode MCP extension, set `POWERPLATFORM_MCP_MODE=vscode` to enable hierarchical mode. You'll see 10 parent tools:
+
+1. **pp_environment** - Environment & admin operations (41 sub-commands)
+2. **pp_solution** - Solution development lifecycle (16 sub-commands)
+3. **pp_application** - App development (30 sub-commands)
+4. **pp_copilot** - AI copilot management (71 sub-commands)
+5. **pp_data** - Data operations & SQL management (9 sub-commands)
+6. **pp_connector** - Connections & connectors (20 sub-commands)
+7. **pp_security** - Security & governance (10 sub-commands)
+8. **pp_utility** - Tools, help & diagnostics (14 sub-commands)
+9. **pp_pipeline** - CI/CD & deployment (11 sub-commands)
+10. **pp_quality** - Testing & quality assurance (7 sub-commands)
+
+Each parent tool accepts `command` and `parameters` to access the full functionality.
+
+See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed usage instructions.
 
 ---
 
@@ -306,7 +329,7 @@ Power Agent MCP provides AI assistants with natural language access to the compl
 | **Utilities** | 3 | General tools and validation |
 | **Other Categories** | 42 | Security, data, quality, testing, portals, plugins, etc. |
 
-**Total: 169 MCP Tools** providing complete coverage of Microsoft Power Platform CLI functionality plus SQL Server database operations and adaptive cards for Copilot Studio.
+**Total: 229 MCP Tools** providing complete coverage of Microsoft Power Platform CLI functionality plus SQL Server database operations and adaptive cards for Copilot Studio.
 
 ## 🎯 Common Workflows
 

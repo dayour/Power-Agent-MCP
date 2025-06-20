@@ -274,6 +274,21 @@ export class AdaptiveCardTools {
     ];
   }
 
+  getHandlers(): Record<string, (args: any) => Promise<any>> {
+    return {
+      pp_adaptivecard_help: async () => this.showAdaptiveCardHelp(),
+      pp_adaptivecard_create: async (args: any) => this.createAdaptiveCard(args),
+      pp_adaptivecard_validate: async (args: any) => this.validateAdaptiveCard(args),
+      pp_adaptivecard_generate_from_data: async (args: any) => this.generateFromData(args),
+      pp_adaptivecard_deploy_to_copilot: async (args: any) => this.deployToCopilot(args),
+      pp_adaptivecard_list_templates: async (args: any) => this.listTemplates(args),
+      pp_adaptivecard_convert_legacy: async (args: any) => this.convertLegacyCard(args),
+      pp_adaptivecard_test_rendering: async (args: any) => this.testRendering(args),
+      pp_adaptivecard_extract_from_copilot: async (args: any) => this.extractFromCopilot(args),
+      pp_adaptivecard_data_binding: async (args: any) => this.configureDataBinding(args)
+    };
+  }
+
   async handleToolCall(name: string, args: any): Promise<any> {
     switch (name) {
       case 'pp_adaptivecard_help':

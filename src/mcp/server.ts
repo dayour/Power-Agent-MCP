@@ -8,14 +8,21 @@ import {
   ErrorCode,
   ListToolsRequestSchema,
   McpError,
+  Tool,
 } from '@modelcontextprotocol/sdk/types.js';
 
 // Import Power Platform task handlers
 import { PowerPlatformToolHandler } from './tools/handler.js';
+import { VSCodeHierarchicalTools } from './tools/vscode-hierarchy.js';
+
+interface ToolProvider {
+  getAllTools(): Tool[];
+  callTool(name: string, args: any): Promise<any>;
+}
 
 class PowerPlatformMCPServer {
   private server: Server;
-  private toolHandler: PowerPlatformToolHandler;
+  private toolProvider: ToolProvider;
 
   constructor() {
     this.server = new Server(
@@ -30,7 +37,30 @@ class PowerPlatformMCPServer {
       }
     );
 
-    this.toolHandler = new PowerPlatformToolHandler();
+    // Check if running in VSCode mode (environment variable or detect based on usage)
+    const mcpMode = process.env.POWERPLATFORM_MCP_MODE || 'full';
+    
+    if (mcpMode === 'vscode' || mcpMode === 'hierarchical') {
+      // Use hierarchical tools for VSCode compatibility (10 parent tools)
+      const fullHandler = new PowerPlatformToolHandler();
+      const vsCodeTools = new VSCodeHierarchicalTools(fullHandler);
+      
+      this.toolProvider = {
+        getAllTools: () => vsCodeTools.getParentTools(),
+        callTool: async (name: string, args: any) => {
+          const handlers = vsCodeTools.getHandlers();
+          const handler = handlers[name];
+          if (!handler) {
+            throw new Error(`Unknown tool: ${name}`);
+          }
+          return await handler(args);
+        }
+      };
+    } else {
+      // Use full tool exposure for Claude and other MCP clients (229 tools)
+      this.toolProvider = new PowerPlatformToolHandler();
+    }
+    
     this.setupToolHandlers();
   }
 
@@ -38,7 +68,7 @@ class PowerPlatformMCPServer {
     // Handle tool listing
     this.server.setRequestHandler(ListToolsRequestSchema, async () => {
       return {
-        tools: this.toolHandler.getAllTools(),
+        tools: this.toolProvider.getAllTools(),
       };
     });
 
@@ -47,7 +77,7 @@ class PowerPlatformMCPServer {
       const { name, arguments: args } = request.params;
 
       try {
-        const result = await this.toolHandler.callTool(name, args || {});
+        const result = await this.toolProvider.callTool(name, args || {});
         return {
           content: [
             {

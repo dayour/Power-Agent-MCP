@@ -141,6 +141,29 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 }
 ```
 
+### VSCode MCP Extension Configuration
+
+For VSCode integration (recommended for development environments), use hierarchical mode to work within VSCode's 125 tool limit:
+
+```json
+{
+  "mcpServers": {
+    "power-agent-mcp": {
+      "command": "node",
+      "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
+      "env": {
+        "POWERPLATFORM_MCP_MODE": "vscode",
+        "POWERPLATFORM_TENANT_ID": "your-tenant-id",
+        "POWERPLATFORM_APPLICATION_ID": "your-app-id",
+        "POWERPLATFORM_CLIENT_SECRET": "your-client-secret"
+      }
+    }
+  }
+}
+```
+
+**Note**: VSCode mode exposes 10 hierarchical parent tools instead of all 229 individual tools. See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed usage instructions.
+
 ### Alternative Authentication Methods
 
 #### Using Managed Identity (Azure)
@@ -187,6 +210,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 | `POWERPLATFORM_AUTH_TYPE` | Authentication method | No | `spn`, `managedidentity`, `workloadidentity` |
 | `POWERPLATFORM_ENVIRONMENT_URL` | Default environment URL | No | `https://org.crm.dynamics.com/` |
 | `POWERPLATFORM_CLI_PATH` | Custom PAC CLI path | No | `/usr/local/bin/pac` |
+| `POWERPLATFORM_MCP_MODE` | Tool exposure mode | No | `full` (default), `vscode`, `hierarchical` |
 
 *Required when using Service Principal authentication
 
