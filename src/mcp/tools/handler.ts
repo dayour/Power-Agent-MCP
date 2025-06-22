@@ -32,7 +32,17 @@ import { ModelBuilderTools } from './modelbuilder.js';
 import { HelpTools } from './help.js';
 import { AdaptiveCardTools } from './adaptivecards.js';
 
-export class PowerPlatformToolHandler {
+interface ToolCategory {
+  getTools(): Tool[];
+  getHandlers(): Record<string, (args: any) => Promise<any>>;
+}
+
+interface ToolProvider {
+  getAllTools(): Tool[];
+  callTool(name: string, args: any): Promise<any>;
+}
+
+export class PowerPlatformToolHandler implements ToolProvider {
   private tools: Map<string, Tool> = new Map();
   private handlers: Map<string, (args: any) => Promise<any>> = new Map();
 
