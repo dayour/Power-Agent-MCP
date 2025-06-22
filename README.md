@@ -17,12 +17,12 @@
 
 ## 🎯 Overview
 
-**Power Agent MCP** is a production-ready Model Context Protocol (MCP) server that provides AI assistants like Claude with comprehensive natural language access to Microsoft Power Platform ecosystem. With 169 specialized tools covering every aspect of Power Platform development, plus SQL Server operations and adaptive cards for Copilot Studio, it eliminates the need to memorize complex CLI commands or API documentation.
+**Power Agent MCP** is a production-ready Model Context Protocol (MCP) server that provides AI assistants like Claude with comprehensive natural language access to Microsoft Power Platform ecosystem. With 254 specialized tools covering every aspect of Power Platform development, plus comprehensive Dataverse operations, SQL Server operations, and adaptive cards for Copilot Studio, it eliminates the need to memorize complex CLI commands or API documentation.
 
 ### Why Power Agent MCP?
 
 - **🤖 Natural Language Control**: "Create a production environment and deploy my CustomerPortal solution"
-- **📈 Complete Coverage**: 169 tools covering 100% of Power Platform CLI functionality 
+- **📈 Complete Coverage**: 254 tools covering 100% of Power Platform CLI functionality plus comprehensive Dataverse operations
 - **🏢 Enterprise Ready**: Production-grade authentication, error handling, and audit trails
 - **🔧 Zero Learning Curve**: No need to learn PAC CLI commands, SQL syntax, or API documentation
 - **🚀 Extensible Architecture**: Proven patterns for integrating additional enterprise systems
@@ -35,9 +35,10 @@
 <td width="50%">
 
 ### 🔧 **Complete Platform Coverage**
-- **169 AI-Accessible Tools** across all Power Platform services
+- **254 AI-Accessible Tools** across all Power Platform services
 - **Environment Management** - Create, backup, copy, and manage environments
 - **Solution Development** - Complete CI/CD lifecycle automation
+- **Dataverse Operations** - Full entity, record, and metadata management
 - **Application Lifecycle** - Build, deploy, and manage apps
 - **AI & Copilot Studio** - Create and manage AI agents with adaptive cards
 
