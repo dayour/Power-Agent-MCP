@@ -1,6 +1,6 @@
 # Power Agent MCP Commands Reference
 
-> Complete reference of all 229 MCP tools for Microsoft Power Platform and SQL Server operations through natural language AI interfaces.
+> Complete reference of all 254 MCP tools for Microsoft Power Platform and SQL Server operations through natural language AI interfaces.
 
 ## 🚀 Quick Start
 
@@ -127,6 +127,54 @@ See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed 
 
 - **pp_export_data**: Export configuration data with schema validation
 - **pp_import_data**: Import data with transformation and validation
+
+## Dataverse Operations (25 tools)
+
+### Entity Management
+- **pp_dv_entity_create**: Create new custom entities/tables in Dataverse
+- **pp_dv_entity_delete**: Delete custom entities/tables from Dataverse
+- **pp_dv_entity_list**: List entities/tables in Dataverse environment
+- **pp_dv_entity_metadata**: Get detailed metadata for Dataverse entities
+
+### Column/Attribute Management
+- **pp_dv_column_create**: Create new columns/attributes in Dataverse tables
+- **pp_dv_column_delete**: Delete columns/attributes from Dataverse tables
+- **pp_dv_column_list**: List columns/attributes for Dataverse tables
+
+### Record Operations
+- **pp_dv_record_create**: Create new records in Dataverse tables
+- **pp_dv_record_update**: Update existing records in Dataverse tables
+- **pp_dv_record_delete**: Delete records from Dataverse tables
+- **pp_dv_record_get**: Retrieve specific records from Dataverse tables
+
+### Query Operations
+- **pp_dv_query_fetchxml**: Execute FetchXML queries against Dataverse
+- **pp_dv_query_odata**: Execute OData queries against Dataverse Web API
+
+### Bulk Operations
+- **pp_dv_bulk_import**: Import records in bulk to Dataverse using CSV or JSON
+- **pp_dv_bulk_export**: Export records in bulk from Dataverse to various formats
+
+### Relationship Management
+- **pp_dv_relationship_create**: Create relationships between Dataverse tables
+- **pp_dv_relationship_list**: List relationships for Dataverse tables
+
+### Choice/Picklist Management
+- **pp_dv_choice_create**: Create new choices (picklists) in Dataverse
+- **pp_dv_choice_list**: List choices (picklists) in Dataverse environment
+
+### Security Management
+- **pp_dv_security_role_create**: Create new security roles in Dataverse
+- **pp_dv_security_role_assign**: Assign security roles to users or teams
+
+### Business Process Management
+- **pp_dv_business_rule_create**: Create business rules for Dataverse tables
+
+### Web API Operations
+- **pp_dv_webapi_execute**: Execute custom Web API requests against Dataverse
+
+### Help and Documentation
+- **pp_dv_help**: Show help for Dataverse commands and operations
 
 ## Environment Operations (6 tools)
 
@@ -313,6 +361,7 @@ See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed 
 | Category | Tools | Key Use Cases |
 |----------|-------|---------------|
 | **Environment Management** | 41 | Create, backup, manage environments and admin operations |
+| **Dataverse Operations** | 25 | Complete Dataverse entity, record, and metadata management |
 | **Solution Development** | 16 | Complete solution lifecycle from dev to deployment |
 | **AI & Copilot** | 10 | Build and manage AI copilots and models |
 | **Adaptive Cards** | 10 | Create and manage adaptive cards for Copilot Studio agents |
@@ -329,7 +378,7 @@ See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed 
 | **Utilities** | 3 | General tools and validation |
 | **Other Categories** | 42 | Security, data, quality, testing, portals, plugins, etc. |
 
-**Total: 229 MCP Tools** providing complete coverage of Microsoft Power Platform CLI functionality plus SQL Server database operations and adaptive cards for Copilot Studio.
+**Total: 254 MCP Tools** providing complete coverage of Microsoft Power Platform CLI functionality plus comprehensive Dataverse operations, SQL Server database operations, and adaptive cards for Copilot Studio.
 
 ## 🎯 Common Workflows
 

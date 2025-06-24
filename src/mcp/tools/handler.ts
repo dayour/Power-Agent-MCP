@@ -31,6 +31,7 @@ import { ToolsManagementTools } from './toolsmanagement.js';
 import { ModelBuilderTools } from './modelbuilder.js';
 import { HelpTools } from './help.js';
 import { AdaptiveCardTools } from './adaptivecards.js';
+import { DataverseTools } from './dataverse.js';
 
 interface ToolCategory {
   getTools(): Tool[];
@@ -81,6 +82,7 @@ export class PowerPlatformToolHandler implements ToolProvider {
     const modelBuilderTools = new ModelBuilderTools();
     const helpTools = new HelpTools();
     const adaptiveCardTools = new AdaptiveCardTools();
+    const dataverseTools = new DataverseTools();
 
     // Register all tools
     this.registerToolCategory(environmentTools);
@@ -112,6 +114,7 @@ export class PowerPlatformToolHandler implements ToolProvider {
     this.registerToolCategory(modelBuilderTools);
     this.registerToolCategory(helpTools);
     this.registerToolCategory(adaptiveCardTools);
+    this.registerToolCategory(dataverseTools);
   }
 
   private registerToolCategory(toolCategory: ToolCategory): void {
