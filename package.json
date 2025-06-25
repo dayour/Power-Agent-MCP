@@ -1,11 +1,11 @@
 {
-  "name": "@microsoft/powerplatform-build-tools",
-  "version": "2.0.0",
+  "name": "@darbotlabs/power-agent-mcp",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   },
-  "description": "Azure DevOps tasks for Power Platform",
+  "description": "Enterprise AI SDK for Microsoft Power Platform - MCP Server",
   "main": "index.js",
   "files": [
     "dist"
@@ -24,11 +24,16 @@
     "set-version": "node node_modules/release-it/bin/release-it --increment patch --ci -VV",
     "pub": "node node_modules/gulp/bin/gulp.js publish"
   },
-  "author": "PowerApps-ISV-Tools",
+  "author": "DarBot Labs",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/powerplatform-build-tools"
+    "url": "https://github.com/dayour/Power-Agent-MCP"
+  },
+  "keywords": ["power-platform", "mcp", "ai", "copilot", "dataverse", "enterprise-automation"],
+  "homepage": "https://github.com/dayour/Power-Agent-MCP#readme",
+  "bugs": {
+    "url": "https://github.com/dayour/Power-Agent-MCP/issues"
   },
   "devDependencies": {
     "@types/chai": "^4.3.11",
