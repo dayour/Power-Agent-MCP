@@ -1,0 +1,140 @@
+{
+  "name": "power-agent-mcp",
+  "displayName": "Power Agent MCP",
+  "description": "Enterprise AI SDK for Microsoft Power Platform - Model Context Protocol Server",
+  "version": "1.0.0",
+  "publisher": "darbotlabs",
+  "engines": {
+    "vscode": "^1.74.0",
+    "node": ">=18.0.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Extension Packs"
+  ],
+  "keywords": [
+    "power platform",
+    "mcp",
+    "ai",
+    "copilot",
+    "dataverse",
+    "dynamics",
+    "power apps",
+    "power automate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dayour/Power-Agent-MCP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dayour/Power-Agent-MCP/issues"
+  },
+  "homepage": "https://github.com/dayour/Power-Agent-MCP#readme",
+  "license": "MIT",
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#742774",
+    "theme": "dark"
+  },
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onCommand:power-agent-mcp.start",
+    "onCommand:power-agent-mcp.stop",
+    "onCommand:power-agent-mcp.status"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "power-agent-mcp.start",
+        "title": "Start Power Agent MCP Server",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.stop", 
+        "title": "Stop Power Agent MCP Server",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.status",
+        "title": "Show MCP Server Status",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.validateTools",
+        "title": "Validate All Tools",
+        "category": "Power Agent MCP"
+      }
+    ],
+    "configuration": {
+      "title": "Power Agent MCP",
+      "properties": {
+        "powerAgentMcp.serverPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to Power Agent MCP server executable"
+        },
+        "powerAgentMcp.autoStart": {
+          "type": "boolean", 
+          "default": false,
+          "description": "Automatically start MCP server when VSCode opens"
+        },
+        "powerAgentMcp.logLevel": {
+          "type": "string",
+          "enum": ["error", "warn", "info", "debug"],
+          "default": "info",
+          "description": "Logging level for MCP server"
+        },
+        "powerAgentMcp.environment.tenantId": {
+          "type": "string",
+          "default": "",
+          "description": "Power Platform Tenant ID"
+        },
+        "powerAgentMcp.environment.applicationId": {
+          "type": "string", 
+          "default": "",
+          "description": "Power Platform Application ID"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "power-agent-mcp",
+          "title": "Power Agent MCP",
+          "icon": "$(cloud)"
+        }
+      ]
+    },
+    "views": {
+      "power-agent-mcp": [
+        {
+          "id": "power-agent-mcp-tools",
+          "name": "Available Tools",
+          "when": "extension.powerAgentMcp.enabled"
+        },
+        {
+          "id": "power-agent-mcp-status", 
+          "name": "Server Status",
+          "when": "extension.powerAgentMcp.enabled"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "install-extension": "code --install-extension power-agent-mcp-1.0.0.vsix"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "18.x",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0"
+  }
+}
