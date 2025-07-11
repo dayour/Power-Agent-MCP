@@ -1,10 +1,56 @@
 # Power Agent MCP Usage Examples
 
-This document provides practical examples of how to use Power Agent MCP tools with AI assistants like Claude.
+This document provides practical examples of how to use Power Agent MCP tools with AI assistants like Claude and through the VSCode extension.
 
 ## Getting Started
 
-Once you have configured the MCP connector (see [MCP_CONNECTOR_SETUP.md](MCP_CONNECTOR_SETUP.md)), you can start using natural language to interact with Power Platform environments.
+### VSCode Extension (Recommended)
+
+The VSCode extension provides the easiest way to get started:
+
+1. **Install Extension**: Search "Power Agent MCP" in VSCode Extensions
+2. **Auto-Start**: Extension automatically starts when VSCode opens
+3. **Check Status**: Use Command Palette → "Power Agent MCP: Show MCP Server Status"
+4. **Start Using**: Talk to AI assistants with Power Platform context
+
+### Claude Desktop Integration
+
+For Claude Desktop users, configure the MCP connector (see [MCP_CONNECTOR_SETUP.md](MCP_CONNECTOR_SETUP.md)), then start using natural language to interact with Power Platform environments.
+
+## VSCode Extension Workflows
+
+### Quick Development Setup
+```
+"I'm starting a new Power Platform project in VSCode. Can you help me set up a development environment called 'AI Project Lab' and create a basic solution structure?"
+```
+
+The AI will use the bundled MCP server to:
+- Create the development environment
+- Initialize a new solution
+- Set up proper authentication
+- Configure development settings
+
+### Integrated Development Experience
+```
+"I'm working on a canvas app in VSCode. Can you export the 'CustomerPortal' solution, unpack it to my workspace folder './src/solutions/', and set up version control?"
+```
+
+Perfect for developers who want to:
+- Export solutions directly to workspace
+- Unpack for source control integration
+- Maintain development workflow in VSCode
+- Use built-in terminal and Git integration
+
+### Real-time Validation
+```
+"Before I commit my changes, can you run the solution checker on my local solution files and show me any issues?"
+```
+
+VSCode extension enables:
+- Pre-commit validation workflows
+- Integration with VSCode tasks
+- Real-time quality feedback
+- Automated testing pipelines
 
 ## Basic Operations
 

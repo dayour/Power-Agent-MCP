@@ -1,7 +1,7 @@
 {
   "name": "power-agent-mcp",
   "displayName": "Power Agent MCP",
-  "description": "Enterprise AI SDK for Microsoft Power Platform - Model Context Protocol Server",
+  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 254 tools for environments, solutions, apps, copilots, and data operations. Zero-setup installation for Claude, Continue, and other AI clients.",
   "version": "1.0.3",
   "publisher": "darbotlabs",
   "engines": {
@@ -16,12 +16,23 @@
   "keywords": [
     "power platform",
     "mcp",
+    "model context protocol", 
     "ai",
+    "ai assistant",
+    "claude",
+    "continue",
     "copilot",
     "dataverse",
     "dynamics",
     "power apps",
-    "power automate"
+    "power automate",
+    "automation",
+    "bundled server",
+    "zero setup",
+    "enterprise",
+    "devops",
+    "solutions",
+    "environments"
   ],
   "repository": {
     "type": "git",

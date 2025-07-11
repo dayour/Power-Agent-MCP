@@ -64,7 +64,35 @@ Server=tcp:server_name.database.windows.net,1433;Initial Catalog=database_name;E
 
 ## Installation
 
-### Option 1: Using the Pre-built Server
+### Option 1: VSCode Extension (Recommended - Bundled Server)
+
+**🚀 Easiest Installation - Zero Setup Required!**
+
+The VSCode extension now includes a complete bundled MCP server - no separate installation needed:
+
+1. **Install Extension:**
+   ```bash
+   # Via VSCode Marketplace
+   code --install-extension darbotlabs.power-agent-mcp
+   
+   # Or search "Power Agent MCP" in Extensions panel
+   ```
+
+2. **Auto-Configuration:**
+   - Extension includes bundled MCP server (no separate installation needed)
+   - Pre-configured with default credentials:
+     - Tenant ID: `6b104499-c49f-45dc-b3a2-df95efd6eeb4`
+     - Application ID: `445ff173-a811-4760-a05c-3c37454f23d8`
+   - Auto-starts when VSCode opens
+
+3. **Ready to Use:**
+   - Open Command Palette: `Power Agent MCP: Show MCP Server Status`
+   - Server runs automatically in background
+   - Access 254 Power Platform tools via AI assistants
+
+### Option 2: Standalone Server Installation
+
+For Claude Desktop or other MCP clients:
 
 1. **Clone the repository:**
    ```bash
@@ -87,7 +115,7 @@ Server=tcp:server_name.database.windows.net,1433;Initial Catalog=database_name;E
    npm install @modelcontextprotocol/sdk
    ```
 
-### Option 2: Building from Source
+### Option 3: Building from Source
 
 1. **Clone and build:**
    ```bash
@@ -141,9 +169,28 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 }
 ```
 
-### VSCode MCP Extension Configuration
+### VSCode Extension Configuration
 
-For VSCode integration (recommended for development environments), use hierarchical mode to work within VSCode's 125 tool limit:
+**🚀 Recommended for Development - No Manual Configuration Required!**
+
+The Power Agent MCP VSCode Extension provides the easiest integration experience:
+
+#### Quick Setup (Bundled Server)
+1. **Install Extension:** Search "Power Agent MCP" in VSCode Extensions or use `code --install-extension darbotlabs.power-agent-mcp`
+2. **Auto-Start:** Server automatically starts when VSCode opens (can be disabled in settings)
+3. **Pre-Configured:** Default credentials work immediately, or customize in VSCode Settings
+4. **Zero Dependencies:** No separate server installation or Node.js setup required
+
+#### VSCode Settings Configuration
+Access via `File > Preferences > Settings` and search for "Power Agent MCP":
+
+- **Server Path:** Leave empty to use bundled server (recommended)
+- **Auto Start:** Enable/disable automatic startup (default: enabled)  
+- **Tenant ID:** Pre-configured with `6b104499-c49f-45dc-b3a2-df95efd6eeb4`
+- **Application ID:** Pre-configured with `445ff173-a811-4760-a05c-3c37454f23d8`
+
+#### Alternative: Custom Server Configuration
+For development or custom server paths, use traditional MCP configuration:
 
 ```json
 {
@@ -162,7 +209,7 @@ For VSCode integration (recommended for development environments), use hierarchi
 }
 ```
 
-**Note**: VSCode mode exposes 10 hierarchical parent tools instead of all 229 individual tools. See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed usage instructions.
+**Note**: VSCode mode exposes 10 hierarchical parent tools instead of all 254 individual tools. See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed usage instructions.
 
 ### Alternative Authentication Methods
 

@@ -5,6 +5,17 @@
 [![Downloads](https://img.shields.io/visual-studio-marketplace/d/darbotlabs.power-agent-mcp)](https://marketplace.visualstudio.com/items?itemName=darbotlabs.power-agent-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## 🚀 Critical Update - Now Self-Contained!
+
+**✅ Zero-Setup Installation**: Extension now includes complete bundled MCP server  
+**✅ No External Dependencies**: No separate .NET tool installation required  
+**✅ Auto-Configuration**: Pre-configured credentials work immediately  
+**✅ One-Click Access**: Install extension → Start using 254 Power Platform tools
+
+### What's Fixed
+- **Before v1.0.3**: Required manual .NET tool installation, complex setup, frequent "server not found" errors
+- **After v1.0.3**: Complete self-contained extension with bundled server, zero friction installation
+
 ## Overview
 
 The **Power Agent MCP** VSCode extension provides seamless integration with the Power Agent Model Context Protocol (MCP) server, enabling AI-powered development workflows for Microsoft Power Platform. This extension allows you to interact with Power Platform environments, solutions, applications, and data directly from your IDE through AI assistants like Claude and GitHub Copilot.
@@ -257,6 +268,41 @@ Configure logging levels in settings:
 - **Background Processing**: Operations don't block IDE
 - **Configurable Timeouts**: Customize operation limits
 - **Auto-Recovery**: Resilient connection handling
+
+## 🔄 Migration from Legacy Installation
+
+### Coming from Pre-v1.0.3 (Separate .NET Tool)
+
+If you previously used the separate .NET tool installation:
+
+#### 1. Clean Up Old Installation
+```bash
+# Remove the separate .NET tool
+dotnet tool uninstall --global DarBotLabs.PowerAgent.MCP
+
+# Clear old MCP configurations if any
+```
+
+#### 2. Install New Extension
+```bash
+# Install the new bundled extension
+code --install-extension darbotlabs.power-agent-mcp
+```
+
+#### 3. Verify New Setup
+- Extension automatically uses bundled server
+- No manual configuration needed
+- Pre-configured credentials work immediately
+- Use Command Palette → "Power Agent MCP: Show MCP Server Status"
+
+### Migration Benefits
+| **Legacy (Pre-v1.0.3)** | **New Bundled (v1.0.3+)** |
+|-------------------------|---------------------------|
+| ❌ Required `dotnet tool install` | ✅ Bundled in extension |
+| ❌ Manual tenant/app configuration | ✅ Pre-configured defaults |
+| ❌ Server path management | ✅ Automatic server detection |
+| ❌ Frequent connection issues | ✅ Reliable auto-start |
+| ❌ Complex troubleshooting | ✅ Simple status commands |
 
 ## 🛠️ Troubleshooting
 

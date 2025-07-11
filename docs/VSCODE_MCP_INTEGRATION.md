@@ -2,18 +2,57 @@
 
 ## Overview
 
-Power Agent MCP supports two integration modes to accommodate different MCP clients:
+Power Agent MCP provides seamless VSCode integration through a dedicated extension that includes a bundled MCP server. This eliminates the need for separate installation and configuration while providing access to all Power Platform capabilities.
 
-1. **Full Mode** (Default) - Exposes all 229 tools for Claude Desktop and other MCP clients
-2. **VSCode Mode** - Exposes 10 hierarchical parent tools to work within VSCode's 125 tool limit
+## Integration Modes
 
-## VSCode Configuration
+Power Agent MCP supports two integration approaches:
 
-### Setting Up VSCode Mode
+1. **VSCode Extension** (Recommended) - Complete bundled solution with auto-configuration
+2. **Manual MCP Configuration** - Traditional MCP setup for advanced scenarios
 
-To use Power Agent MCP with VSCode MCP extension, set the `POWERPLATFORM_MCP_MODE` environment variable to `vscode`:
+## VSCode Extension Setup (Recommended)
 
-#### VSCode MCP Extension Configuration
+### ✅ Complete Bundled Solution
+
+The Power Agent MCP VSCode Extension provides the most streamlined experience:
+
+#### Installation
+```bash
+# Via VSCode Marketplace
+code --install-extension darbotlabs.power-agent-mcp
+
+# Or search "Power Agent MCP" in Extensions panel
+```
+
+#### Auto-Configuration Features
+- ✅ **Bundled MCP Server**: Complete 21KB server included in extension
+- ✅ **Pre-configured Credentials**: Default working credentials included
+- ✅ **Auto-Start**: Server automatically starts when VSCode opens
+- ✅ **Zero Dependencies**: No Node.js setup or separate installation required
+- ✅ **10 Hierarchical Tools**: Optimized for VSCode's tool limitations
+
+#### Extension Commands
+- `Power Agent MCP: Start MCP Server`
+- `Power Agent MCP: Stop MCP Server` 
+- `Power Agent MCP: Show MCP Server Status`
+- `Power Agent MCP: Validate All Tools`
+
+#### VSCode Settings Configuration
+Access via `File > Preferences > Settings` and search "Power Agent MCP":
+
+- **Server Path**: Leave empty to use bundled server (default)
+- **Auto Start**: Automatically start server (default: enabled)
+- **Tenant ID**: Pre-configured default or your custom tenant
+- **Application ID**: Pre-configured default or your custom app
+
+## Manual MCP Configuration (Advanced)
+
+### Setting Up Manual MCP Mode
+
+For advanced scenarios or custom server builds, configure MCP manually by setting the `POWERPLATFORM_MCP_MODE` environment variable to `vscode`:
+
+#### Manual MCP Configuration
 
 Add to your VSCode MCP configuration:
 
@@ -179,20 +218,86 @@ No changes are required to your scripts or automation. The hierarchical mode sim
 
 ## Troubleshooting
 
-### Tool Not Found Errors
-If you get "Unknown command" errors, ensure:
-1. The command name matches the enum values in the parent tool schema
-2. You're using the correct parent tool for the operation
-3. The `POWERPLATFORM_MCP_MODE` is set to `vscode`
+### Extension Installation Issues
+
+#### Extension Not Installing
+1. **Check VSCode Version**: Ensure VSCode 1.74.0 or higher
+2. **Check Internet Connection**: Extension requires download from marketplace
+3. **Clear Extension Cache**: Restart VSCode and retry installation
+4. **Manual Installation**: Download `.vsix` from GitHub releases
+
+#### Bundled Server Not Starting
+1. **Check Node.js**: Bundled server requires Node.js 18+ (install if missing)
+2. **Check Extension Status**: Use Command Palette → "Power Agent MCP: Show MCP Server Status"
+3. **Manual Start**: Use Command Palette → "Power Agent MCP: Start MCP Server"
+4. **Check Logs**: Open VSCode Output panel and select "Power Agent MCP"
+
+### Authentication Issues
+
+#### Default Credentials Not Working
+1. **Network Access**: Verify connection to Power Platform services
+2. **Custom Credentials**: Configure your own Tenant ID and Application ID in VSCode Settings
+3. **Permissions**: Ensure your account has appropriate Power Platform access
+4. **Service Principal**: Consider creating dedicated service principal for production
+
+#### Connection Failures
+1. **Check Settings**: Verify Tenant ID and Application ID in VSCode Settings
+2. **Test Authentication**: Use Command Palette → "Power Agent MCP: Validate All Tools"
+3. **Network Issues**: Check firewall and proxy settings
+4. **Credential Reset**: Clear VSCode settings and reconfigure
 
 ### Performance Issues
-VSCode mode adds minimal overhead (single dispatch call), but if you experience issues:
-1. Consider using Full mode for automation scripts
-2. Use VSCode mode primarily for interactive development
+
+#### Slow Server Startup
+1. **First Run**: Initial startup may take longer for dependency resolution
+2. **Background Services**: Close unnecessary VSCode extensions
+3. **System Resources**: Ensure adequate memory and CPU available
+4. **Auto-Start**: Disable auto-start if not needed (VSCode Settings)
+
+#### Tool Execution Timeouts
+1. **Network Latency**: Check Power Platform service connectivity
+2. **Complex Operations**: Large environments may require more time
+3. **Increase Timeouts**: Adjust timeout settings in VSCode configuration
+4. **Batch Operations**: Use bulk tools for large datasets
+
+### Migration from Legacy Installation
+
+#### Coming from Separate .NET Tool
+1. **Uninstall Old Tool**: `dotnet tool uninstall --global DarBotLabs.PowerAgent.MCP`
+2. **Remove Old Configuration**: Delete manual MCP server configurations
+3. **Install Extension**: Use new bundled extension approach
+4. **Verify Setup**: Confirm bundled server is running correctly
+
+#### Manual MCP Configuration Conflicts
+1. **Remove Duplicate Configs**: Check VSCode MCP settings for conflicts
+2. **Single Configuration**: Use either bundled extension OR manual MCP, not both
+3. **Path Conflicts**: Ensure server path is empty to use bundled server
+4. **Environment Variables**: Clear old MCP environment variable overrides
+
+### Tool Not Found Errors
+If you get "Unknown command" errors:
+1. **Verify Tool Names**: Check command matches enum values in parent tool schema
+2. **Correct Parent Tool**: Ensure you're using the right parent tool for the operation
+3. **VSCode Mode**: Extension automatically uses VSCode hierarchical mode
+4. **Tool Validation**: Use "Validate All Tools" command to test connectivity
+
+### Legacy vs New Installation
+
+| **Legacy (Pre-v1.0.3)** | **New Bundled (v1.0.3+)** |
+|-------------------------|---------------------------|
+| ❌ Required separate .NET tool | ✅ Bundled server included |
+| ❌ Manual configuration needed | ✅ Auto-configured defaults |
+| ❌ Complex troubleshooting | ✅ Simplified diagnostics |
+| ❌ Multiple failure points | ✅ Single installation process |
 
 ## Support
 
-For VSCode-specific issues:
-- Check VSCode MCP extension logs
-- Verify environment variable configuration
-- Test with Full mode to isolate VSCode-specific problems
+### Extension-Specific Issues
+- **Extension Logs**: VSCode Output panel → "Power Agent MCP"
+- **Extension Commands**: Use Command Palette for diagnostics
+- **Server Status**: Monitor real-time server health
+
+### General MCP Issues  
+- **GitHub Issues**: Report bugs and feature requests
+- **Documentation**: Comprehensive guides and API reference
+- **Community Support**: Discussion forums and Q&A
