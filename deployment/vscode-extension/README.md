@@ -50,28 +50,42 @@ Download the latest `.vsix` file from the [releases page](https://github.com/day
 
 ### Prerequisites
 - **VSCode**: Version 1.74.0 or higher
-- **Node.js**: Version 18.0.0 or higher
+- **Node.js**: Version 18.0.0 or higher (for MCP server runtime)
 - **Power Platform Access**: Valid credentials for target environments
-- **MCP Server**: Power Agent MCP server installed ([NuGet Package](https://www.nuget.org/packages/DarBotLabs.PowerAgent.MCP/))
 
-### Initial Configuration
-1. **Install MCP Server**:
+### Quick Start (Bundled Server)
+The extension now includes a bundled MCP server - no separate installation required!
+
+1. **Install Extension**:
+   - Search for "Power Agent MCP" in VSCode Extensions
+   - Click Install
+
+2. **Configure Settings** (Optional):
+   - Open VSCode Settings (Ctrl+,)
+   - Search for "Power Agent MCP"
+   - Set your Power Platform credentials:
+     - Tenant ID: `6b104499-c49f-45dc-b3a2-df95efd6eeb4` (default)
+     - Application ID: `445ff173-a811-4760-a05c-3c37454f23d8` (default)
+
+3. **Start Using**:
+   - The MCP server starts automatically when VSCode opens
+   - Use Command Palette: "Power Agent MCP: Show MCP Server Status"
+
+### Advanced Setup (Custom Server)
+For development or custom server paths:
+1. **Install MCP Server** (if using custom installation):
    ```bash
    dotnet tool install --global DarBotLabs.PowerAgent.MCP
    ```
 
 2. **Configure Extension Settings**:
-   - Open VSCode Settings (Ctrl+,)
-   - Search for "Power Agent MCP"
-   - Set your Power Platform credentials:
-     - Tenant ID
-     - Application ID
-     - Server path (if custom installation)
+   - Set custom server path if not using bundled server
+   - Configure authentication credentials
+   - Adjust logging and performance settings
 
 3. **Start MCP Server**:
-   - Open Command Palette (Ctrl+Shift+P)
-   - Run: "Power Agent MCP: Start MCP Server"
-   - Verify status in the sidebar
+   - Starts automatically by default
+   - Manual control via Command Palette
 
 ## 🛠️ Usage
 
@@ -250,10 +264,13 @@ Configure logging levels in settings:
 
 #### MCP Server Won't Start
 ```bash
-# Check server installation
+# If using bundled server (default), check Node.js installation
+node --version
+
+# If using custom server installation
 dotnet tool list --global | grep DarBotLabs
 
-# Reinstall if missing
+# Reinstall custom server if needed
 dotnet tool uninstall --global DarBotLabs.PowerAgent.MCP
 dotnet tool install --global DarBotLabs.PowerAgent.MCP
 ```

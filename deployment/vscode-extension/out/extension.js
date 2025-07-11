@@ -18,7 +18,19 @@ function activate(context) {
     let statusCommand = vscode.commands.registerCommand('power-agent-mcp.status', () => {
         showMCPStatus();
     });
-    context.subscriptions.push(startCommand, stopCommand, statusCommand);
+    let validateCommand = vscode.commands.registerCommand('power-agent-mcp.validateTools', () => {
+        validateAllTools();
+    });
+    context.subscriptions.push(startCommand, stopCommand, statusCommand, validateCommand);
+    // Auto-start if enabled
+    const config = vscode.workspace.getConfiguration('powerAgentMcp');
+    const autoStart = config.get('autoStart', true);
+    if (autoStart) {
+        // Delay auto-start slightly to let VSCode finish loading
+        setTimeout(() => {
+            startMCPServer(context);
+        }, 2000);
+    }
 }
 function startMCPServer(context) {
     if (mcpServer) {
@@ -28,11 +40,23 @@ function startMCPServer(context) {
     try {
         // Get the server path from the workspace or use the bundled version
         const serverPath = getServerPath();
+        // Get configuration values
+        const config = vscode.workspace.getConfiguration('powerAgentMcp');
+        const tenantId = config.get('environment.tenantId', '');
+        const applicationId = config.get('environment.applicationId', '');
+        const serverEnv = {
+            ...process.env,
+            POWERPLATFORM_MCP_MODE: 'vscode'
+        };
+        // Add Power Platform environment variables if configured
+        if (tenantId) {
+            serverEnv.POWERPLATFORM_TENANT_ID = tenantId;
+        }
+        if (applicationId) {
+            serverEnv.POWERPLATFORM_APPLICATION_ID = applicationId;
+        }
         mcpServer = (0, child_process_1.spawn)('node', [serverPath], {
-            env: {
-                ...process.env,
-                POWERPLATFORM_MCP_MODE: 'vscode'
-            }
+            env: serverEnv
         });
         mcpServer.on('spawn', () => {
             vscode.window.showInformationMessage('Power Agent MCP server started successfully');
@@ -64,7 +88,20 @@ function showMCPStatus() {
     const pid = mcpServer ? mcpServer.pid : 'N/A';
     vscode.window.showInformationMessage(`Power Agent MCP Server Status: ${status} (PID: ${pid})`);
 }
+function validateAllTools() {
+    if (!mcpServer) {
+        vscode.window.showWarningMessage('Power Agent MCP server is not running. Please start it first.');
+        return;
+    }
+    vscode.window.showInformationMessage('Validating Power Agent MCP tools... (This feature requires an MCP client connection)');
+}
 function getServerPath() {
+    const config = vscode.workspace.getConfiguration('powerAgentMcp');
+    const configuredPath = config.get('serverPath');
+    // If user has configured a specific path, use it
+    if (configuredPath && configuredPath.trim() !== '') {
+        return configuredPath.trim();
+    }
     // Try to find the server in common locations
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (workspaceFolders) {
@@ -74,8 +111,14 @@ function getServerPath() {
             return workspacePath;
         }
     }
-    // Default to a relative path (should be bundled with extension)
-    return path.join(__dirname, '..', 'server', 'server.js');
+    // Default to bundled server (included with extension)
+    const bundledServerPath = path.join(__dirname, '..', 'server', 'server.js');
+    if (require('fs').existsSync(bundledServerPath)) {
+        return bundledServerPath;
+    }
+    // If bundled server not found, show error with helpful message
+    vscode.window.showErrorMessage('Power Agent MCP server not found. Please ensure the extension is properly installed or configure a custom server path in settings.');
+    throw new Error('MCP server not found');
 }
 function deactivate() {
     if (mcpServer) {

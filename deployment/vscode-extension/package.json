@@ -2,7 +2,7 @@
   "name": "power-agent-mcp",
   "displayName": "Power Agent MCP",
   "description": "Enterprise AI SDK for Microsoft Power Platform - Model Context Protocol Server",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "darbotlabs",
   "engines": {
     "vscode": "^1.74.0",
@@ -72,11 +72,11 @@
         "powerAgentMcp.serverPath": {
           "type": "string",
           "default": "",
-          "description": "Path to Power Agent MCP server executable"
+          "description": "Path to Power Agent MCP server executable (leave empty to use bundled server)"
         },
         "powerAgentMcp.autoStart": {
           "type": "boolean",
-          "default": false,
+          "default": true,
           "description": "Automatically start MCP server when VSCode opens"
         },
         "powerAgentMcp.logLevel": {
@@ -92,12 +92,12 @@
         },
         "powerAgentMcp.environment.tenantId": {
           "type": "string",
-          "default": "",
+          "default": "6b104499-c49f-45dc-b3a2-df95efd6eeb4",
           "description": "Power Platform Tenant ID"
         },
         "powerAgentMcp.environment.applicationId": {
           "type": "string",
-          "default": "",
+          "default": "445ff173-a811-4760-a05c-3c37454f23d8",
           "description": "Power Platform Application ID"
         }
       }
@@ -126,6 +126,13 @@
       ]
     }
   },
+  "files": [
+    "out/**/*",
+    "server/**/*",
+    "assets/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
