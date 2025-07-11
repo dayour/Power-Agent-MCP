@@ -27,6 +27,12 @@
 
 **Latest Release**: Production-ready standalone MCP server with core Power Platform automation capabilities.
 
+### 🔥 **Critical Fix - VSCode Extension Now Self-Contained!**
+- **✅ Bundled MCP Server**: VSCode extension now includes complete MCP server (no separate .NET tool required)
+- **✅ Auto-Configuration**: Pre-configured with working credentials for immediate use
+- **✅ One-Click Install**: Single extension installation provides complete Power Platform automation
+- **✅ Auto-Start**: Server automatically starts when VSCode opens
+
 ### Current Capabilities
 - **10 VSCode Hierarchical Tools** providing access to all 254 CLI commands
 - **Complete Environment Lifecycle** - Create, list, and manage Power Platform environments
@@ -250,6 +256,30 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
      }
    }
    ```
+
+### Alternative: VSCode Extension (Bundled Server)
+
+For VSCode users, the **Power Agent MCP VSCode Extension** provides a complete bundled solution:
+
+1. **Install Extension**
+   ```bash
+   # Via VSCode Marketplace
+   code --install-extension darbotlabs.power-agent-mcp
+   
+   # Or search "Power Agent MCP" in Extensions panel
+   ```
+
+2. **Auto-Configuration**
+   - Extension includes bundled MCP server (no separate installation needed)
+   - Pre-configured with default credentials:
+     - Tenant ID: `6b104499-c49f-45dc-b3a2-df95efd6eeb4`
+     - Application ID: `445ff173-a811-4760-a05c-3c37454f23d8`
+   - Auto-starts when VSCode opens
+
+3. **Ready to Use**
+   - Open Command Palette: `Power Agent MCP: Show MCP Server Status`
+   - Server runs automatically in background
+   - Access 254 Power Platform tools via AI assistants
 
 4. **Start Using with AI**
 
