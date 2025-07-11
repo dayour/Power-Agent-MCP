@@ -1,0 +1,141 @@
+{
+  "timestamp": "2025-07-07T08:54:10.860Z",
+  "summary": {
+    "totalIssues": 18,
+    "totalSuggestions": 1,
+    "toolCounts": {
+      "total": 267,
+      "breakdown": {
+        "adaptivecards": 10,
+        "application": 6,
+        "auth": 8,
+        "canvas": 7,
+        "code": 6,
+        "connection": 5,
+        "connector": 6,
+        "copilot": 71,
+        "data": 2,
+        "dataverse": 38,
+        "env": 7,
+        "environment": 22,
+        "governance": 4,
+        "help": 1,
+        "modelbuilder": 2,
+        "package": 6,
+        "pages": 8,
+        "pcf": 4,
+        "pipeline": 3,
+        "plugin": 3,
+        "portal": 2,
+        "powerfx": 3,
+        "quality": 1,
+        "security": 2,
+        "solution": 17,
+        "sql": 7,
+        "telemetry": 4,
+        "test": 2,
+        "toolsmanagement": 7,
+        "utility": 3
+      }
+    }
+  },
+  "issues": [
+    {
+      "type": "issue",
+      "message": "README contains incorrect badge URLs pointing to Microsoft repo instead of dayour/Power-Agent-MCP",
+      "details": null
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/DATAVERSE_INTEGRATION_GUIDE.md#usage-examples",
+      "details": "Link text: \"Entity Management Examples\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/DATAVERSE_MCP_REFERENCE.md#query-operations",
+      "details": "Link text: \"Query Operations Guide\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_CONNECTOR_SETUP.md#authentication",
+      "details": "Link text: \"Authentication Setup\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_CONNECTOR_SETUP.md#security",
+      "details": "Link text: \"Security Configuration\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_COMMANDS_REFERENCE.md#sql-tools",
+      "details": "Link text: \"SQL Server Operations\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_USAGE_EXAMPLES.md#data-operations",
+      "details": "Link text: \"Data Export/Import\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_COMMANDS_REFERENCE.md#database-schema",
+      "details": "Link text: \"Schema Management\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_COMMANDS_REFERENCE.md#adaptive-cards",
+      "details": "Link text: \"Adaptive Cards Guide\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_USAGE_EXAMPLES.md#copilot-studio",
+      "details": "Link text: \"Copilot Integration\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_COMMANDS_REFERENCE.md#card-templates",
+      "details": "Link text: \"Card Templates\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_USAGE_EXAMPLES.md#cicd",
+      "details": "Link text: \"Automation Workflows\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_USAGE_EXAMPLES.md#solution-lifecycle",
+      "details": "Link text: \"Solution Management\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_USAGE_EXAMPLES.md#environment-management",
+      "details": "Link text: \"Environment Strategies\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/IMPLEMENTATION_COMPLETE_SUMMARY.md#extensibility",
+      "details": "Link text: \"Extensibility Patterns\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_CONNECTOR_SETUP.md#troubleshooting",
+      "details": "Link text: \"Troubleshooting\""
+    },
+    {
+      "type": "issue",
+      "message": "Broken internal link in README: docs/MCP_CONNECTOR_SETUP.md#supported-clients",
+      "details": "Link text: \"supported clients\""
+    },
+    {
+      "type": "issue",
+      "message": "Tool count mismatch: implemented 267 but README claims 254",
+      "details": null
+    }
+  ],
+  "suggestions": [
+    {
+      "type": "suggestion",
+      "message": "README contains bash commands but project is on Windows - should include PowerShell equivalents",
+      "details": null
+    }
+  ]
+}

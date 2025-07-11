@@ -7,6 +7,45 @@
       "group": "build",
       "problemMatcher": [],
       "label": "gulp: compile"
+    },
+    {
+      "type": "shell",
+      "label": "Start Power Agent MCP Server",
+      "command": "node",
+      "args": ["${workspaceFolder}/dist/mcp/server.js"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "options": {
+        "env": {
+          "POWERPLATFORM_MCP_MODE": "vscode",
+          "POWERPLATFORM_TENANT_ID": "${env:POWERPLATFORM_TENANT_ID}",
+          "POWERPLATFORM_APPLICATION_ID": "${env:POWERPLATFORM_APPLICATION_ID}",
+          "POWERPLATFORM_CLIENT_SECRET": "${env:POWERPLATFORM_CLIENT_SECRET}"
+        }
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Test MCP Tools",
+      "command": "node",
+      "args": ["${workspaceFolder}/functional-test.js"],
+      "group": "test",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": true,
+        "panel": "new"
+      },
+      "dependsOn": []
     }
   ]
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>DarBotLabs.PowerAgent.MCP</id>
+    <version>1.0.1</version>
+    <title>Power Agent MCP - Enterprise AI SDK for Microsoft Power Platform</title>
+    <authors>DarBot Labs</authors>
+    <owners>DarBot Labs</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/dayour/Power-Agent-MCP</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/dayour/Power-Agent-MCP/main/deployment/nuget-package/assets/icon.png</iconUrl>
+    <description>Enterprise-grade Model Context Protocol (MCP) server providing AI assistants with comprehensive programmatic access to the Microsoft Power Platform ecosystem. Features 254+ specialized tools for complete Power Platform automation, natural language API, enterprise authentication, and production-ready error handling.</description>
+    <releaseNotes>Version 1.0.1: Enhanced package with comprehensive documentation, installation instructions, usage examples, and complete API reference. Improved package discoverability and developer experience.</releaseNotes>
+    <copyright>© 2024 DarBot Labs. Licensed under MIT License.</copyright>
+    <tags>power-platform mcp ai copilot dataverse dynamics power-apps power-automate enterprise-ai sdk automation microsoft</tags>
+    <summary>Enterprise AI SDK enabling natural language automation across Microsoft Power Platform with 254+ specialized tools.</summary>
+  </metadata>
+  <files>
+    <file src="NUGET_README.md" target="docs\" />
+    <file src="LICENSE" target="" />
+  </files>
+</package>

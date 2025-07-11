@@ -2,7 +2,7 @@
   "name": "power-agent-mcp",
   "displayName": "Power Agent MCP",
   "description": "Enterprise AI SDK for Microsoft Power Platform - Model Context Protocol Server",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "publisher": "darbotlabs",
   "engines": {
     "vscode": "^1.74.0",
@@ -37,7 +37,7 @@
     "color": "#742774",
     "theme": "dark"
   },
-  "main": "./dist/extension.js",
+  "main": "./out/extension.js",
   "activationEvents": [
     "onCommand:power-agent-mcp.start",
     "onCommand:power-agent-mcp.stop",
@@ -51,7 +51,7 @@
         "category": "Power Agent MCP"
       },
       {
-        "command": "power-agent-mcp.stop", 
+        "command": "power-agent-mcp.stop",
         "title": "Stop Power Agent MCP Server",
         "category": "Power Agent MCP"
       },
@@ -75,13 +75,18 @@
           "description": "Path to Power Agent MCP server executable"
         },
         "powerAgentMcp.autoStart": {
-          "type": "boolean", 
+          "type": "boolean",
           "default": false,
           "description": "Automatically start MCP server when VSCode opens"
         },
         "powerAgentMcp.logLevel": {
           "type": "string",
-          "enum": ["error", "warn", "info", "debug"],
+          "enum": [
+            "error",
+            "warn",
+            "info",
+            "debug"
+          ],
           "default": "info",
           "description": "Logging level for MCP server"
         },
@@ -91,7 +96,7 @@
           "description": "Power Platform Tenant ID"
         },
         "powerAgentMcp.environment.applicationId": {
-          "type": "string", 
+          "type": "string",
           "default": "",
           "description": "Power Platform Application ID"
         }
@@ -114,7 +119,7 @@
           "when": "extension.powerAgentMcp.enabled"
         },
         {
-          "id": "power-agent-mcp-status", 
+          "id": "power-agent-mcp-status",
           "name": "Server Status",
           "when": "extension.powerAgentMcp.enabled"
         }

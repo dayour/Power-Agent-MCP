@@ -6,5 +6,22 @@
       ],
       "url": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json"
     }
-  ]
+  ],
+  "powerAgentMcp.serverPath": "${workspaceFolder}/dist/mcp/server.js",
+  "powerAgentMcp.autoStart": false,
+  "powerAgentMcp.logLevel": "info",
+  "powerAgentMcp.environment.tenantId": "${env:POWERPLATFORM_TENANT_ID}",
+  "powerAgentMcp.environment.applicationId": "${env:POWERPLATFORM_APPLICATION_ID}",
+  "mcp.servers": {
+    "power-agent-mcp": {
+      "command": "node",
+      "args": ["${workspaceFolder}/dist/mcp/server.js"],
+      "env": {
+        "POWERPLATFORM_MCP_MODE": "vscode",
+        "POWERPLATFORM_TENANT_ID": "${env:POWERPLATFORM_TENANT_ID}",
+        "POWERPLATFORM_APPLICATION_ID": "${env:POWERPLATFORM_APPLICATION_ID}",
+        "POWERPLATFORM_CLIENT_SECRET": "${env:POWERPLATFORM_CLIENT_SECRET}"
+      }
+    }
+  }
 }

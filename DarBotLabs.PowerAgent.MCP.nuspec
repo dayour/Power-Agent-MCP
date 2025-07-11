@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DarBotLabs.PowerAgent.MCP</id>
+    <version>1.0.0</version>
+    <title>Power Agent MCP - Enterprise AI SDK for Microsoft Power Platform</title>
+    <authors>DarBot Labs</authors>
+    <owners>DarBot Labs</owners>
+    <description>
+      Enterprise-grade Model Context Protocol (MCP) server providing AI assistants with comprehensive programmatic access to the Microsoft Power Platform ecosystem. Features 254+ specialized tools spanning Power Platform CLI operations, native Dataverse management, SQL Server integration, and Copilot Studio adaptive cards for complete AI-driven enterprise automation.
+    </description>
+    <releaseNotes>
+      Initial release featuring:
+      - 254 specialized tools for complete Power Platform coverage
+      - Native Dataverse integration with 25 dedicated operations
+      - SQL Server integration with 7 database management tools
+      - Adaptive Cards SDK with 10 Copilot Studio tools
+      - Enterprise authentication (Service Principal, Managed Identity)
+      - Production-ready error handling and monitoring
+      - Comprehensive API documentation and examples
+    </releaseNotes>
+    <summary>Enterprise AI SDK enabling natural language automation across Microsoft Power Platform, Dataverse, SQL Server, and Copilot Studio through 254+ specialized MCP tools.</summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/dayour/Power-Agent-MCP</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/dayour/Power-Agent-MCP/main/deployment/nuget-package/assets/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/dayour/Power-Agent-MCP/blob/main/LICENSE</licenseUrl>
+    <copyright>© 2024 DarBot Labs. Licensed under MIT License.</copyright>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Microsoft.PowerApps.CLI" version="[1.43.6,)" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
+        <dependency id="Microsoft.Extensions.Hosting" version="8.0.0" />
+        <dependency id="Microsoft.Extensions.Configuration" version="8.0.0" />
+        <dependency id="Microsoft.Extensions.Logging" version="8.0.0" />
+      </group>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.PowerApps.CLI" version="[1.43.6,)" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" />
+        <dependency id="Microsoft.Extensions.Hosting" version="8.0.0" />
+        <dependency id="Microsoft.Extensions.Configuration" version="8.0.0" />
+        <dependency id="Microsoft.Extensions.Logging" version="8.0.0" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework="net6.0" />
+      <frameworkAssembly assemblyName="System.Text.Json" targetFramework="net6.0" />
+    </frameworkAssemblies>
+    <tags>power-platform mcp ai copilot dataverse dynamics power-apps power-automate enterprise-ai sdk automation</tags>
+  </metadata>
+  <files>
+    <!-- Main executable and libraries -->
+    <file src="bin\Release\net6.0\**\*" target="tools\net6.0\" />
+    <file src="bin\Release\net8.0\**\*" target="tools\net8.0\" />
+    <!-- MCP Server executable -->
+    <file src="dist\mcp\server.js" target="tools\mcp\" />
+    <file src="dist\mcp\**\*.js" target="tools\mcp\" />
+    <!-- Configuration files -->
+    <file src="config\*.json" target="content\config\" />
+    <file src="templates\*.json" target="content\templates\" />
+    <!-- Documentation -->
+    <file src="docs\**\*.md" target="content\docs\" />
+    <file src="README.md" target="\" />
+    <file src="LICENSE" target="\" />
+    <!-- PowerShell installation scripts -->
+    <file src="scripts\Install.ps1" target="tools\Install.ps1" />
+    <file src="scripts\Uninstall.ps1" target="tools\Uninstall.ps1" />
+    <!-- Assets -->
+    <file src="assets\**\*" target="content\assets\" />
+  </files>
+</package>

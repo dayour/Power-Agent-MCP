@@ -19,10 +19,9 @@
       - Production-ready error handling and monitoring
       - Comprehensive API documentation and examples
     </releaseNotes>
-    <summary>Enterprise AI SDK enabling natural language automation across Microsoft Power Platform, Dataverse, SQL Server, and Copilot Studio through 254+ specialized MCP tools.</summary>
-    <language>en-US</language>
+    <summary>Enterprise AI SDK enabling natural language automation across Microsoft Power Platform, Dataverse, SQL Server, and Copilot Studio through 254+ specialized MCP tools.</summary>    <language>en-US</language>
     <projectUrl>https://github.com/dayour/Power-Agent-MCP</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/dayour/Power-Agent-MCP/main/assets/logo.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/dayour/Power-Agent-MCP/main/deployment/nuget-package/assets/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://github.com/dayour/Power-Agent-MCP/blob/main/LICENSE</licenseUrl>
     <copyright>© 2024 DarBot Labs. Licensed under MIT License.</copyright>
@@ -47,30 +46,15 @@
       <frameworkAssembly assemblyName="System.Text.Json" targetFramework="net6.0" />
     </frameworkAssemblies>
     <tags>power-platform mcp ai copilot dataverse dynamics power-apps power-automate enterprise-ai sdk automation</tags>
-  </metadata>
-  <files>
-    <!-- Main executable and libraries -->
-    <file src="bin\Release\net6.0\**\*" target="tools\net6.0\" />
-    <file src="bin\Release\net8.0\**\*" target="tools\net8.0\" />
-    
-    <!-- MCP Server executable -->
-    <file src="dist\mcp\server.js" target="tools\mcp\" />
-    <file src="dist\mcp\**\*.js" target="tools\mcp\" />
-    
-    <!-- Configuration files -->
-    <file src="config\*.json" target="content\config\" />
-    <file src="templates\*.json" target="content\templates\" />
-    
+  </metadata>  <files>
     <!-- Documentation -->
-    <file src="docs\**\*.md" target="content\docs\" />
     <file src="README.md" target="\" />
     <file src="LICENSE" target="\" />
-    
-    <!-- PowerShell installation scripts -->
-    <file src="scripts\Install.ps1" target="tools\Install.ps1" />
-    <file src="scripts\Uninstall.ps1" target="tools\Uninstall.ps1" />
-    
+
+    <!-- MCP Server executable -->
+    <file src="dist\mcp\server.js" target="tools\mcp\" />
+
     <!-- Assets -->
-    <file src="assets\**\*" target="content\assets\" />
+    <file src="assets\icon.png" target="content\assets\" />
   </files>
 </package>

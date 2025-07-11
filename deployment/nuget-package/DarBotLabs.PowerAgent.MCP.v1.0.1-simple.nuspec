@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DarBotLabs.PowerAgent.MCP</id>
+    <version>1.0.1</version>
+    <title>Power Agent MCP - Enterprise AI SDK for Microsoft Power Platform</title>
+    <authors>DarBot Labs</authors>
+    <owners>DarBot Labs</owners>
+    <description>Enterprise-grade Model Context Protocol (MCP) server providing AI assistants with comprehensive programmatic access to the Microsoft Power Platform ecosystem. Features 254+ specialized tools for complete Power Platform automation, natural language API, enterprise authentication, and production-ready error handling. Includes Environment Management, Solution Development, Application Lifecycle, AI &amp; Copilot Management, Dataverse SDK, SQL Server SDK, and Adaptive Cards SDK.</description>
+    <releaseNotes>Version 1.0.1: Enhanced package with comprehensive documentation, installation instructions, usage examples, and complete API reference. Improved package discoverability and developer experience with detailed README and expanded tool descriptions.</releaseNotes>
+    <summary>Enterprise AI SDK enabling natural language automation across Microsoft Power Platform with 254+ specialized tools for complete ecosystem coverage.</summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/dayour/Power-Agent-MCP</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/dayour/Power-Agent-MCP/main/deployment/nuget-package/assets/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/dayour/Power-Agent-MCP/blob/main/LICENSE</licenseUrl>
+    <copyright>© 2024 DarBot Labs. Licensed under MIT License.</copyright>
+    <tags>power-platform mcp ai copilot dataverse dynamics power-apps power-automate enterprise-ai sdk automation microsoft artificial-intelligence natural-language</tags>
+  </metadata>
+  <files>
+    <file src="LICENSE" target="LICENSE.txt" />
+  </files>
+</package>

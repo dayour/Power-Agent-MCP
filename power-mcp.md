@@ -1,14 +1,14 @@
 # Power Agent MCP Commands Reference
 
-> Complete reference of all 254 MCP tools for Microsoft Power Platform and SQL Server operations through natural language AI interfaces.
+> Complete reference for Power Agent MCP providing access to 254 Microsoft Power Platform CLI commands through natural language AI interfaces.
 
 ## 🚀 Quick Start
 
 Power Agent MCP provides AI assistants with natural language access to the complete Microsoft Power Platform ecosystem plus SQL Server database operations and adaptive cards for Copilot Studio agents. Simply describe what you want to accomplish in plain English.
 
 **Integration Modes:**
-- **Full Mode** (Default): Exposes all 229 tools - ideal for Claude Desktop and other MCP clients
-- **VSCode Mode**: Exposes 10 hierarchical parent tools - designed for VSCode's 125 tool limit
+- **Full Mode** (Default): Exposes individual MCP tools for each major capability - ideal for Claude Desktop and other MCP clients
+- **VSCode Mode**: Exposes 10 hierarchical parent tools - designed for VSCode's 125 tool limit and provides access to all 254 underlying CLI commands
 
 **Examples:**
 - "Create a new development environment called 'AI Team Dev' in East US region"
@@ -21,24 +21,28 @@ Power Agent MCP provides AI assistants with natural language access to the compl
 
 ## VSCode Hierarchical Mode
 
-When using VSCode MCP extension, set `POWERPLATFORM_MCP_MODE=vscode` to enable hierarchical mode. You'll see 10 parent tools:
+When using VSCode MCP extension, set `POWERPLATFORM_MCP_MODE=vscode` to enable hierarchical mode. You'll see 10 parent tools that provide access to all 254 underlying CLI commands:
 
-1. **pp_environment** - Environment & admin operations (41 sub-commands)
-2. **pp_solution** - Solution development lifecycle (16 sub-commands)
-3. **pp_application** - App development (30 sub-commands)
-4. **pp_copilot** - AI copilot management (71 sub-commands)
-5. **pp_data** - Data operations & SQL management (9 sub-commands)
-6. **pp_connector** - Connections & connectors (20 sub-commands)
-7. **pp_security** - Security & governance (10 sub-commands)
-8. **pp_utility** - Tools, help & diagnostics (14 sub-commands)
-9. **pp_pipeline** - CI/CD & deployment (11 sub-commands)
-10. **pp_quality** - Testing & quality assurance (7 sub-commands)
+1. **pp_environment** - Environment & admin operations (41 CLI commands)
+2. **pp_solution** - Solution development lifecycle (16 CLI commands)
+3. **pp_application** - App development (30 CLI commands)
+4. **pp_copilot** - AI copilot management (71 CLI commands)
+5. **pp_data** - Data operations & SQL management (9 CLI commands)
+6. **pp_connector** - Connections & connectors (20 CLI commands)
+7. **pp_security** - Security & governance (10 CLI commands)
+8. **pp_utility** - Tools, help & diagnostics (14 CLI commands)
+9. **pp_pipeline** - CI/CD & deployment (11 CLI commands)
+10. **pp_quality** - Testing & quality assurance (7 CLI commands)
 
-Each parent tool accepts `command` and `parameters` to access the full functionality.
+Each parent tool accepts `command` and `parameters` to access the full functionality of the underlying CLI commands.
 
 See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed usage instructions.
 
 ---
+
+## Full Mode Tools
+
+In full mode (default for Claude Desktop), Power Agent MCP exposes individual tools organized by functional category. These tools provide direct access to the underlying Power Platform CLI commands:
 
 ## Adaptive Cards for Copilot Studio (10 tools)
 
@@ -358,34 +362,30 @@ See [VSCode MCP Integration Guide](docs/VSCODE_MCP_INTEGRATION.md) for detailed 
 
 ## 📊 Summary
 
-| Category | Tools | Key Use Cases |
-|----------|-------|---------------|
-| **Environment Management** | 41 | Create, backup, manage environments and admin operations |
-| **Dataverse Operations** | 25 | Complete Dataverse entity, record, and metadata management |
-| **Solution Development** | 16 | Complete solution lifecycle from dev to deployment |
-| **AI & Copilot** | 10 | Build and manage AI copilots and models |
-| **Adaptive Cards** | 10 | Create and manage adaptive cards for Copilot Studio agents |
-| **Canvas Apps** | 7 | Develop and manage Power Apps canvas applications |
-| **SQL Database** | 7 | Complete database operations and schema management |
-| **Power Pages** | 7 | Build and deploy Power Pages websites |
-| **Package Management** | 6 | Deploy and manage solution packages |
-| **Tool Management** | 6 | Manage development tools and environments |
-| **Code Components** | 5 | Build custom components and controls |
-| **Custom Connectors** | 5 | Create and manage API connectors |
-| **Connection Management** | 4 | Manage Dataverse connections |
-| **PCF Development** | 3 | Power Apps Component Framework development |
-| **Telemetry** | 3 | Usage tracking and diagnostics |
-| **Utilities** | 3 | General tools and validation |
-| **Other Categories** | 42 | Security, data, quality, testing, portals, plugins, etc. |
+| Category | MCP Tools | Underlying CLI Commands | Key Use Cases |
+|----------|-----------|------------------------|---------------|
+| **Environment Management** | 6 | 41 | Create, backup, manage environments and admin operations |
+| **Dataverse Operations** | 25 | 25 | Complete Dataverse entity, record, and metadata management |
+| **Solution Development** | 8 | 16 | Complete solution lifecycle from dev to deployment |
+| **AI & Copilot** | 10 | 10 | Build and manage AI copilots and models |
+| **Adaptive Cards** | 10 | 10 | Create and manage adaptive cards for Copilot Studio agents |
+| **Canvas Apps** | 7 | 7 | Develop and manage Power Apps canvas applications |
+| **SQL Database** | 7 | 7 | Complete database operations and schema management |
+| **Power Pages** | 7 | 7 | Build and deploy Power Pages websites |
+| **Package Management** | 6 | 6 | Deploy and manage solution packages |
+| **Tool Management** | 6 | 6 | Manage development tools and environments |
+| **Other Categories** | ~50 | ~120 | Security, auth, connections, PCF, testing, etc. |
 
-**Total: 254 MCP Tools** providing complete coverage of Microsoft Power Platform CLI functionality plus comprehensive Dataverse operations, SQL Server database operations, and adaptive cards for Copilot Studio.
+**VSCode Mode: 10 hierarchical parent tools** providing access to all 254 underlying CLI commands through a simplified interface.
+
+**Full Mode: ~150+ individual MCP tools** providing direct access to specific functionality, organized by category.
 
 ## 🎯 Common Workflows
 
 ### Complete CI/CD Pipeline
 ```
 1. pp_unpack_solution - Extract from source control
-2. pp_pack_solution - Package for deployment  
+2. pp_pack_solution - Package for deployment
 3. pp_solution_checker - Run quality analysis
 4. pp_import_solution - Deploy to test environment
 5. pp_export_solution - Create managed artifact

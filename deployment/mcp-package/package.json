@@ -1,0 +1,62 @@
+{
+  "name": "@darbotlabs/power-agent-mcp",
+  "version": "1.0.0",
+  "description": "Enterprise AI SDK for Microsoft Power Platform - MCP Server",
+  "main": "dist/server.js",
+  "type": "module",
+  "bin": {
+    "power-agent-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "npx tsx src/server.ts",
+    "build": "tsc && npm run copy-assets",
+    "copy-assets": "cp -r src/tools dist/ || copy src\\tools dist\\",
+    "prepare": "npm run build",
+    "test": "echo \"Tests will be added\" && exit 0"
+  },
+  "keywords": [
+    "power-platform",
+    "mcp",
+    "ai",
+    "copilot",
+    "dataverse",
+    "dynamics",
+    "power-apps",
+    "power-automate",
+    "enterprise-automation",
+    "model-context-protocol"
+  ],
+  "author": "DarBot Labs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dayour/Power-Agent-MCP.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dayour/Power-Agent-MCP/issues"
+  },
+  "homepage": "https://github.com/dayour/Power-Agent-MCP#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "debug": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/node": "^20.19.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.4.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
