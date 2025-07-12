@@ -1,8 +1,8 @@
 {
   "name": "power-agent-mcp",
   "displayName": "Power Agent MCP",
-  "description": "Enterprise AI SDK for Microsoft Power Platform - Model Context Protocol Server",
-  "version": "1.0.2",
+  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 254 tools for environments, solutions, apps, copilots, and data operations. Power Platform authentication with automatic environment discovery.",
+  "version": "2.0.0",
   "publisher": "darbotlabs",
   "engines": {
     "vscode": "^1.74.0",
@@ -16,12 +16,25 @@
   "keywords": [
     "power platform",
     "mcp",
+    "model context protocol", 
     "ai",
+    "ai assistant",
+    "claude",
+    "continue",
     "copilot",
     "dataverse",
     "dynamics",
     "power apps",
-    "power automate"
+    "power automate",
+    "automation",
+    "bundled server",
+    "power platform authentication",
+    "environment discovery",
+    "pac cli integration",
+    "enterprise",
+    "devops",
+    "solutions",
+    "environments"
   ],
   "repository": {
     "type": "git",
@@ -64,6 +77,26 @@
         "command": "power-agent-mcp.validateTools",
         "title": "Validate All Tools",
         "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.setup",
+        "title": "Setup Power Platform Authentication",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.login",
+        "title": "Login to Power Platform",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.logout",
+        "title": "Logout from Power Platform",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.selectEnvironment",
+        "title": "Select Power Platform Environment",
+        "category": "Power Agent MCP"
       }
     ],
     "configuration": {
@@ -72,11 +105,11 @@
         "powerAgentMcp.serverPath": {
           "type": "string",
           "default": "",
-          "description": "Path to Power Agent MCP server executable"
+          "description": "Path to Power Agent MCP server executable (leave empty to use bundled server)"
         },
         "powerAgentMcp.autoStart": {
           "type": "boolean",
-          "default": false,
+          "default": true,
           "description": "Automatically start MCP server when VSCode opens"
         },
         "powerAgentMcp.logLevel": {
@@ -90,15 +123,10 @@
           "default": "info",
           "description": "Logging level for MCP server"
         },
-        "powerAgentMcp.environment.tenantId": {
+        "powerAgentMcp.environment.url": {
           "type": "string",
           "default": "",
-          "description": "Power Platform Tenant ID"
-        },
-        "powerAgentMcp.environment.applicationId": {
-          "type": "string",
-          "default": "",
-          "description": "Power Platform Application ID"
+          "description": "Power Platform Environment URL (e.g., https://yourorg.crm.dynamics.com)"
         }
       }
     },
@@ -126,6 +154,12 @@
       ]
     }
   },
+  "files": [
+    "out/**/*",
+    "server/**/*",
+    "assets/**/*",
+    "README.md"
+  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
@@ -140,6 +174,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.5.0"
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "axios": "^1.6.0"
   }
 }
