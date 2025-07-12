@@ -18,10 +18,15 @@
     "docs/"
   ],
   "scripts": {
-    "build": "npx tsc src/mcp/standalone-server.ts --outDir dist/mcp --target ES2022 --module ESNext --moduleResolution node --allowSyntheticDefaultImports --esModuleInterop --skipLibCheck --declaration false --sourceMap true",
+    "build": "npm run build:standalone",
+    "build:standalone": "npx tsc src/mcp/standalone-server.ts --outDir dist/mcp --target ES2022 --module ESNext --moduleResolution node --allowSyntheticDefaultImports --esModuleInterop --skipLibCheck --declaration false --sourceMap true",
+    "build:full": "npx tsc src/mcp/server.ts src/mcp/tools/*.ts --outDir dist/mcp --target ES2022 --module ESNext --moduleResolution node --allowSyntheticDefaultImports --esModuleInterop --skipLibCheck --declaration false --sourceMap true",
     "dev": "tsx src/mcp/standalone-server.ts",
+    "dev:full": "tsx src/mcp/server.ts",
     "start": "node dist/mcp/standalone-server.js",
+    "start:full": "node dist/mcp/server.js",
     "test": "node production-audit.js",
+    "test:full": "node comprehensive-test.js",
     "lint": "echo \"Linting disabled for now\"",
     "clean": "rm -rf dist",
     "prepare": "npm run build"

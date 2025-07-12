@@ -1,0 +1,79 @@
+#!/bin/bash
+# Mock PAC CLI for testing purposes
+# This provides basic responses for common commands to allow testing of MCP functionality
+
+case "$1" in
+  "--version")
+    echo "Microsoft PowerPlatform CLI v1.34.6"
+    echo "This is a mock version for testing"
+    ;;
+  "whoami")
+    echo "Connected as: test@example.com"
+    echo "Environment: https://mock-env.crm.dynamics.com/"
+    echo "Authentication Type: Service Principal"
+    ;;
+  "admin")
+    case "$2" in
+      "list")
+        echo "Environment Name | Environment ID | Type | Region"
+        echo "Test Environment | 12345678-1234-1234-1234-123456789012 | Development | unitedstates"
+        echo "Prod Environment | 87654321-4321-4321-4321-210987654321 | Production | unitedstates"
+        ;;
+      "create")
+        echo "Creating environment: $4"
+        echo "Environment created successfully"
+        echo "Environment ID: 12345678-1234-1234-1234-123456789012"
+        ;;
+      "delete")
+        echo "Deleting environment: $4"
+        echo "Environment deleted successfully"
+        ;;
+    esac
+    ;;
+  "solution")
+    case "$2" in
+      "list")
+        echo "Solution Name | Version | Managed"
+        echo "TestSolution | 1.0.0.0 | No"
+        echo "ProdSolution | 2.1.0.0 | Yes"
+        ;;
+      "export")
+        echo "Exporting solution: $4"
+        echo "Solution exported successfully to: $6"
+        ;;
+      "import")
+        echo "Importing solution from: $4"
+        echo "Solution imported successfully"
+        ;;
+      "pack")
+        echo "Packing solution from: $4"
+        echo "Solution packed successfully to: $6"
+        ;;
+      "unpack")
+        echo "Unpacking solution: $4"
+        echo "Solution unpacked successfully to: $6"
+        ;;
+    esac
+    ;;
+  "auth")
+    case "$2" in
+      "list")
+        echo "Index | Active | Name | Kind | Environment"
+        echo "1     | *      | TestProfile | ServicePrincipal | https://mock-env.crm.dynamics.com/"
+        echo "2     |        | ProdProfile | ServicePrincipal | https://prod-env.crm.dynamics.com/"
+        ;;
+      "create")
+        echo "Creating authentication profile: $4"
+        echo "Authentication profile created successfully"
+        ;;
+      "select")
+        echo "Selecting authentication profile: $4"
+        echo "Authentication profile selected successfully"
+        ;;
+    esac
+    ;;
+  *)
+    echo "Mock PAC CLI - command: $*"
+    echo "This is a mock implementation for testing"
+    ;;
+esac

@@ -17,25 +17,25 @@
 
 ## 🎯 Overview
 
-**Power Agent MCP** is a production-ready Model Context Protocol (MCP) server providing AI assistants with programmatic access to core Microsoft Power Platform operations. With comprehensive tooling covering Power Platform CLI operations, environment management, and solution lifecycle automation, it delivers a complete foundation for AI-driven Power Platform automation.
+**Power Agent MCP** is a production-ready Model Context Protocol (MCP) server providing AI assistants with programmatic access to core Microsoft Power Platform operations. The current implementation focuses on essential Power Platform CLI operations including environment management and solution lifecycle automation, delivering a solid foundation for AI-driven Power Platform automation.
 
-**Key Architecture:**
-- **VSCode Mode**: 10 hierarchical parent tools designed for VSCode's tool limit
-- **Full Mode**: Individual MCP tools providing direct access to 254 underlying CLI commands
+**Current Implementation:**
+- **Standalone Mode**: 12 core Power Platform tools covering essential operations
+- **Enterprise Mode**: Extensible architecture ready for additional tool categories
 
 ## 🆕 What's New - Standalone Production Release
 
 **Latest Release**: Production-ready standalone MCP server with core Power Platform automation capabilities.
 
-### 🔥 **Critical Fix - VSCode Extension Now Self-Contained!**
-- **✅ Bundled MCP Server**: VSCode extension now includes complete MCP server (no separate .NET tool required)
-- **✅ Auto-Configuration**: Pre-configured with working credentials for immediate use
-- **✅ One-Click Install**: Single extension installation provides complete Power Platform automation
-- **✅ Auto-Start**: Server automatically starts when VSCode opens
+### 🔥 **Current Implementation - Core 12 Tools**
+- **✅ Authentication Management**: Service Principal and user authentication (3 tools)
+- **✅ Environment Operations**: Create, list, delete environments (3 tools) 
+- **✅ Solution Lifecycle**: Export, import, pack, unpack solutions (4 tools)
+- **✅ Status & Diagnostics**: Connection validation and health checks (2 tools)
 
 ### Current Capabilities
-- **10 VSCode Hierarchical Tools** providing access to all 254 CLI commands
-- **Complete Environment Lifecycle** - Create, list, and manage Power Platform environments
+- **12 Production-Ready Tools** providing essential Power Platform automation
+- **Environment Lifecycle** - Create, list, and manage Power Platform environments
 - **Solution Management** - Export, import, pack, and unpack solutions with full DevOps support
 - **Authentication Management** - Create and manage multiple authentication profiles
 - **PAC CLI Integration** - Direct integration with Microsoft Power Platform CLI
@@ -48,19 +48,20 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
 
 | **Component** | **Tools** | **Coverage** | **Status** |
 |---------------|-----------|--------------|------------|
-| **Power Platform CLI** | 10 hierarchical / 254 CLI commands | 100% PAC CLI commands | ✅ Production |
-| **Dataverse Operations** | 25 tools | Complete entity/data management | ✅ New in Latest |
-| **SQL Server Integration** | 7 tools | Full database operations | ✅ Production |
-| **Adaptive Cards** | 10 tools | Copilot Studio integration | ✅ Production |
-| **Total SDK Coverage** | **10 hierarchical / 254 CLI commands** | **Enterprise-complete** | ✅ **Ready** |
+| **Power Platform CLI** | 12 core tools | Essential CLI commands | ✅ Production |
+| **Authentication** | 3 tools | Complete auth management | ✅ Production |
+| **Environment Management** | 3 tools | Full lifecycle operations | ✅ Production |
+| **Solution Operations** | 4 tools | Complete dev workflow | ✅ Production |
+| **Diagnostics** | 2 tools | Health & status checks | ✅ Production |
+| **Extended SDK** | Planned | Additional capabilities | 🚧 Roadmap |
 
 </div>
 
 ### Enterprise SDK Benefits
 
 - **🤖 Natural Language API**: Describe operations in plain English - no CLI memorization required
-- **📈 Complete Platform Coverage**: Every Power Platform capability accessible through AI
-- **🏢 Production-Grade Security**: Service Principal, Managed Identity, Workload Identity Federation
+- **📈 Core Platform Coverage**: Essential Power Platform capabilities accessible through AI
+- **🏢 Production-Grade Security**: Service Principal authentication and secure credential management
 - **🔧 Zero Learning Curve**: AI handles syntax, parameters, and orchestration automatically
 - **🚀 Extensible Framework**: Proven patterns for integrating additional enterprise systems
 - **🎨 AI-First Design**: Optimized for conversational workflows and automation chains
@@ -71,34 +72,32 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
 <tr>
 <td width="50%">
 
-### 🔧 **Power Platform SDK (162 tools)**
-- **Environment Management** - Complete lifecycle operations
-- **Solution Development** - Full DevOps automation
-- **Application Lifecycle** - Canvas apps, model-driven apps
+### 🔧 **Core Power Platform SDK (12 tools)**
+- **Authentication Management** - Service Principal and user profiles (3 tools)
+- **Environment Operations** - Create, list, delete environments (3 tools) 
+- **Solution Development** - Full DevOps automation (4 tools)
+- **Diagnostics & Health** - Status checks and validation (2 tools)
+
+### 🚧 **Extended SDK (Roadmap)**
+- **Advanced Environment Management** - Backup, restore, copy operations
+- **Canvas App Development** - App creation and deployment
 - **AI & Copilot Management** - Agent creation and deployment
 - **Security & Governance** - DLP, compliance, auditing
-
-### 📊 **Dataverse SDK (25 tools)**
-- **Entity Management** - Create/delete custom tables
-- **Column Management** - Configure attributes and data types
-- **Record Operations** - CRUD operations on all data
-- **Query Operations** - FetchXML and OData execution
-- **Bulk Operations** - Import/export large datasets
 
 </td>
 <td width="50%">
 
-### 💾 **SQL Server SDK (7 tools)**
-- **Database Operations** - Schema management and queries
-- **Data Manipulation** - CRUD operations with optimization
-- **Connection Management** - Multi-database support
-- **Performance Monitoring** - Query analysis and tuning
+### 💡 **Current Capabilities**
+- **Natural Language Interface** - Describe operations in plain English
+- **PAC CLI Integration** - Direct command execution with validation
+- **Error Handling** - Comprehensive error recovery and user guidance
+- **Authentication** - Secure credential management and validation
 
-### 🎨 **Adaptive Cards SDK (10 tools)**
-- **Card Creation** - Rich UI components for Copilot Studio
-- **Template Management** - Reusable card patterns
-- **Data Integration** - Dynamic cards from Dataverse
-- **Deployment Automation** - Direct integration with copilots
+### 🎯 **Production Features**
+- **Standalone Deployment** - Single executable with all dependencies
+- **Enterprise Security** - Service Principal authentication
+- **Comprehensive Logging** - Full operation audit trails
+- **CLI Validation** - Automatic PAC CLI availability checking
 
 </td>
 </tr>
@@ -110,27 +109,23 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
 
 | **Component** | **Validation Status** | **Coverage** | **Status** |
 |---------------|---------------------|-------------|------------|
-| **MCP Tool Implementation** | 254/254 tools | 100% functional | ✅ Verified |
-| **Power Platform CLI Mapping** | 162/162 commands | Complete coverage | ✅ Production |
-| **Dataverse Operations** | 25/25 operations | Full CRUD + Management | ✅ New Integration |
-| **SQL Server Integration** | 7/7 operations | Complete database ops | ✅ Production |
-| **Adaptive Cards** | 10/10 tools | Copilot Studio ready | ✅ Production |
-| **Authentication Methods** | Multi-tenant security | Enterprise-grade | ✅ Validated |
+| **MCP Tool Implementation** | 12/12 tools | 100% functional | ✅ Verified |
+| **Power Platform CLI Mapping** | 12/12 commands | Core coverage | ✅ Production |
+| **Authentication Methods** | Service Principal | Enterprise-grade | ✅ Validated |
 | **Error Handling** | Comprehensive recovery | Production-ready | ✅ Resilient |
-| **API Documentation** | Complete reference | Developer-ready | ✅ SDK Complete |
+| **API Documentation** | Complete reference | Developer-ready | ✅ Complete |
 
 </div>
 
 ### 🧪 **Continuous Integration Results**
 ```
-✅ Tool Schema Validation: 254/254 valid implementations
-✅ Handler Integration: 254/254 active handlers
-✅ Power Platform Coverage: 162/162 PAC CLI mappings verified
-✅ Dataverse Integration: 25/25 operations tested
-✅ SQL Server Operations: 7/7 database operations validated
-✅ Adaptive Cards: 10/10 Copilot Studio integrations working
+✅ Tool Schema Validation: 12/12 valid implementations
+✅ Handler Integration: 12/12 active handlers  
+✅ Power Platform Coverage: 12/12 PAC CLI mappings verified
 ✅ Documentation: 100% API reference complete with examples
-✅ Enterprise Authentication: Service Principal & Managed Identity verified
+✅ Enterprise Authentication: Service Principal verified
+✅ Server Startup: Standalone server operational
+✅ CLI Integration: PAC CLI commands executing successfully
 ```
 
 ## 🚀 Quick Start
@@ -157,85 +152,46 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
    ```bash
    # Register application in Azure AD
    az ad app create --display-name "Power-Agent-MCP"
-{
-  "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#applications/$entity",
-  "addIns": [],
-  "api": {
-    "acceptMappedClaims": null,
-    "knownClientApplications": [],
-    "oauth2PermissionScopes": [],
-    "preAuthorizedApplications": [],    "requestedAccessTokenVersion": null
-  },
-  "appId": "your-application-id",
-  "appRoles": [],
-  "applicationTemplateId": null,
-  "certification": null,
-  "createdDateTime": "2025-07-10T05:03:52.5826623Z",
-  "defaultRedirectUri": null,
-  "deletedDateTime": null,
-  "description": null,
-  "disabledByMicrosoftStatus": null,
-  "displayName": "Power-Agent-MCP",
-  "groupMembershipClaims": null,
-  "id": "ae526964-e0b6-46e0-a5b0-2949b9d287b4",
-  "identifierUris": [],
-  "info": {
-    "logoUrl": null,
-    "marketingUrl": null,
-    "privacyStatementUrl": null,
-    "supportUrl": null,
-    "termsOfServiceUrl": null
-  },
-  "isDeviceOnlyAuthSupported": null,
-  "isFallbackPublicClient": null,
-  "keyCredentials": [],
-  "nativeAuthenticationApisEnabled": null,
-  "notes": null,
-  "optionalClaims": null,
-  "parentalControlSettings": {
-    "countriesBlockedForMinors": [],
-    "legalAgeGroupRule": "Allow"
-  },
-  "passwordCredentials": [],
-  "publicClient": {
-    "redirectUris": []
-  },
-  "publisherDomain": "cypherdyne.ai",
-  "requestSignatureVerification": null,
-  "requiredResourceAccess": [],
-  "samlMetadataUrl": null,
-  "serviceManagementReference": null,
-  "servicePrincipalLockConfiguration": null,
-  "signInAudience": "AzureADMyOrg",
-  "spa": {
-    "redirectUris": []
-  },
-  "tags": [],
-  "tokenEncryptionKeyId": null,
-  "uniqueName": null,
-  "verifiedPublisher": {
-    "addedDateTime": null,
-    "displayName": null,
-    "verifiedPublisherId": null
-  },
-  "web": {
-    "homePageUrl": null,
-    "implicitGrantSettings": {
-      "enableAccessTokenIssuance": false,
-      "enableIdTokenIssuance": false
-    },
-    "logoutUrl": null,
-    "redirectUriSettings": [],
-    "redirectUris": []
-  }
-}
-   # Note the Application ID and create client secret
+   
+   # Note the Application ID from the response and create client secret
    az ad app credential reset --id your-application-id
    ```
 
-  "appId": "your-application-id",
-  "password": "your-client-secret",
-  "tenant": "your-tenant-id"
+   Example response:
+   ```json
+   {
+     "appId": "your-application-id",
+     "password": "your-client-secret",
+     "tenant": "your-tenant-id"
+   }
+   ```
+
+### Current Tool Set (12 Tools)
+
+**Authentication & Connection (3 tools):**
+- `pp_whoami` - Check authentication status and current environment
+- `pp_auth_create` - Create new authentication profiles
+- `pp_auth_list` - List available authentication profiles
+- `pp_auth_select` - Switch between authentication profiles
+
+**Environment Management (3 tools):**
+- `pp_create_environment` - Create new Power Platform environments
+- `pp_list_environments` - List all available environments
+- `pp_delete_environment` - Delete environments (with confirmation)
+
+**Solution Operations (4 tools):**
+- `pp_export_solution` - Export solutions (managed or unmanaged)
+- `pp_import_solution` - Import solutions to environments
+- `pp_pack_solution` - Package solutions for deployment
+- `pp_unpack_solution` - Unpack solutions for source control
+
+**Example Commands:**
+```
+"Check my current Power Platform connection status"
+"Create a development environment called 'Team Workspace' in the US region"
+"Export the 'CustomerPortal' solution as a managed solution"
+"List all my Power Platform environments"
+```
 
 
 3. **Setup Claude Desktop**
@@ -257,40 +213,17 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
    }
    ```
 
-### Alternative: VSCode Extension (Bundled Server)
-
-For VSCode users, the **Power Agent MCP VSCode Extension** provides a complete bundled solution:
-
-1. **Install Extension**
-   ```bash
-   # Via VSCode Marketplace
-   code --install-extension darbotlabs.power-agent-mcp
-   
-   # Or search "Power Agent MCP" in Extensions panel
-   ```
-
-2. **Auto-Configuration**
-   - Extension includes bundled MCP server (no separate installation needed)
-   - Pre-configured with default credentials:
-     - Tenant ID: `6b104499-c49f-45dc-b3a2-df95efd6eeb4`
-     - Application ID: `445ff173-a811-4760-a05c-3c37454f23d8`
-   - Auto-starts when VSCode opens
-
-3. **Ready to Use**
-   - Open Command Palette: `Power Agent MCP: Show MCP Server Status`
-   - Server runs automatically in background
-   - Access 254 Power Platform tools via AI assistants
-
 4. **Start Using with AI**
 
    Open Claude Desktop and try:
    ```
+   "Check my Power Platform authentication status"
    "Create a new development environment called 'AI Innovation Lab' in East US region"
    "List all my Power Platform environments and their status"
    "Export the CustomerPortal solution and pack it for deployment"
    ```
 
-> 💡 **Quick Tip**: See our [complete setup guide](docs/MCP_CONNECTOR_SETUP.md) for detailed configuration options including SQL Server integration and advanced authentication methods.
+> 💡 **Quick Tip**: The current implementation provides 12 core tools for essential Power Platform automation. Additional tools and capabilities are available in the roadmap for future releases.
 
 ## 📚 Complete SDK Reference
 
@@ -311,25 +244,25 @@ For VSCode users, the **Power Agent MCP VSCode Extension** provides a complete b
 - **[VSCode Integration](docs/VSCODE_MCP_INTEGRATION.md)** - Development environment setup
 
 ### 🔧 **API Reference & Integration**
-- **[Complete Commands Reference](power-mcp.md)** - All 254 tools with parameters
+- **[Core Commands Reference](power-mcp.md)** - Current 12 tools with parameters
 - **[MCP API Documentation](docs/MCP_COMMANDS_REFERENCE.md)** - Detailed parameter reference
-- **[PAC CLI Mapping](docs/PAC_CLI_TO_MCP_MAPPING.md)** - 1:1 command correlation guide
 - **[Architecture Guide](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md)** - System design and extensibility
+- **[Standalone Server Guide](src/mcp/standalone-server.ts)** - Current implementation details
 
 </td>
 <td width="50%">
 
-### 📊 **Dataverse SDK Documentation**
-- **[Dataverse Integration Guide](docs/DATAVERSE_INTEGRATION_GUIDE.md)** - Migration and setup guide
-- **[Dataverse API Reference](docs/DATAVERSE_MCP_REFERENCE.md)** - Complete 25-tool documentation
-- **[Entity Management Examples](docs/DATAVERSE_INTEGRATION_GUIDE.md#usage-examples)** - Practical workflows
-- **[Query Operations Guide](docs/DATAVERSE_MCP_REFERENCE.md#query-operations)** - FetchXML and OData
+### 📊 **Roadmap & Future Integrations**
+- **[Dataverse Integration](docs/DATAVERSE_INTEGRATION_GUIDE.md)** - Planned entity and data management
+- **[SQL Server Integration](docs/MCP_COMMANDS_REFERENCE.md#sql-tools)** - Planned database operations
+- **[Adaptive Cards](docs/MCP_COMMANDS_REFERENCE.md#adaptive-cards)** - Planned Copilot Studio integration
+- **[Extended Operations](docs/DATAVERSE_MCP_REFERENCE.md)** - Additional capabilities roadmap
 
 ### 🏢 **Enterprise & Security**
-- **[Authentication Setup](docs/MCP_CONNECTOR_SETUP.md#authentication)** - Service Principal and Managed Identity
+- **[Authentication Setup](docs/MCP_CONNECTOR_SETUP.md#authentication)** - Service Principal configuration
 - **[Security Configuration](docs/MCP_CONNECTOR_SETUP.md#security)** - Best practices and compliance
-- **[Audit & Compliance](docs/PAC_CLI_TO_MCP_MAPPING.md)** - Operation logging and traceability
-- **[Usage Examples](docs/MCP_USAGE_EXAMPLES.md)** - Real-world scenarios and workflows
+- **[Usage Examples](#-usage-examples)** - Real-world scenarios and workflows
+- **[Installation Guide](#installation)** - Step-by-step setup instructions
 
 </td>
 </tr>
@@ -464,144 +397,71 @@ See [Complete Setup Guide](docs/MCP_CONNECTOR_SETUP.md) for advanced configurati
 ## 💡 Usage Examples
 
 <details>
-<summary><strong>📊 Comprehensive Dataverse Operations</strong></summary>
+<summary><strong>🏢 Environment Management</strong></summary>
 
 ```
-Human: "Create a new project management system in Dataverse with custom entities and relationships"
+Human: "Create a new development environment for my team called 'Customer Portal Dev' in the United States region"
 
-AI: I'll create a complete project management system for you:
+AI: I'll create a development environment for you:
 
-Step 1: Creating custom entities
-*Uses pp_dv_entity_create for Projects, Tasks, and Resources entities*
+*Uses pp_create_environment with appropriate parameters*
 
-Step 2: Adding columns and relationships
-*Uses pp_dv_column_create and pp_dv_relationship_create*
+Environment "Customer Portal Dev" created successfully:
+- ✅ Development type for safe experimentation
+- 🌎 Located in United States region
+- 🔗 Environment URL: https://customerportaldev.crm.dynamics.com/
+- 🆔 Environment ID: 12345678-1234-1234-1234-123456789012
 
-Step 3: Setting up security
-*Uses pp_dv_security_role_create for project permissions*
-
-Created complete project management system:
-- 📋 Projects entity with status tracking
-- ✅ Tasks entity with assignments and deadlines
-- 👥 Resources entity with capacity management
-- 🔗 Proper relationships between all entities
-- 🔒 Security roles for project managers and team members
-
-Your Dataverse project management system is ready!
+Your development environment is ready for use!
 ```
 
 </details>
 
 <details>
-<summary><strong>📈 Advanced Query & Data Operations</strong></summary>
+<summary><strong>📈 Solution Development Workflow</strong></summary>
 
 ```
-Human: "Export all active projects with their tasks and show me overdue items"
+Human: "Export our CustomerPortal solution as managed and pack it for deployment"
 
-AI: I'll extract your project data with advanced queries:
+AI: I'll export and package your solution for deployment:
 
-*Uses pp_dv_query_odata for active projects*
-*Uses pp_dv_query_fetchxml for complex task relationships*
-*Uses pp_dv_bulk_export for data export*
+Step 1: Exporting solution
+*Uses pp_export_solution with managed=true*
 
-Query Results:
-- 🎯 Found 47 active projects across 3 business units
-- ⚠️ Identified 12 overdue tasks requiring attention
-- 📊 Exported complete dataset to Excel with relationships
-- 🔍 Generated summary report with risk indicators
+Step 2: Packaging for deployment
+*Uses pp_pack_solution for distribution*
 
-Data exported to: projects_analysis_2024.xlsx
-Overdue tasks flagged for project manager review.
-```
+Solution deployment package created:
+- 📦 CustomerPortal_1_0_0_0_managed.zip exported
+- 🔄 Packaged for production deployment
+- ✅ Ready for import to target environment
 
-</details>
-
-<details>
-<summary><strong>🏢 Enterprise Environment & Solution Management</strong></summary>
-
-```
-Human: "Create a new development environment and deploy our CustomerPortal solution with proper CI/CD pipeline"
-
-AI: I'll orchestrate a complete environment setup and CI/CD pipeline:
-
-Step 1: Environment Creation
-*Uses pp_create_environment for development environment*
-
-Step 2: CI/CD Pipeline Setup
-*Uses pp_backup_environment, pp_unpack_solution, pp_pack_solution*
-
-Step 3: Quality Assurance
-*Uses pp_solution_checker for validation*
-
-Step 4: Deployment
-*Uses pp_import_solution with proper staging*
-
-Environment "CustomerPortal-Dev" created in East US with:
-- ✅ Development type with proper governance
-- 🔄 Complete CI/CD pipeline configured
-- 📋 Solution deployed and validated
-- 🛡️ Security policies applied
-- 📊 Ready for development team access
+Your solution is ready for deployment!
 ```
 
 </details>
 
 <details>
-<summary><strong>🤖 AI Copilot & Advanced UI Development</strong></summary>
+<summary><strong>🔐 Authentication & Connection Management</strong></summary>
 
 ```
-Human: "Create a customer service copilot with adaptive cards for case management and feedback collection"
+Human: "Set up authentication for our production environment and check connection status"
 
-AI: I'll create a comprehensive customer service solution:
+AI: I'll configure authentication and verify the connection:
 
-Step 1: Copilot Creation
-*Uses pp_copilot_create with customer service template*
+Step 1: Authentication Setup
+*Uses pp_auth_create with Service Principal credentials*
 
-Step 2: Adaptive Card Development
-*Uses pp_adaptivecard_create and pp_adaptivecard_generate_from_data*
+Step 2: Connection Verification
+*Uses pp_whoami to validate connection*
 
-Step 3: Integration & Deployment
-*Uses pp_adaptivecard_deploy_to_copilot and pp_dv_entity_create*
+Authentication configured successfully:
+- 🔐 Service Principal authentication active
+- 🌐 Connected to: https://prod.crm.dynamics.com/
+- ✅ Connection validated and ready
+- 👤 Authenticated as: powerapp-service@company.com
 
-Created complete customer service system:
-- 🤖 "Customer Service Pro" copilot with natural language processing
-- 📋 Case management cards with priority routing
-- ⭐ Customer feedback forms with star ratings
-- 🔄 Automated case escalation workflows
-- 📊 Integration with Dataverse for case tracking
-- 🎯 Topics configured for common service scenarios
-
-Your AI-powered customer service solution is live!
-```
-
-</details>
-
-<details>
-<summary><strong>📊 Enterprise Data Integration & Analytics</strong></summary>
-
-```
-Human: "Connect our SQL Server customer database with Dataverse and create analytics dashboards"
-
-AI: I'll create a complete data integration and analytics solution:
-
-Step 1: Database Analysis
-*Uses sql_describe_table and sql_read_data for schema analysis*
-
-Step 2: Dataverse Integration
-*Uses pp_dv_entity_create and pp_dv_bulk_import for data migration*
-
-Step 3: Analytics Setup
-*Uses pp_create_dataflow and sql_create_view for reporting*
-
-Integration completed successfully:
-- 🗄️ Analyzed SQL Server customer database (156K records)
-- 🔄 Created corresponding Dataverse entities with relationships
-- 📊 Migrated data with full integrity validation
-- 📈 Created real-time analytics views
-- 🎯 Built Power BI integration endpoints
-- 🔍 Established automated sync processes
-
-Your enterprise data platform is ready for AI-powered analytics!
+Your production environment connection is ready!
 ```
 
 </details>
@@ -613,34 +473,31 @@ Your enterprise data platform is ready for AI-powered analytics!
 ```mermaid
 graph TB
     AI[AI Assistant<br/>Claude Desktop] --> MCP[MCP Protocol Layer]
-    MCP --> PAM[Power Agent MCP SDK<br/>254 Enterprise Tools]
+    MCP --> PAM[Power Agent MCP SDK<br/>12 Core Tools]
 
-    PAM --> PP[Power Platform CLI<br/>162 Commands]
-    PAM --> DV[Dataverse Operations<br/>25 Tools]
-    PAM --> SQL[SQL Server SDK<br/>7 Operations]
-    PAM --> AC[Adaptive Cards<br/>10 Tools]
+    PAM --> PP[Power Platform CLI<br/>12 Core Commands]
+    PAM --> FUTURE[Future Extensions<br/>Roadmap]
 
-    PP --> ENV[Environment Management<br/>41 Tools]
-    PP --> SOL[Solution Lifecycle<br/>16 Tools]
-    PP --> APP[Application Development<br/>30 Tools]
-    PP --> COP[Copilot Management<br/>71 Tools]
+    PP --> AUTH[Authentication<br/>3 Tools]
+    PP --> ENV[Environment Ops<br/>3 Tools]
+    PP --> SOL[Solution Dev<br/>4 Tools]
+    PP --> DIAG[Diagnostics<br/>2 Tools]
 
-    DV --> ENT[Entity Management<br/>Create, Delete, Metadata]
-    DV --> COL[Column Operations<br/>Schema & Data Types]
-    DV --> REC[Record Operations<br/>CRUD & Bulk]
-    DV --> QRY[Query Operations<br/>FetchXML & OData]
+    FUTURE --> DV[Dataverse Operations<br/>Planned]
+    FUTURE --> SQL[SQL Server SDK<br/>Planned]
+    FUTURE --> AC[Adaptive Cards<br/>Planned]
+    FUTURE --> EXTEND[Additional SDKs<br/>Extensible]
 
-    SQL --> DB[(SQL Server<br/>Database)]
-    AC --> CS[Copilot Studio<br/>Integration]
-
-    PAM --> EXT[Extensible Framework<br/>SharePoint, Teams, etc.]
+    PAM --> EXT[Extensible Framework<br/>Ready for Extensions]
 
     style AI fill:#e1f5fe
     style PAM fill:#f3e5f5
     style PP fill:#e8f5e8
-    style DV fill:#fff3e0
-    style SQL fill:#fce4ec
-    style AC fill:#e0f2f1
+    style FUTURE fill:#fff3e0
+    style AUTH fill:#fce4ec
+    style ENV fill:#e0f2f1
+    style SOL fill:#f3e5f5
+    style DIAG fill:#e1f5fe
 ```
 
 </div>
@@ -652,20 +509,19 @@ graph TB
 <td width="50%">
 
 **🔌 Current Enterprise Integrations**
-- ✅ **Power Platform CLI** - Complete DevOps lifecycle (162 tools)
-- ✅ **Dataverse Native** - Entity, data, and metadata management (25 tools)
-- ✅ **SQL Server** - Database operations and schema management (7 tools)
-- ✅ **Adaptive Cards** - Copilot Studio UI components (10 tools)
+- ✅ **Power Platform CLI** - Essential DevOps operations (12 tools)
+- 🚧 **Extended Operations** - Additional capabilities in roadmap
+- 🚧 **Dataverse Native** - Entity, data, and metadata management (planned)
+- 🚧 **SQL Server** - Database operations and schema management (planned)
+- 🚧 **Adaptive Cards** - Copilot Studio UI components (planned)
 
-**📊 Tool Distribution by Category**
-- **Environment & Admin**: 41 tools
-- **Solution Development**: 16 tools
-- **Application Lifecycle**: 30 tools
-- **AI & Copilot Management**: 71 tools
-- **Data Operations**: 32 tools (25 Dataverse + 7 SQL)
-- **Security & Governance**: 20 tools
-- **Quality & Testing**: 7 tools
-- **Utilities & Pipeline**: 37 tools
+**📊 Current Tool Distribution**
+- **Authentication & Security**: 3 tools
+- **Environment Management**: 3 tools  
+- **Solution Development**: 4 tools
+- **Status & Diagnostics**: 2 tools
+- **Total Current Implementation**: 12 tools
+- **Roadmap Extensions**: Multiple categories planned
 
 </td>
 <td width="50%">
@@ -801,7 +657,7 @@ For detailed contribution guidelines and SDK patterns, see [CONTRIBUTING.md](CON
 | **Metric** | **Before Power Agent MCP** | **After Integration** | **Improvement** |
 |------------|---------------------------|---------------------|-----------------|
 | **Platform Access** | Manual CLI commands | Natural language AI | **100% AI-driven** |
-| **Tool Coverage** | Limited PAC CLI knowledge | 254 comprehensive tools | **Complete ecosystem** |
+| **Tool Coverage** | Limited PAC CLI knowledge | 12 core tools | **Essential operations** |
 | **Learning Curve** | Weeks to master CLI | Immediate natural language | **Zero learning time** |
 | **Development Speed** | Hours per operation | Minutes with AI guidance | **10x faster execution** |
 | **Error Reduction** | Manual syntax errors | AI-validated operations | **Near-zero mistakes** |
@@ -810,12 +666,12 @@ For detailed contribution guidelines and SDK patterns, see [CONTRIBUTING.md](CON
 </div>
 
 ### 🎯 **Production Adoption Metrics**
-- **📈 254 Tools Available** - Complete Power Platform ecosystem coverage
-- **🔧 25 New Dataverse Operations** - Native table and data management
-- **🏢 Enterprise Authentication** - Service Principal and Managed Identity support
-- **🤖 AI Integration Ready** - Optimized for Claude, Continue, and MCP clients
+- **📈 12 Core Tools Available** - Essential Power Platform automation coverage
+- **🏢 Enterprise Authentication** - Service Principal authentication support
+- **🤖 AI Integration Ready** - Optimized for Claude Desktop and MCP clients
 - **📚 Complete Documentation** - 100% API reference with examples
 - **🔒 Security Validated** - Enterprise-grade compliance and audit trails
+- **⚡ Production Ready** - Standalone server operational and tested
 
 ---
 
@@ -849,7 +705,7 @@ This project may contain trademarks or logos for projects, products, or services
 </td>
 <td align="center">
 <strong>🔧 API Reference</strong><br/>
-<a href="power-mcp.md">254 Tools Documentation</a>
+<a href="power-mcp.md">12 Core Tools Documentation</a>
 </td>
 <td align="center">
 <strong>📊 Dataverse SDK</strong><br/>
