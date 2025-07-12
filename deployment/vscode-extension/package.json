@@ -1,7 +1,7 @@
 {
   "name": "power-agent-mcp",
   "displayName": "Power Agent MCP",
-  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 254 tools for environments, solutions, apps, copilots, and data operations. Secure Azure authentication with automatic tenant detection.",
+  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 254 tools for environments, solutions, apps, copilots, and data operations. Power Platform authentication with automatic environment discovery.",
   "version": "2.0.0",
   "publisher": "darbotlabs",
   "engines": {
@@ -28,8 +28,9 @@
     "power automate",
     "automation",
     "bundled server",
-    "azure authentication",
-    "secure login",
+    "power platform authentication",
+    "environment discovery",
+    "pac cli integration",
     "enterprise",
     "devops",
     "solutions",
@@ -79,17 +80,22 @@
       },
       {
         "command": "power-agent-mcp.setup",
-        "title": "Setup Azure Authentication",
+        "title": "Setup Power Platform Authentication",
         "category": "Power Agent MCP"
       },
       {
         "command": "power-agent-mcp.login",
-        "title": "Login to Azure",
+        "title": "Login to Power Platform",
         "category": "Power Agent MCP"
       },
       {
         "command": "power-agent-mcp.logout",
-        "title": "Logout from Azure",
+        "title": "Logout from Power Platform",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.selectEnvironment",
+        "title": "Select Power Platform Environment",
         "category": "Power Agent MCP"
       }
     ],
@@ -117,15 +123,10 @@
           "default": "info",
           "description": "Logging level for MCP server"
         },
-        "powerAgentMcp.environment.tenantId": {
+        "powerAgentMcp.environment.url": {
           "type": "string",
           "default": "",
-          "description": "Power Platform Tenant ID (auto-detected or configured via setup wizard)"
-        },
-        "powerAgentMcp.environment.applicationId": {
-          "type": "string",
-          "default": "",
-          "description": "Power Platform Application ID (auto-detected or configured via setup wizard)"
+          "description": "Power Platform Environment URL (e.g., https://yourorg.crm.dynamics.com)"
         }
       }
     },
@@ -174,7 +175,6 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
-    "@azure/msal-node": "^2.11.0",
-    "@azure/identity": "^4.4.0"
+    "axios": "^1.6.0"
   }
 }

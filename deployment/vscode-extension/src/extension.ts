@@ -1,25 +1,24 @@
 import * as vscode from 'vscode';
 import { spawn, ChildProcess } from 'child_process';
 import * as path from 'path';
-import { PublicClientApplication, Configuration, DeviceCodeRequest } from '@azure/msal-node';
-import { DefaultAzureCredential, ChainedTokenCredential, AzureCliCredential, InteractiveBrowserCredential } from '@azure/identity';
+import * as fs from 'fs';
+import axios from 'axios';
 
 let mcpServer: ChildProcess | undefined;
 
-// Azure authentication configuration
-const AZURE_CONFIG: Configuration = {
-    auth: {
-        clientId: "04b07795-8ddb-461a-bbee-02f9e1bf7b46", // Azure CLI client ID (publicly known)
-        authority: "https://login.microsoftonline.com/common"
-    }
-};
+interface PowerPlatformEnvironment {
+    environmentId: string;
+    environmentName: string;
+    tenantId: string;
+    environmentUrl: string;
+    location: string;
+}
 
-const POWER_PLATFORM_SCOPE = "https://service.powerapps.com/.default";
-
-interface AuthContext {
+interface PowerPlatformAuthContext {
+    environmentUrl?: string;
     tenantId?: string;
     accessToken?: string;
-    account?: any;
+    environmentName?: string;
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -43,21 +42,25 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     let setupCommand = vscode.commands.registerCommand('power-agent-mcp.setup', () => {
-        setupAzureAuthentication(context);
+        setupPowerPlatformAuthentication(context);
     });
 
     let loginCommand = vscode.commands.registerCommand('power-agent-mcp.login', () => {
-        loginToAzure(context);
+        loginToPowerPlatform(context);
     });
 
     let logoutCommand = vscode.commands.registerCommand('power-agent-mcp.logout', () => {
-        logoutFromAzure(context);
+        logoutFromPowerPlatform(context);
     });
 
-    context.subscriptions.push(startCommand, stopCommand, statusCommand, validateCommand, setupCommand, loginCommand, logoutCommand);
+    let selectEnvironmentCommand = vscode.commands.registerCommand('power-agent-mcp.selectEnvironment', () => {
+        selectPowerPlatformEnvironment(context);
+    });
+
+    context.subscriptions.push(startCommand, stopCommand, statusCommand, validateCommand, setupCommand, loginCommand, logoutCommand, selectEnvironmentCommand);
 
     // Check authentication status and prompt setup if needed
-    checkAuthenticationStatus(context);
+    checkPowerPlatformAuthenticationStatus(context);
 }
 
 async function startMCPServer(context: vscode.ExtensionContext) {
@@ -67,16 +70,16 @@ async function startMCPServer(context: vscode.ExtensionContext) {
     }
 
     try {
-        // Check if authentication is configured
-        const authContext = await getAuthenticationContext(context);
-        if (!authContext.tenantId) {
+        // Check if Power Platform authentication is configured
+        const authContext = await getPowerPlatformAuthenticationContext(context);
+        if (!authContext.environmentUrl || !authContext.tenantId) {
             const result = await vscode.window.showInformationMessage(
-                'Azure authentication is required to use Power Agent MCP. Would you like to set it up now?',
+                'Power Platform authentication is required to use Power Agent MCP. Would you like to set it up now?',
                 'Setup Authentication',
                 'Cancel'
             );
             if (result === 'Setup Authentication') {
-                await setupAzureAuthentication(context);
+                await setupPowerPlatformAuthentication(context);
                 return; // Will retry starting after authentication
             } else {
                 return;
@@ -92,6 +95,9 @@ async function startMCPServer(context: vscode.ExtensionContext) {
         };
 
         // Add Power Platform environment variables from authentication
+        if (authContext.environmentUrl) {
+            serverEnv.POWERPLATFORM_ENVIRONMENT_URL = authContext.environmentUrl;
+        }
         if (authContext.tenantId) {
             serverEnv.POWERPLATFORM_TENANT_ID = authContext.tenantId;
         }
@@ -104,7 +110,8 @@ async function startMCPServer(context: vscode.ExtensionContext) {
         });
 
         mcpServer.on('spawn', () => {
-            vscode.window.showInformationMessage('Power Agent MCP server started successfully');
+            const envName = authContext.environmentName || 'Unknown Environment';
+            vscode.window.showInformationMessage(`Power Agent MCP server started successfully (Environment: ${envName})`);
         });
 
         mcpServer.on('error', (error) => {
@@ -164,14 +171,14 @@ function getServerPath(): string {
     if (workspaceFolders) {
         // Look in workspace for local development
         const workspacePath = path.join(workspaceFolders[0].uri.fsPath, 'dist', 'mcp', 'server.js');
-        if (require('fs').existsSync(workspacePath)) {
+        if (fs.existsSync(workspacePath)) {
             return workspacePath;
         }
     }
 
     // Default to bundled server (included with extension)
     const bundledServerPath = path.join(__dirname, '..', 'server', 'server.js');
-    if (require('fs').existsSync(bundledServerPath)) {
+    if (fs.existsSync(bundledServerPath)) {
         return bundledServerPath;
     }
 
@@ -188,19 +195,19 @@ export function deactivate() {
     }
 }
 
-// Authentication functions
-async function checkAuthenticationStatus(context: vscode.ExtensionContext) {
-    const authContext = await getAuthenticationContext(context);
+// Power Platform Authentication Functions
+async function checkPowerPlatformAuthenticationStatus(context: vscode.ExtensionContext) {
+    const authContext = await getPowerPlatformAuthenticationContext(context);
     
-    if (!authContext.tenantId) {
+    if (!authContext.environmentUrl || !authContext.tenantId) {
         // No authentication configured, show welcome message
         const result = await vscode.window.showInformationMessage(
-            'Welcome to Power Agent MCP! Azure authentication is required to get started.',
+            'Welcome to Power Agent MCP! Power Platform authentication is required to get started.',
             'Setup Authentication',
             'Skip for now'
         );
         if (result === 'Setup Authentication') {
-            await setupAzureAuthentication(context);
+            await setupPowerPlatformAuthentication(context);
         }
     } else {
         // Authentication configured, check if auto-start is enabled
@@ -216,11 +223,11 @@ async function checkAuthenticationStatus(context: vscode.ExtensionContext) {
     }
 }
 
-async function setupAzureAuthentication(context: vscode.ExtensionContext) {
+async function setupPowerPlatformAuthentication(context: vscode.ExtensionContext) {
     const choices = [
-        'Use Azure CLI (recommended)',
-        'Interactive Browser Login',
-        'Manual Configuration'
+        'Use Power Platform CLI (pac auth)',
+        'Interactive Environment Selection',
+        'Manual Environment Configuration'
     ];
     
     const choice = await vscode.window.showQuickPick(choices, {
@@ -233,86 +240,155 @@ async function setupAzureAuthentication(context: vscode.ExtensionContext) {
 
     try {
         switch (choice) {
-            case 'Use Azure CLI (recommended)':
-                await setupAzureCLIAuth(context);
+            case 'Use Power Platform CLI (pac auth)':
+                await setupPACAuthIntegration(context);
                 break;
-            case 'Interactive Browser Login':
-                await setupInteractiveBrowserAuth(context);
+            case 'Interactive Environment Selection':
+                await setupInteractiveEnvironmentSelection(context);
                 break;
-            case 'Manual Configuration':
-                await setupManualConfiguration(context);
+            case 'Manual Environment Configuration':
+                await setupManualEnvironmentConfiguration(context);
                 break;
         }
     } catch (error: any) {
-        vscode.window.showErrorMessage(`Authentication setup failed: ${error.message}`);
+        vscode.window.showErrorMessage(`Power Platform authentication setup failed: ${error.message}`);
     }
 }
 
-async function setupAzureCLIAuth(context: vscode.ExtensionContext) {
+async function setupPACAuthIntegration(context: vscode.ExtensionContext) {
     try {
-        vscode.window.showInformationMessage('Checking Azure CLI authentication...');
+        vscode.window.showInformationMessage('Checking Power Platform CLI authentication...');
         
-        const credential = new AzureCliCredential();
-        const token = await credential.getToken(POWER_PLATFORM_SCOPE);
-        
-        // Get tenant information from Azure CLI
         const { exec } = require('child_process');
         const { promisify } = require('util');
         const execAsync = promisify(exec);
         
         try {
-            const { stdout } = await execAsync('az account show --query "{tenantId: tenantId, displayName: name}" -o json');
-            const accountInfo = JSON.parse(stdout);
+            // Check if pac CLI is available and authenticated
+            const { stdout } = await execAsync('pac auth list');
             
-            // Store authentication information
-            await context.secrets.store('powerAgentMcp.tenantId', accountInfo.tenantId);
-            await context.secrets.store('powerAgentMcp.accessToken', token.token);
-            await context.workspaceState.update('powerAgentMcp.accountDisplayName', accountInfo.displayName);
-            
-            vscode.window.showInformationMessage(`Successfully authenticated with Azure CLI (Tenant: ${accountInfo.displayName})`);
-            
-            // Ask if user wants to start the server now
-            const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
-                placeHolder: 'Start Power Agent MCP server now?'
-            });
-            
-            if (startNow === 'Yes') {
-                startMCPServer(context);
+            if (stdout.includes('*')) {
+                // Parse the current active auth profile
+                const lines = stdout.split('\n');
+                const activeLine = lines.find((line: string) => line.includes('*'));
+                
+                if (activeLine) {
+                    // Extract environment information from active profile
+                    const envNameMatch = activeLine.match(/\*\s+(\S+)/);
+                    const envName = envNameMatch ? envNameMatch[1] : 'Unknown';
+                    
+                    // Get detailed info about the current environment
+                    const { stdout: envInfo } = await execAsync('pac org who');
+                    const envUrlMatch = envInfo.match(/Environment Url:\s+(.+)/);
+                    const tenantIdMatch = envInfo.match(/Tenant Id:\s+(.+)/);
+                    
+                    if (envUrlMatch && tenantIdMatch) {
+                        const environmentUrl = envUrlMatch[1].trim();
+                        const tenantId = tenantIdMatch[1].trim();
+                        
+                        // Store authentication information
+                        await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
+                        await context.secrets.store('powerAgentMcp.tenantId', tenantId);
+                        await context.workspaceState.update('powerAgentMcp.environmentName', envName);
+                        
+                        vscode.window.showInformationMessage(`Successfully authenticated with Power Platform CLI (Environment: ${envName})`);
+                        
+                        // Ask if user wants to start the server now
+                        const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
+                            placeHolder: 'Start Power Agent MCP server now?'
+                        });
+                        
+                        if (startNow === 'Yes') {
+                            startMCPServer(context);
+                        }
+                        return;
+                    }
+                }
             }
+            
+            throw new Error('No active authentication profile found.');
             
         } catch (cliError) {
-            throw new Error('Azure CLI not authenticated. Please run "az login" first.');
+            throw new Error('Power Platform CLI not authenticated. Please run "pac auth create" first.');
         }
         
     } catch (error: any) {
-        throw new Error(`Azure CLI authentication failed: ${error.message}`);
+        throw new Error(`Power Platform CLI authentication failed: ${error.message}`);
     }
 }
 
-async function setupInteractiveBrowserAuth(context: vscode.ExtensionContext) {
+async function setupInteractiveEnvironmentSelection(context: vscode.ExtensionContext) {
     try {
-        vscode.window.showInformationMessage('Starting browser authentication...');
-        
-        const pca = new PublicClientApplication(AZURE_CONFIG);
-        
-        const deviceCodeRequest: DeviceCodeRequest = {
-            scopes: [POWER_PLATFORM_SCOPE],
-            deviceCodeCallback: (response) => {
-                vscode.window.showInformationMessage(
-                    `To sign in, use a web browser to open the page ${response.verificationUri} and enter the code ${response.userCode}`
-                );
+        // Show environment selection dialog
+        const environmentUrl = await vscode.window.showInputBox({
+            prompt: 'Enter your Power Platform Environment URL',
+            placeHolder: 'https://yourorg.crm.dynamics.com',
+            validateInput: (value) => {
+                if (!value || !value.match(/^https:\/\/[a-zA-Z0-9\-]+\.(crm\d*\.)?dynamics\.com\/?$/)) {
+                    return 'Please enter a valid Power Platform environment URL (e.g., https://yourorg.crm.dynamics.com)';
+                }
+                return undefined;
             }
-        };
+        });
 
-        const response = await pca.acquireTokenByDeviceCode(deviceCodeRequest);
+        if (!environmentUrl) {
+            return;
+        }
+
+        // Extract tenant information from environment URL
+        vscode.window.showInformationMessage('Discovering environment information...');
         
-        if (response && response.account) {
-            // Store authentication information
-            await context.secrets.store('powerAgentMcp.tenantId', response.account.tenantId || '');
-            await context.secrets.store('powerAgentMcp.accessToken', response.accessToken);
-            await context.workspaceState.update('powerAgentMcp.accountDisplayName', response.account.name || 'Unknown');
+        try {
+            const discoveryUrl = environmentUrl.replace(/\/$/, '') + '/api/discovery/v2.0/Instances';
+            const response = await axios.get(discoveryUrl, { timeout: 10000 });
             
-            vscode.window.showInformationMessage(`Successfully authenticated (Account: ${response.account.username})`);
+            if (response.data && response.data.value && response.data.value.length > 0) {
+                const environment = response.data.value[0];
+                const tenantId = environment.TenantId;
+                const environmentName = environment.FriendlyName || environment.UniqueName;
+                
+                // Store authentication information
+                await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
+                await context.secrets.store('powerAgentMcp.tenantId', tenantId);
+                await context.workspaceState.update('powerAgentMcp.environmentName', environmentName);
+                
+                vscode.window.showInformationMessage(`Successfully configured Power Platform environment (${environmentName})`);
+                
+                // Ask if user wants to start the server now
+                const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
+                    placeHolder: 'Start Power Agent MCP server now?'
+                });
+                
+                if (startNow === 'Yes') {
+                    startMCPServer(context);
+                }
+            } else {
+                throw new Error('Could not discover environment information');
+            }
+            
+        } catch (discoveryError) {
+            // Fallback to manual tenant ID entry
+            const tenantId = await vscode.window.showInputBox({
+                prompt: 'Environment discovery failed. Please enter your Power Platform Tenant ID manually',
+                placeHolder: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+                validateInput: (value) => {
+                    if (!value || !value.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+                        return 'Please enter a valid UUID format for Tenant ID';
+                    }
+                    return undefined;
+                }
+            });
+
+            if (!tenantId) {
+                return;
+            }
+
+            // Store manual configuration
+            await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
+            await context.secrets.store('powerAgentMcp.tenantId', tenantId);
+            await context.workspaceState.update('powerAgentMcp.environmentName', 'Custom Environment');
+            
+            vscode.window.showInformationMessage('Power Platform environment configured successfully');
             
             // Ask if user wants to start the server now
             const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
@@ -325,13 +401,28 @@ async function setupInteractiveBrowserAuth(context: vscode.ExtensionContext) {
         }
         
     } catch (error: any) {
-        throw new Error(`Interactive authentication failed: ${error.message}`);
+        throw new Error(`Interactive environment selection failed: ${error.message}`);
     }
 }
 
-async function setupManualConfiguration(context: vscode.ExtensionContext) {
+async function setupManualEnvironmentConfiguration(context: vscode.ExtensionContext) {
+    const environmentUrl = await vscode.window.showInputBox({
+        prompt: 'Enter your Power Platform Environment URL',
+        placeHolder: 'https://yourorg.crm.dynamics.com',
+        validateInput: (value) => {
+            if (!value || !value.match(/^https:\/\/[a-zA-Z0-9\-]+\.(crm\d*\.)?dynamics\.com\/?$/)) {
+                return 'Please enter a valid Power Platform environment URL';
+            }
+            return undefined;
+        }
+    });
+
+    if (!environmentUrl) {
+        return;
+    }
+
     const tenantId = await vscode.window.showInputBox({
-        prompt: 'Enter your Azure Tenant ID',
+        prompt: 'Enter your Power Platform Tenant ID',
         placeHolder: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
         validateInput: (value) => {
             if (!value || !value.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
@@ -346,10 +437,11 @@ async function setupManualConfiguration(context: vscode.ExtensionContext) {
     }
 
     // Store manual configuration
+    await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
     await context.secrets.store('powerAgentMcp.tenantId', tenantId);
-    await context.workspaceState.update('powerAgentMcp.accountDisplayName', 'Manual Configuration');
+    await context.workspaceState.update('powerAgentMcp.environmentName', 'Manual Configuration');
     
-    vscode.window.showInformationMessage('Manual configuration saved. Note: You may need to provide additional authentication when the server starts.');
+    vscode.window.showInformationMessage('Manual Power Platform configuration saved.');
     
     // Ask if user wants to start the server now
     const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
@@ -361,16 +453,17 @@ async function setupManualConfiguration(context: vscode.ExtensionContext) {
     }
 }
 
-async function loginToAzure(context: vscode.ExtensionContext) {
-    await setupAzureAuthentication(context);
+async function loginToPowerPlatform(context: vscode.ExtensionContext) {
+    await setupPowerPlatformAuthentication(context);
 }
 
-async function logoutFromAzure(context: vscode.ExtensionContext) {
+async function logoutFromPowerPlatform(context: vscode.ExtensionContext) {
+    await context.secrets.delete('powerAgentMcp.environmentUrl');
     await context.secrets.delete('powerAgentMcp.tenantId');
     await context.secrets.delete('powerAgentMcp.accessToken');
-    await context.workspaceState.update('powerAgentMcp.accountDisplayName', undefined);
+    await context.workspaceState.update('powerAgentMcp.environmentName', undefined);
     
-    vscode.window.showInformationMessage('Successfully logged out from Azure');
+    vscode.window.showInformationMessage('Successfully logged out from Power Platform');
     
     // Stop server if running
     if (mcpServer) {
@@ -378,12 +471,20 @@ async function logoutFromAzure(context: vscode.ExtensionContext) {
     }
 }
 
-async function getAuthenticationContext(context: vscode.ExtensionContext): Promise<AuthContext> {
+async function selectPowerPlatformEnvironment(context: vscode.ExtensionContext) {
+    await setupInteractiveEnvironmentSelection(context);
+}
+
+async function getPowerPlatformAuthenticationContext(context: vscode.ExtensionContext): Promise<PowerPlatformAuthContext> {
+    const environmentUrl = await context.secrets.get('powerAgentMcp.environmentUrl');
     const tenantId = await context.secrets.get('powerAgentMcp.tenantId');
     const accessToken = await context.secrets.get('powerAgentMcp.accessToken');
+    const environmentName = context.workspaceState.get<string>('powerAgentMcp.environmentName');
     
     return {
+        environmentUrl,
         tenantId,
-        accessToken
+        accessToken,
+        environmentName
     };
 }
