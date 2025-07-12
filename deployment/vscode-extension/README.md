@@ -5,20 +5,47 @@
 [![Downloads](https://img.shields.io/visual-studio-marketplace/d/darbotlabs.power-agent-mcp)](https://marketplace.visualstudio.com/items?itemName=darbotlabs.power-agent-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🚀 Critical Update - Now Self-Contained!
+## 🚀 Major Update v2.0.0 - Secure Azure Authentication!
 
-**✅ Zero-Setup Installation**: Extension now includes complete bundled MCP server  
-**✅ No External Dependencies**: No separate .NET tool installation required  
-**✅ Auto-Configuration**: Pre-configured credentials work immediately  
-**✅ One-Click Access**: Install extension → Start using 254 Power Platform tools
+**✅ Secure Authentication**: Interactive Azure login with automatic tenant detection  
+**✅ No Hardcoded Credentials**: Removed default tenant/app IDs for enterprise security  
+**✅ Multiple Auth Methods**: Azure CLI, browser login, or manual configuration  
+**✅ Self-Contained**: Complete bundled MCP server with 254 Power Platform tools
 
-### What's Fixed
-- **Before v1.0.3**: Required manual .NET tool installation, complex setup, frequent "server not found" errors
-- **After v1.0.3**: Complete self-contained extension with bundled server, zero friction installation
+### Authentication Revolution
+- **Before v2.0.0**: Hardcoded tenant/app IDs, security concerns for enterprise use
+- **After v2.0.0**: Interactive Azure authentication, works with any tenant, enterprise-ready security
 
 ## Overview
 
 The **Power Agent MCP** VSCode extension provides seamless integration with the Power Agent Model Context Protocol (MCP) server, enabling AI-powered development workflows for Microsoft Power Platform. This extension allows you to interact with Power Platform environments, solutions, applications, and data directly from your IDE through AI assistants like Claude and GitHub Copilot.
+
+## 🔐 Authentication
+
+### Secure Setup Process
+1. **Install Extension**: No additional setup required
+2. **Run Setup Wizard**: Extension prompts for authentication on first use
+3. **Choose Auth Method**: 
+   - **Azure CLI** (recommended): Uses existing `az login` session
+   - **Interactive Browser**: Device code flow for secure authentication
+   - **Manual Config**: For enterprise environments with specific requirements
+
+### Supported Authentication Methods
+
+#### Option 1: Azure CLI (Recommended)
+```bash
+az login
+# Extension automatically detects your tenant and credentials
+```
+
+#### Option 2: Interactive Browser Login
+- Extension opens secure Microsoft login flow
+- Device code authentication for maximum compatibility
+- Automatic tenant detection from your Azure account
+
+#### Option 3: Manual Configuration
+- For enterprise environments with specific tenant requirements
+- Guided configuration with validation
 
 ## 🚀 Features
 
@@ -38,7 +65,7 @@ The **Power Agent MCP** VSCode extension provides seamless integration with the 
 ### Developer Experience
 - **Visual Status Monitoring**: Real-time MCP server status in VSCode sidebar
 - **Interactive Tool Explorer**: Browse and discover available Power Platform operations
-- **Automated Configuration**: Smart detection and setup of Power Platform connections
+- **Secure Authentication**: Enterprise-grade security with your Azure credentials
 - **Comprehensive Logging**: Debug and troubleshoot with detailed operation logs
 
 ## 📦 Installation
@@ -59,38 +86,75 @@ Download the latest `.vsix` file from the [releases page](https://github.com/day
 
 ## ⚙️ Setup & Configuration
 
+## ⚙️ Setup & Configuration
+
 ### Prerequisites
 - **VSCode**: Version 1.74.0 or higher
 - **Node.js**: Version 18.0.0 or higher (for MCP server runtime)
-- **Power Platform Access**: Valid credentials for target environments
+- **Azure Account**: Access to Power Platform (any tenant)
 
-### Quick Start (Bundled Server)
-The extension now includes a bundled MCP server - no separate installation required!
+### Quick Start Guide
 
 1. **Install Extension**:
    - Search for "Power Agent MCP" in VSCode Extensions
    - Click Install
 
-2. **Configure Settings** (Optional):
-   - Open VSCode Settings (Ctrl+,)
-   - Search for "Power Agent MCP"
-   - Set your Power Platform credentials:
-     - Tenant ID: `6b104499-c49f-45dc-b3a2-df95efd6eeb4` (default)
-     - Application ID: `445ff173-a811-4760-a05c-3c37454f23d8` (default)
+2. **First Launch Authentication**:
+   - Extension automatically prompts for authentication setup
+   - Choose your preferred authentication method:
+     - **Azure CLI**: Use existing `az login` session (recommended)
+     - **Interactive Browser**: Secure device code authentication
+     - **Manual Config**: For enterprise-specific requirements
 
 3. **Start Using**:
-   - The MCP server starts automatically when VSCode opens
-   - Use Command Palette: "Power Agent MCP: Show MCP Server Status"
+   - Server starts automatically after authentication
+   - Access 254 Power Platform tools through AI assistants
 
-### Advanced Setup (Custom Server)
-For development or custom server paths:
-1. **Install MCP Server** (if using custom installation):
-   ```bash
-   dotnet tool install --global DarBotLabs.PowerAgent.MCP
-   ```
+### Authentication Setup Details
 
-2. **Configure Extension Settings**:
-   - Set custom server path if not using bundled server
+#### Option 1: Azure CLI (Recommended)
+```bash
+# First, ensure Azure CLI is logged in
+az login
+
+# Extension will automatically:
+# - Detect your logged-in tenant
+# - Use your existing credentials
+# - Configure the MCP server
+```
+
+#### Option 2: Interactive Browser Login
+1. Run: `Ctrl+Shift+P` → "Power Agent MCP: Setup Azure Authentication"
+2. Choose "Interactive Browser Login"
+3. Follow device code instructions in browser
+4. Extension automatically saves your tenant information
+
+#### Option 3: Manual Configuration
+1. Run: `Ctrl+Shift+P` → "Power Agent MCP: Setup Azure Authentication"
+2. Choose "Manual Configuration"
+3. Enter your Azure Tenant ID when prompted
+4. Additional authentication may be required at runtime
+
+### Managing Authentication
+
+- **View Status**: `Ctrl+Shift+P` → "Power Agent MCP: Show MCP Server Status"
+- **Re-authenticate**: `Ctrl+Shift+P` → "Power Agent MCP: Login to Azure"
+- **Logout**: `Ctrl+Shift+P` → "Power Agent MCP: Logout from Azure"
+- **Change Auth Method**: `Ctrl+Shift+P` → "Power Agent MCP: Setup Azure Authentication"
+
+### Advanced Configuration
+
+#### Custom Server Path (Development)
+For development with local server builds:
+1. Open VSCode Settings (Ctrl+,)
+2. Search for "Power Agent MCP"
+3. Set "Server Path" to your custom server location
+
+#### Environment Variables
+The extension sets these automatically from your authentication:
+- `POWERPLATFORM_TENANT_ID`: Your Azure tenant
+- `POWERPLATFORM_ACCESS_TOKEN`: Your access token
+- `POWERPLATFORM_MCP_MODE`: Set to 'vscode'
    - Configure authentication credentials
    - Adjust logging and performance settings
 

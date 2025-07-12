@@ -1,8 +1,8 @@
 {
   "name": "power-agent-mcp",
   "displayName": "Power Agent MCP",
-  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 254 tools for environments, solutions, apps, copilots, and data operations. Zero-setup installation for Claude, Continue, and other AI clients.",
-  "version": "1.0.3",
+  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 254 tools for environments, solutions, apps, copilots, and data operations. Secure Azure authentication with automatic tenant detection.",
+  "version": "2.0.0",
   "publisher": "darbotlabs",
   "engines": {
     "vscode": "^1.74.0",
@@ -28,7 +28,8 @@
     "power automate",
     "automation",
     "bundled server",
-    "zero setup",
+    "azure authentication",
+    "secure login",
     "enterprise",
     "devops",
     "solutions",
@@ -75,6 +76,21 @@
         "command": "power-agent-mcp.validateTools",
         "title": "Validate All Tools",
         "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.setup",
+        "title": "Setup Azure Authentication",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.login",
+        "title": "Login to Azure",
+        "category": "Power Agent MCP"
+      },
+      {
+        "command": "power-agent-mcp.logout",
+        "title": "Logout from Azure",
+        "category": "Power Agent MCP"
       }
     ],
     "configuration": {
@@ -103,13 +119,13 @@
         },
         "powerAgentMcp.environment.tenantId": {
           "type": "string",
-          "default": "6b104499-c49f-45dc-b3a2-df95efd6eeb4",
-          "description": "Power Platform Tenant ID"
+          "default": "",
+          "description": "Power Platform Tenant ID (auto-detected or configured via setup wizard)"
         },
         "powerAgentMcp.environment.applicationId": {
           "type": "string",
-          "default": "445ff173-a811-4760-a05c-3c37454f23d8",
-          "description": "Power Platform Application ID"
+          "default": "",
+          "description": "Power Platform Application ID (auto-detected or configured via setup wizard)"
         }
       }
     },
@@ -141,8 +157,7 @@
     "out/**/*",
     "server/**/*",
     "assets/**/*",
-    "README.md",
-    "LICENSE"
+    "README.md"
   ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -158,6 +173,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.5.0"
+    "@modelcontextprotocol/sdk": "^0.5.0",
+    "@azure/msal-node": "^2.11.0",
+    "@azure/identity": "^4.4.0"
   }
 }
