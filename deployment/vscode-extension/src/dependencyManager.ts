@@ -237,10 +237,10 @@ export class DependencyManager {
     private async installDotNetWindows(): Promise<void> {
         // Use winget or chocolatey if available, otherwise show manual instructions
         try {
-            await execAsync('winget install Microsoft.DotNet.SDK.6 --silent');
+            await execAsync('winget install Microsoft.DotNet.SDK.8 --silent');
         } catch (wingetError) {
             try {
-                await execAsync('choco install dotnet-sdk --version=6.0.0 -y');
+                await execAsync('choco install dotnet-sdk -y');
             } catch (chocoError) {
                 throw new Error('Please install .NET SDK manually from https://dotnet.microsoft.com/download');
             }
