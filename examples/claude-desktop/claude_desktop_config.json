@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "power-agent-mcp": {
+      "command": "node",
+      "args": ["dist/mcp/standalone-server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

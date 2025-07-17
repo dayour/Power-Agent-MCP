@@ -52,12 +52,19 @@
   },
   "main": "./out/extension.js",
   "activationEvents": [
+    "onStartupFinished",
+    "onCommand:power-agent-mcp.quickSetup",
     "onCommand:power-agent-mcp.start",
     "onCommand:power-agent-mcp.stop",
     "onCommand:power-agent-mcp.status"
   ],
   "contributes": {
     "commands": [
+      {
+        "command": "power-agent-mcp.quickSetup",
+        "title": "Quick Setup Power Platform",
+        "category": "Power Agent MCP"
+      },
       {
         "command": "power-agent-mcp.start",
         "title": "Start Power Agent MCP Server",
@@ -99,6 +106,39 @@
         "category": "Power Agent MCP"
       }
     ],
+    "walkthroughs": [
+      {
+        "id": "poweragent.welcome",
+        "title": "Get Started with Power Agent MCP",
+        "description": "AI-powered Power Platform development in minutes",
+        "steps": [
+          {
+            "id": "quicksetup",
+            "title": "Quick Setup",
+            "description": "Auto-detect and configure Microsoft credentials\n[Quick Setup](command:power-agent-mcp.quickSetup)",
+            "media": {
+              "markdown": "assets/walkthrough/quicksetup.md"
+            }
+          },
+          {
+            "id": "firstcommand",
+            "title": "Try Your First Command",
+            "description": "Test Power Platform automation with AI\n[Check Authentication](command:power-agent-mcp.status)",
+            "media": {
+              "markdown": "assets/walkthrough/firstcommand.md"
+            }
+          },
+          {
+            "id": "aiintegration",
+            "title": "AI Assistant Integration",
+            "description": "Use with Claude Desktop, GitHub Copilot, and more",
+            "media": {
+              "markdown": "assets/walkthrough/aiintegration.md"
+            }
+          }
+        ]
+      }
+    ],
     "configuration": {
       "title": "Power Agent MCP",
       "properties": {
@@ -127,6 +167,21 @@
           "type": "string",
           "default": "",
           "description": "Power Platform Environment URL (e.g., https://yourorg.crm.dynamics.com)"
+        },
+        "powerAgentMcp.autoDetectCredentials": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically detect Microsoft credentials from Azure CLI, PAC CLI, and Windows Credential Manager"
+        },
+        "powerAgentMcp.enableMSAL": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Microsoft Authentication Library (MSAL) for Microsoft 365/Azure integration"
+        },
+        "powerAgentMcp.backgroundService": {
+          "type": "boolean",
+          "default": true,
+          "description": "Run MCP server as background service with pre-warming and intelligent caching"
         }
       }
     },
