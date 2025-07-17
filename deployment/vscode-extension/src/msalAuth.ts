@@ -138,15 +138,9 @@ export class MSALAuthenticationProvider {
             const parts = account.id.split('-');
             // Look for a GUID pattern (tenant ID is typically a GUID)
             for (const part of parts) {
-                if (part.length === 32 && /^[a-f0-9]{32}$/i.test(part)) {
-                    // Format as GUID
-                    return [
-                        part.substring(0, 8),
-                        part.substring(8, 12),
-                        part.substring(12, 16),
-                        part.substring(16, 20),
-                        part.substring(20, 32)
-                    ].join('-');
+                if (/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(part)) {
+                    // Return the matched GUID directly
+                    return part;
                 }
             }
         }
