@@ -1,8 +1,6 @@
 {
-
-  "timestamp": "2025-07-17T08:30:44.294Z",
+  "timestamp": "2025-07-17T09:04:53.488Z",
   "serverStartup": true,
-
   "toolValidation": {
     "pp_whoami": "IMPLEMENTED",
     "pp_create_environment": "IMPLEMENTED",
@@ -24,23 +22,14 @@
   },
   "productionReadiness": "NEEDS_FIXES",
   "issues": [
-
-
-    "Server startup failed: Server exited unexpectedly. Error output: node:internal/modules/esm/resolve:873\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\n        ^\n\nError [ERR_MODULE_NOT_FOUND]: Cannot find package '@modelcontextprotocol/sdk' imported from /home/runner/work/Power-Agent-MCP/Power-Agent-MCP/dist/mcp/standalone-server.js\n    at packageResolve (node:internal/modules/esm/resolve:873:9)\n    at moduleResolve (node:internal/modules/esm/resolve:946:18)\n    at defaultResolve (node:internal/modules/esm/resolve:1188:11)\n    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:642:12)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:591:25)\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:574:38)\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:236:38)\n    at ModuleJob._link (node:internal/modules/esm/module_job:130:49) {\n  code: 'ERR_MODULE_NOT_FOUND'\n}\n\nNode.js v20.19.3\n",
-
     "PAC CLI integration test failed: spawn pac ENOENT"
   ],
   "summary": {
     "implementedTools": 12,
     "totalTools": 12,
     "implementationRate": "100.0%",
-
     "criticalIssues": 1,
     "serverStartup": true,
-
-    "criticalIssues": 2,
-    "serverStartup": false,
-
     "pacCliIntegration": false
   }
 }

@@ -1,0 +1,50 @@
+{
+  "models": [
+    {
+      "title": "GPT-4",
+      "provider": "openai",
+      "model": "gpt-4",
+      "apiKey": "[API_KEY]"
+    }
+  ],
+  "mcpServers": {
+    "power-agent-mcp": {
+      "command": "node",
+      "args": ["path/to/Power-Agent-MCP/dist/mcp/standalone-server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "contextProviders": [
+    {
+      "name": "power-platform",
+      "params": {
+        "description": "Power Platform automation and management"
+      }
+    }
+  ],
+  "slashCommands": [
+    {
+      "name": "power",
+      "description": "Power Platform commands"
+    }
+  ],
+  "customCommands": [
+    {
+      "name": "Check Power Platform Status",
+      "prompt": "Use the Power Agent MCP to check my current Power Platform authentication status and available environments",
+      "description": "Quick status check for Power Platform connectivity"
+    },
+    {
+      "name": "Create Development Environment",
+      "prompt": "Create a new Power Platform development environment with appropriate settings for {environmentName}",
+      "description": "Set up a new development environment"
+    },
+    {
+      "name": "Export Solution for Deployment",
+      "prompt": "Export the {solutionName} solution from the current environment and prepare it for deployment",
+      "description": "Export and package solution for release"
+    }
+  ]
+}

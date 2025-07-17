@@ -37,6 +37,8 @@ exports.DependencyManager = void 0;
 const vscode = __importStar(require("vscode"));
 const child_process_1 = require("child_process");
 const util_1 = require("util");
+const fs = __importStar(require("fs"));
+const path = __importStar(require("path"));
 const os = __importStar(require("os"));
 const execAsync = (0, util_1.promisify)(child_process_1.exec);
 /**
@@ -228,11 +230,11 @@ class DependencyManager {
     async installDotNetWindows() {
         // Use winget or chocolatey if available, otherwise show manual instructions
         try {
-            await execAsync('winget install Microsoft.DotNet.SDK.6 --silent');
+            await execAsync('winget install Microsoft.DotNet.SDK.8 --silent');
         }
         catch (wingetError) {
             try {
-                await execAsync('choco install dotnet-sdk --version=6.0.0 -y');
+                await execAsync('choco install dotnet-sdk -y');
             }
             catch (chocoError) {
                 throw new Error('Please install .NET SDK manually from https://dotnet.microsoft.com/download');
@@ -321,8 +323,18 @@ class DependencyManager {
     async installNodeJSLinux() {
         // Use NodeSource repository for latest LTS
         try {
-            await execAsync('curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -');
+            const scriptPath = path.join(os.tmpdir(), 'nodesource_setup.sh');
+            await execAsync(`curl -fsSL https://deb.nodesource.com/setup_lts.x -o ${scriptPath}`);
+            // Optionally verify the script's integrity (e.g., checksum or signature)
+            // Example: const expectedChecksum = 'abc123...'; // Replace with actual checksum
+            // const actualChecksum = await execAsync(`sha256sum ${scriptPath}`);
+            // if (!actualChecksum.includes(expectedChecksum)) {
+            //     throw new Error('Checksum verification failed for NodeSource setup script.');
+            // }
+            await execAsync(`sudo -E bash ${scriptPath}`);
             await execAsync('sudo apt-get install -y nodejs');
+            // Clean up temporary script file
+            fs.unlinkSync(scriptPath);
         }
         catch (error) {
             throw new Error('Please install Node.js manually from https://nodejs.org/');
