@@ -332,8 +332,21 @@ export class DependencyManager {
     private async installNodeJSLinux(): Promise<void> {
         // Use NodeSource repository for latest LTS
         try {
-            await execAsync('curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -');
+            const scriptPath = path.join(os.tmpdir(), 'nodesource_setup.sh');
+            await execAsync(`curl -fsSL https://deb.nodesource.com/setup_lts.x -o ${scriptPath}`);
+            
+            // Optionally verify the script's integrity (e.g., checksum or signature)
+            // Example: const expectedChecksum = 'abc123...'; // Replace with actual checksum
+            // const actualChecksum = await execAsync(`sha256sum ${scriptPath}`);
+            // if (!actualChecksum.includes(expectedChecksum)) {
+            //     throw new Error('Checksum verification failed for NodeSource setup script.');
+            // }
+            
+            await execAsync(`sudo -E bash ${scriptPath}`);
             await execAsync('sudo apt-get install -y nodejs');
+            
+            // Clean up temporary script file
+            fs.unlinkSync(scriptPath);
         } catch (error) {
             throw new Error('Please install Node.js manually from https://nodejs.org/');
         }
