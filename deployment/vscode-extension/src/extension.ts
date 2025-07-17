@@ -3,8 +3,14 @@ import { spawn, ChildProcess } from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
 import axios from 'axios';
+import { MicrosoftCredentialDetector, DetectedCredential } from './credentialDetection';
+import { DependencyManager } from './dependencyManager';
+import { MSALAuthenticationProvider, MSALAuthResult } from './msalAuth';
 
 let mcpServer: ChildProcess | undefined;
+let credentialDetector: MicrosoftCredentialDetector;
+let dependencyManager: DependencyManager;
+let msalProvider: MSALAuthenticationProvider;
 
 interface PowerPlatformEnvironment {
     environmentId: string;
@@ -23,6 +29,11 @@ interface PowerPlatformAuthContext {
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Power Agent MCP extension is now active!');
+
+    // Initialize services
+    credentialDetector = new MicrosoftCredentialDetector();
+    dependencyManager = new DependencyManager();
+    msalProvider = new MSALAuthenticationProvider();
 
     // Register commands
     let startCommand = vscode.commands.registerCommand('power-agent-mcp.start', () => {
@@ -57,10 +68,25 @@ export function activate(context: vscode.ExtensionContext) {
         selectPowerPlatformEnvironment(context);
     });
 
-    context.subscriptions.push(startCommand, stopCommand, statusCommand, validateCommand, setupCommand, loginCommand, logoutCommand, selectEnvironmentCommand);
+    // New streamlined setup command
+    let quickSetupCommand = vscode.commands.registerCommand('power-agent-mcp.quickSetup', () => {
+        performQuickSetup(context);
+    });
 
-    // Check authentication status and prompt setup if needed
-    checkPowerPlatformAuthenticationStatus(context);
+    context.subscriptions.push(
+        startCommand, 
+        stopCommand, 
+        statusCommand, 
+        validateCommand, 
+        setupCommand, 
+        loginCommand, 
+        logoutCommand, 
+        selectEnvironmentCommand,
+        quickSetupCommand
+    );
+
+    // Check authentication status and start streamlined setup if needed
+    checkAndInitializeStreamlinedSetup(context);
 }
 
 async function startMCPServer(context: vscode.ExtensionContext) {
@@ -195,43 +221,380 @@ export function deactivate() {
     }
 }
 
-// Power Platform Authentication Functions
-async function checkPowerPlatformAuthenticationStatus(context: vscode.ExtensionContext) {
+// Streamlined Setup Functions
+
+/**
+ * Perform one-click streamlined setup with auto-detection
+ */
+async function performQuickSetup(context: vscode.ExtensionContext): Promise<void> {
+    await vscode.window.withProgress({
+        location: vscode.ProgressLocation.Notification,
+        title: 'Setting up Power Agent MCP',
+        cancellable: false
+    }, async (progress) => {
+        progress.report({ increment: 10, message: 'Checking dependencies...' });
+        
+        // Step 1: Check and install dependencies
+        await dependencyManager.installMissingDependencies(false);
+        
+        progress.report({ increment: 30, message: 'Detecting Microsoft credentials...' });
+        
+        // Step 2: Auto-detect Microsoft credentials
+        const detectedCredentials = await credentialDetector.detectCredentials();
+        
+        if (detectedCredentials.length > 0) {
+            progress.report({ increment: 20, message: 'Configuring with detected credentials...' });
+            
+            // Use the best available credential
+            const bestCredential = credentialDetector.getBestCredential(detectedCredentials);
+            if (bestCredential && credentialDetector.isCredentialSufficient(bestCredential)) {
+                await configureWithDetectedCredential(context, bestCredential);
+                
+                progress.report({ increment: 20, message: 'Starting MCP server...' });
+                
+                // Start the MCP server
+                await startMCPServer(context);
+                
+                progress.report({ increment: 20, message: 'Complete!' });
+                
+                // Show welcome tour
+                await showWelcomeTour(context);
+                return;
+            }
+        }
+        
+        progress.report({ increment: 20, message: 'Launching Microsoft sign-in...' });
+        
+        // Step 3: If no credentials detected, try MSAL authentication
+        try {
+            const msalResult = await msalProvider.signIn();
+            if (msalResult) {
+                await configureWithMSALResult(context, msalResult);
+                
+                progress.report({ increment: 20, message: 'Starting MCP server...' });
+                await startMCPServer(context);
+                
+                progress.report({ increment: 20, message: 'Complete!' });
+                await showWelcomeTour(context);
+                return;
+            }
+        } catch (error) {
+            console.log('MSAL authentication failed:', error);
+        }
+        
+        // Step 4: Fallback to manual setup
+        progress.report({ increment: 40, message: 'Manual setup required...' });
+        await setupPowerPlatformAuthentication(context);
+    });
+}
+
+/**
+ * Check and initialize streamlined setup on activation
+ */
+async function checkAndInitializeStreamlinedSetup(context: vscode.ExtensionContext): Promise<void> {
+    // Check if this is the first run or if authentication is missing
     const authContext = await getPowerPlatformAuthenticationContext(context);
+    const hasCompletedSetup = context.globalState.get<boolean>('powerAgentMcp.setupCompleted', false);
     
-    if (!authContext.environmentUrl || !authContext.tenantId) {
-        // No authentication configured, show welcome message
+    if (!hasCompletedSetup || (!authContext.environmentUrl && !authContext.tenantId)) {
+        // Show welcome message with streamlined setup option
         const result = await vscode.window.showInformationMessage(
-            'Welcome to Power Agent MCP! Power Platform authentication is required to get started.',
-            'Setup Authentication',
+            '🚀 Welcome to Power Agent MCP! Get started with AI-powered Power Platform automation in minutes.',
+            'Quick Setup (Recommended)',
+            'Manual Setup',
             'Skip for now'
         );
-        if (result === 'Setup Authentication') {
+        
+        if (result === 'Quick Setup (Recommended)') {
+            await performQuickSetup(context);
+        } else if (result === 'Manual Setup') {
             await setupPowerPlatformAuthentication(context);
         }
     } else {
-        // Authentication configured, check if auto-start is enabled
+        // Existing setup detected, check dependencies and auto-start if enabled
+        const missingDepsCount = await dependencyManager.getMissingDependenciesCount();
+        
+        if (missingDepsCount > 0) {
+            const result = await vscode.window.showInformationMessage(
+                `Power Agent MCP: ${missingDepsCount} dependencies are missing. Install them now?`,
+                'Install Dependencies',
+                'Skip'
+            );
+            
+            if (result === 'Install Dependencies') {
+                await dependencyManager.installMissingDependencies();
+            }
+        }
+        
+        // Check auto-start setting
         const config = vscode.workspace.getConfiguration('powerAgentMcp');
         const autoStart = config.get<boolean>('autoStart', true);
         
         if (autoStart) {
-            // Delay auto-start slightly to let VSCode finish loading
-            setTimeout(() => {
-                startMCPServer(context);
+            // Delay auto-start slightly to let VS Code finish loading
+            setTimeout(async () => {
+                await startMCPServer(context);
             }, 2000);
         }
     }
 }
 
+/**
+ * Configure authentication with detected credential
+ */
+async function configureWithDetectedCredential(context: vscode.ExtensionContext, credential: DetectedCredential): Promise<void> {
+    // Store authentication information
+    if (credential.environmentUrl) {
+        await context.secrets.store('powerAgentMcp.environmentUrl', credential.environmentUrl);
+    }
+    if (credential.tenantId) {
+        await context.secrets.store('powerAgentMcp.tenantId', credential.tenantId);
+    }
+    if (credential.accessToken) {
+        await context.secrets.store('powerAgentMcp.accessToken', credential.accessToken);
+    }
+    if (credential.environmentName) {
+        await context.workspaceState.update('powerAgentMcp.environmentName', credential.environmentName);
+    }
+    
+    // Mark setup as completed
+    await context.globalState.update('powerAgentMcp.setupCompleted', true);
+    
+    const sourceName = credential.source === 'azure-cli' ? 'Azure CLI' : 
+                      credential.source === 'pac-cli' ? 'Power Platform CLI' :
+                      credential.source === 'windows-credential-manager' ? 'Windows Credential Manager' : 'MSAL';
+    
+    vscode.window.showInformationMessage(
+        `✅ Power Platform authentication configured automatically using ${sourceName}`
+    );
+}
+
+/**
+ * Configure authentication with MSAL result
+ */
+async function configureWithMSALResult(context: vscode.ExtensionContext, msalResult: MSALAuthResult): Promise<void> {
+    // Store MSAL authentication information
+    await context.secrets.store('powerAgentMcp.accessToken', msalResult.accessToken);
+    await context.secrets.store('powerAgentMcp.tenantId', msalResult.account.tenantId);
+    await context.workspaceState.update('powerAgentMcp.environmentName', 'Microsoft Account');
+    
+    // Mark setup as completed
+    await context.globalState.update('powerAgentMcp.setupCompleted', true);
+    
+    vscode.window.showInformationMessage(
+        `✅ Power Platform authentication configured using Microsoft Account (${msalResult.account.username})`
+    );
+}
+
+/**
+ * Show welcome tour and first Power Platform command
+ */
+async function showWelcomeTour(context: vscode.ExtensionContext): Promise<void> {
+    const result = await vscode.window.showInformationMessage(
+        '🎉 Power Agent MCP is ready! You now have access to 12 Power Platform automation tools through AI assistants.',
+        'Try First Command',
+        'View Tools',
+        'Open Documentation'
+    );
+    
+    if (result === 'Try First Command') {
+        await showFirstCommandDemo();
+    } else if (result === 'View Tools') {
+        await showAvailableTools();
+    } else if (result === 'Open Documentation') {
+        vscode.env.openExternal(vscode.Uri.parse('https://github.com/dayour/Power-Agent-MCP#readme'));
+    }
+}
+
+/**
+ * Show first command demonstration
+ */
+async function showFirstCommandDemo(): Promise<void> {
+    const commands = [
+        '"Check my Power Platform authentication status"',
+        '"List all my Power Platform environments"',
+        '"Show me available Power Platform tools"',
+        '"Create a new development environment called \'AI Test Lab\'"'
+    ];
+    
+    const selectedCommand = await vscode.window.showQuickPick(commands, {
+        placeHolder: 'Select a command to try with your AI assistant (Claude Desktop, GitHub Copilot, etc.)'
+    });
+    
+    if (selectedCommand) {
+        await vscode.env.clipboard.writeText(selectedCommand);
+        vscode.window.showInformationMessage(
+            `Command copied to clipboard! Open your AI assistant and paste: ${selectedCommand}`
+        );
+    }
+}
+
+/**
+ * Show available tools summary
+ */
+async function showAvailableTools(): Promise<void> {
+    const toolsSummary = `
+Power Agent MCP Tools Available:
+
+🔐 Authentication (3 tools):
+• pp_whoami - Check authentication status
+• pp_auth_create - Create authentication profiles
+• pp_auth_list - List authentication profiles
+
+🌐 Environment Management (3 tools):
+• pp_create_environment - Create new environments
+• pp_list_environments - List all environments
+• pp_delete_environment - Delete environments
+
+📦 Solution Operations (4 tools):
+• pp_export_solution - Export solutions
+• pp_import_solution - Import solutions
+• pp_pack_solution - Package solutions
+• pp_unpack_solution - Unpack solutions
+
+🔍 Diagnostics (2 tools):
+• pp_list_solutions - List solutions
+• Connection validation and health checks
+
+Total: 12 production-ready tools for AI-powered Power Platform automation
+    `;
+    
+    const result = await vscode.window.showInformationMessage(
+        toolsSummary,
+        'Copy Tool List',
+        'Open Documentation'
+    );
+    
+    if (result === 'Copy Tool List') {
+        await vscode.env.clipboard.writeText(toolsSummary);
+        vscode.window.showInformationMessage('Tools summary copied to clipboard!');
+    } else if (result === 'Open Documentation') {
+        vscode.env.openExternal(vscode.Uri.parse('https://github.com/dayour/Power-Agent-MCP/blob/main/power-mcp.md'));
+    }
+}
+
+// End of Streamlined Setup Functions
+// Power Platform Authentication Functions
+async function checkPowerPlatformAuthenticationStatus(context: vscode.ExtensionContext) {
+    // This function is now replaced by checkAndInitializeStreamlinedSetup
+    // Keep for backward compatibility but redirect to new function
+    await checkAndInitializeStreamlinedSetup(context);
+}
+
 async function setupPowerPlatformAuthentication(context: vscode.ExtensionContext) {
-    const choices = [
+    // First try auto-detection
+    const detectedCredentials = await credentialDetector.detectCredentials();
+    
+    if (detectedCredentials.length > 0) {
+        const credentialOptions = detectedCredentials.map(cred => {
+            const sourceName = cred.source === 'azure-cli' ? 'Azure CLI' : 
+                              cred.source === 'pac-cli' ? 'Power Platform CLI' :
+                              cred.source === 'windows-credential-manager' ? 'Windows Credential Manager' : 'MSAL';
+            return `Use ${sourceName} (${cred.userPrincipalName || cred.environmentName || 'detected'})`;
+        });
+        
+        const choices = [
+            ...credentialOptions,
+            'Microsoft Sign-in (MSAL)',
+            'Use Power Platform CLI (pac auth)',
+            'Interactive Environment Selection',
+            'Manual Environment Configuration'
+        ];
+        
+        const choice = await vscode.window.showQuickPick(choices, {
+            placeHolder: 'Select authentication method (auto-detected options available)'
+        });
+
+        if (!choice) {
+            return;
+        }
+
+        // Handle auto-detected credentials
+        for (let i = 0; i < credentialOptions.length; i++) {
+            if (choice === credentialOptions[i]) {
+                const credential = detectedCredentials[i];
+                await configureWithDetectedCredential(context, credential);
+                
+                // Ask if user wants to start the server now
+                const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
+                    placeHolder: 'Start Power Agent MCP server now?'
+                });
+                
+                if (startNow === 'Yes') {
+                    await startMCPServer(context);
+                }
+                return;
+            }
+        }
+        
+        // Handle MSAL authentication
+        if (choice === 'Microsoft Sign-in (MSAL)') {
+            try {
+                const msalResult = await msalProvider.signIn();
+                if (msalResult) {
+                    await configureWithMSALResult(context, msalResult);
+                    
+                    const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
+                        placeHolder: 'Start Power Agent MCP server now?'
+                    });
+                    
+                    if (startNow === 'Yes') {
+                        await startMCPServer(context);
+                    }
+                }
+                return;
+            } catch (error: any) {
+                vscode.window.showErrorMessage(`Microsoft authentication failed: ${error.message}`);
+                // Fall through to other options
+            }
+        }
+    } else {
+        // No auto-detected credentials, show all manual options including MSAL
+        const choices = [
+            'Microsoft Sign-in (MSAL)',
+            'Use Power Platform CLI (pac auth)',
+            'Interactive Environment Selection',
+            'Manual Environment Configuration'
+        ];
+        
+        const choice = await vscode.window.showQuickPick(choices, {
+            placeHolder: 'Select authentication method'
+        });
+
+        if (!choice) {
+            return;
+        }
+        
+        // Handle MSAL authentication
+        if (choice === 'Microsoft Sign-in (MSAL)') {
+            try {
+                const msalResult = await msalProvider.signIn();
+                if (msalResult) {
+                    await configureWithMSALResult(context, msalResult);
+                    
+                    const startNow = await vscode.window.showQuickPick(['Yes', 'No'], {
+                        placeHolder: 'Start Power Agent MCP server now?'
+                    });
+                    
+                    if (startNow === 'Yes') {
+                        await startMCPServer(context);
+                    }
+                }
+                return;
+            } catch (error: any) {
+                vscode.window.showErrorMessage(`Microsoft authentication failed: ${error.message}`);
+                // Fall through to other options
+            }
+        }
+    }
+
+    // Handle existing manual methods
+    const choice = await vscode.window.showQuickPick([
         'Use Power Platform CLI (pac auth)',
         'Interactive Environment Selection',
         'Manual Environment Configuration'
-    ];
-    
-    const choice = await vscode.window.showQuickPick(choices, {
-        placeHolder: 'Select authentication method'
+    ], {
+        placeHolder: 'Select manual authentication method'
     });
 
     if (!choice) {
