@@ -536,6 +536,30 @@ class PowerPlatformMCPServer {
   }
 
   // Utility Methods
+  private sanitizeCommandForLogging(cmd: string): string {
+    // Redact sensitive information from PAC CLI commands for safe logging
+    let sanitized = cmd;
+    
+    // Redact quoted password parameters first (most specific)
+    sanitized = sanitized.replace(/--password\s+"[^"]+"/gi, '--password "[REDACTED]"');
+    sanitized = sanitized.replace(/--password\s+'[^']+'/gi, "--password '[REDACTED]'");
+    
+    // Redact quoted client secret parameters first (most specific)
+    sanitized = sanitized.replace(/--clientSecret\s+"[^"]+"/gi, '--clientSecret "[REDACTED]"');
+    sanitized = sanitized.replace(/--clientSecret\s+'[^']+'/gi, "--clientSecret '[REDACTED]'");
+    
+    // Then handle unquoted values (less specific, won't match if already replaced)
+    sanitized = sanitized.replace(/--password\s+(?!"\[REDACTED\]")[^\s]+/gi, '--password [REDACTED]');
+    sanitized = sanitized.replace(/--clientSecret\s+(?!"\[REDACTED\]")[^\s]+/gi, '--clientSecret [REDACTED]');
+    
+    // Redact any other potential secrets with quotes
+    sanitized = sanitized.replace(/--token\s+"[^"]+"/gi, '--token "[REDACTED]"');
+    sanitized = sanitized.replace(/--key\s+"[^"]+"/gi, '--key "[REDACTED]"');
+    sanitized = sanitized.replace(/--secret\s+"[^"]+"/gi, '--secret "[REDACTED]"');
+    
+    return sanitized;
+  }
+
   private buildPacCommand(baseCmd: string, params: Record<string, any>): string {
     let cmd = `pac ${baseCmd}`;
     
@@ -556,7 +580,9 @@ class PowerPlatformMCPServer {
 
   private async executePacCommand(cmd: string): Promise<any> {
     try {
-      console.error(`Executing: ${cmd}`);
+      // Sanitize command for logging to prevent credential exposure
+      const sanitizedCmd = this.sanitizeCommandForLogging(cmd);
+      console.error(`Executing: ${sanitizedCmd}`);
       const { stdout, stderr } = await execAsync(cmd, { 
         timeout: 300000, // 5 minutes timeout
         maxBuffer: 1024 * 1024 * 10 // 10MB buffer
