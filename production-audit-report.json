@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-07-12T04:29:33.624Z",
+  "timestamp": "2025-07-17T08:09:37.146Z",
   "serverStartup": true,
   "toolValidation": {
     "pp_whoami": "IMPLEMENTED",
@@ -15,19 +15,21 @@
     "pp_auth_list": "IMPLEMENTED",
     "pp_auth_select": "IMPLEMENTED"
   },
-  "pacCliIntegration": true,
+  "pacCliIntegration": false,
   "documentationAccuracy": {
     "toolCount": "ACCURATE",
     "installation": "PRESENT"
   },
-  "productionReadiness": "READY",
-  "issues": [],
+  "productionReadiness": "NEEDS_FIXES",
+  "issues": [
+    "PAC CLI integration test failed: spawn pac ENOENT"
+  ],
   "summary": {
     "implementedTools": 12,
     "totalTools": 12,
     "implementationRate": "100.0%",
-    "criticalIssues": 0,
+    "criticalIssues": 1,
     "serverStartup": true,
-    "pacCliIntegration": true
+    "pacCliIntegration": false
   }
 }
