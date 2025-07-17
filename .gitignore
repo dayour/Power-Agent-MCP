@@ -9,8 +9,21 @@ logs
 npm-debug.log*
 
 /.env
+.env.*
+!.env.example
 
+# Security - Sensitive files
 .taskkey
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+secrets.*
+config.local.*
+*secret*
+*credential*
 
 # Visual Studio
 .vs/
