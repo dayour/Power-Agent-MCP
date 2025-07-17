@@ -57,16 +57,15 @@ export class DependencyManager {
      * Check all dependencies and return their status
      */
     async checkDependencies(): Promise<Dependency[]> {
-        const checkedDependencies: Dependency[] = [];
-        
-        for (const dep of this.dependencies) {
+        const validationPromises = this.dependencies.map(async (dep) => {
             const isInstalled = await dep.validator();
-            checkedDependencies.push({
+            return {
                 ...dep,
                 isInstalled
-            });
-        }
+            };
+        });
         
+        const checkedDependencies = await Promise.all(validationPromises);
         return checkedDependencies;
     }
     
