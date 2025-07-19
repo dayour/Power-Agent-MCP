@@ -37,7 +37,7 @@
       "type": "shell",
       "label": "Test MCP Tools",
       "command": "node",
-      "args": ["${workspaceFolder}/functional-test.js"],
+      "args": ["${workspaceFolder}/test/functional-test.js"],
       "group": "test",
       "presentation": {
         "echo": true,

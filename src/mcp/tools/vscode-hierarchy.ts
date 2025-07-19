@@ -16,8 +16,7 @@ export class VSCodeHierarchicalTools {
   }
 
   getParentTools(): Tool[] {
-    return [
-      {
+    return [      {
         name: 'pp_environment',
         description: 'Environment and administration operations - manage Power Platform environments, users, roles, and administrative tasks',
         inputSchema: {
@@ -25,18 +24,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'create_environment', 'delete_environment', 'backup_environment', 'restore_environment', 'copy_environment', 'reset_environment',
-                'admin_help', 'admin_add_group', 'admin_list_applications', 'admin_register_application', 'admin_unregister_application',
-                'admin_create_service_principal', 'admin_list_environments', 'admin_list_app_templates', 'admin_assign_user',
-                'admin_backup', 'admin_copy', 'admin_create', 'admin_delete', 'admin_governance_configuration', 'admin_list',
-                'admin_restore', 'admin_update', 'admin_create_application_user', 'admin_delete_application_user',
-                'admin_list_application_users', 'admin_create_user', 'admin_delete_user', 'admin_list_users',
-                'admin_assign_group', 'admin_create_group', 'admin_delete_group', 'admin_list_groups',
-                'admin_list_role_assignments', 'admin_list_security_roles', 'env_help', 'env_fetch', 'env_list',
-                'env_list_settings', 'env_select', 'env_update_settings', 'env_who'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -46,21 +34,14 @@ export class VSCodeHierarchicalTools {
           required: ['command']
         }
       },
-      {
-        name: 'pp_solution',
+      {        name: 'pp_solution',
         description: 'Solution development lifecycle - export, import, pack, unpack solutions and manage solution components',
         inputSchema: {
           type: 'object',
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'export_solution', 'import_solution', 'pack_solution', 'unpack_solution', 'set_solution_version',
-                'add_solution_component', 'apply_solution_upgrade', 'delete_solution', 'solution_help',
-                'solution_add_license', 'solution_clone', 'solution_create_settings', 'solution_init',
-                'solution_list', 'solution_online_version', 'solution_sync', 'solution_upgrade'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -70,23 +51,14 @@ export class VSCodeHierarchicalTools {
           required: ['command']
         }
       },
-      {
-        name: 'pp_application',
+      {        name: 'pp_application',
         description: 'Application development - canvas apps, PCF components, plugins, Power Pages and code development',
         inputSchema: {
           type: 'object',
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'canvas_help', 'canvas_create', 'canvas_download', 'canvas_list', 'canvas_pack', 'canvas_unpack', 'canvas_validate',
-                'pcf_help', 'pcf_init', 'pcf_push', 'pcf_version', 'plugin_help', 'plugin_init', 'plugin_push',
-                'pages_help', 'pages_download', 'pages_download_code_site', 'pages_list', 'pages_migrate_datamodel',
-                'pages_upload', 'pages_upload_code_site', 'code_help', 'code_add_data_source', 'code_delete_data_source',
-                'code_init', 'code_push', 'code_run', 'application_help', 'install_application', 'application_list',
-                'deploy_package', 'install_catalog', 'submit_catalog'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -95,8 +67,7 @@ export class VSCodeHierarchicalTools {
           },
           required: ['command']
         }
-      },
-      {
+      },      {
         name: 'pp_copilot',
         description: 'AI copilot management - comprehensive copilot lifecycle, knowledge management, testing, deployment and monitoring',
         inputSchema: {
@@ -104,27 +75,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                // Original copilot commands
-                'copilot_help', 'copilot_create', 'copilot_extract_template', 'copilot_extract_translation',
-                'copilot_list', 'copilot_merge_translation', 'copilot_model_list', 'copilot_model_predict',
-                'copilot_model_prepare_fetch', 'copilot_publish', 'copilot_status',
-                // New comprehensive commands
-                'copilot_clone', 'copilot_fork', 'copilot_init', 'copilot_scaffold', 'copilot_export',
-                'copilot_export_solution', 'copilot_export_knowledge', 'copilot_export_topics', 'copilot_import',
-                'copilot_import_solution', 'copilot_import_knowledge', 'copilot_import_topics', 'copilot_pull',
-                'copilot_push', 'copilot_edit_settings', 'copilot_edit_manifest', 'copilot_edit_topic',
-                'copilot_transform_state', 'copilot_refactor_intents', 'copilot_add_knowledge', 'copilot_add_tool',
-                'copilot_knowledge_scrub', 'copilot_knowledge_reindex', 'copilot_list_agents', 'copilot_get_agent',
-                'copilot_delete_agent', 'copilot_list_topic', 'copilot_get_topic', 'copilot_delete_topic',
-                'copilot_move_topic', 'copilot_topic_version', 'copilot_secure_roles', 'copilot_secure_secrets',
-                'copilot_secure_dlp_check', 'copilot_audit_trail', 'copilot_compliance_export', 'copilot_test_conversation',
-                'copilot_test_regression', 'copilot_validate_schema', 'copilot_validate_intents', 'copilot_lint_topics',
-                'copilot_rollback', 'copilot_promote', 'copilot_package_init', 'copilot_package_deploy',
-                'copilot_containerize', 'copilot_logs', 'copilot_metrics', 'copilot_trace', 'copilot_monitor',
-                'copilot_env_set', 'copilot_env_diff', 'copilot_config_set', 'copilot_upgrade', 'copilot_version'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -133,8 +84,7 @@ export class VSCodeHierarchicalTools {
           },
           required: ['command']
         }
-      },
-      {
+      },      {
         name: 'pp_data',
         description: 'Data operations and SQL management - export/import data, SQL database operations and schema management',
         inputSchema: {
@@ -142,11 +92,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'export_data', 'import_data', 'sql_list_tables', 'sql_describe_table', 'sql_create_table',
-                'sql_drop_table', 'sql_insert_data', 'sql_read_data', 'sql_update_data'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -155,8 +101,7 @@ export class VSCodeHierarchicalTools {
           },
           required: ['command']
         }
-      },
-      {
+      },      {
         name: 'pp_connector',
         description: 'Connections and connectors - manage Dataverse connections, custom connectors and adaptive cards',
         inputSchema: {
@@ -164,15 +109,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'connection_help', 'connection_create', 'connection_delete', 'connection_list', 'connection_update',
-                'connector_help', 'connector_create', 'connector_download', 'connector_init', 'connector_list',
-                'connector_update', 'adaptivecard_help', 'adaptivecard_create', 'adaptivecard_validate',
-                'adaptivecard_generate_from_data', 'adaptivecard_deploy_to_copilot', 'adaptivecard_list_templates',
-                'adaptivecard_convert_legacy', 'adaptivecard_test_rendering', 'adaptivecard_extract_from_copilot',
-                'adaptivecard_data_binding'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -181,8 +118,7 @@ export class VSCodeHierarchicalTools {
           },
           required: ['command']
         }
-      },
-      {
+      },      {
         name: 'pp_security',
         description: 'Security and governance - authentication, user management, role assignments and compliance',
         inputSchema: {
@@ -190,11 +126,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'auth_help', 'auth_clear', 'auth_create', 'auth_delete', 'auth_list', 'auth_name', 'auth_select',
-                'auth_update', 'assign_user', 'assign_group'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -203,8 +135,7 @@ export class VSCodeHierarchicalTools {
           },
           required: ['command']
         }
-      },
-      {
+      },      {
         name: 'pp_utility',
         description: 'Tools, help and diagnostics - help commands, tool management, telemetry and validation',
         inputSchema: {
@@ -212,12 +143,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'tool_help', 'tool_admin', 'tool_cmt', 'tool_list', 'tool_maker', 'tool_pd', 'tool_prt',
-                'tool_installer', 'whoami', 'catalog_status', 'help_commands', 'telemetry_help',
-                'telemetry_disable', 'telemetry_enable', 'telemetry_status'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -226,8 +152,7 @@ export class VSCodeHierarchicalTools {
           },
           required: ['command']
         }
-      },
-      {
+      },      {
         name: 'pp_pipeline',
         description: 'CI/CD and deployment - pipeline operations, package management and automated deployment',
         inputSchema: {
@@ -235,12 +160,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'pipeline_help', 'pipeline_deploy', 'pipeline_list', 'package_help', 'package_deploy',
-                'package_init', 'package_show', 'package_update', 'package_version', 'download_portal',
-                'upload_portal'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -249,8 +169,7 @@ export class VSCodeHierarchicalTools {
           },
           required: ['command']
         }
-      },
-      {
+      },      {
         name: 'pp_quality',
         description: 'Testing and quality assurance - solution checker, testing operations and Power Fx development',
         inputSchema: {
@@ -258,11 +177,7 @@ export class VSCodeHierarchicalTools {
           properties: {
             command: {
               type: 'string',
-              description: 'Specific command to execute',
-              enum: [
-                'solution_checker', 'test_help', 'test_run', 'power_fx_help', 'power_fx_repl', 'power_fx_run',
-                'model_builder_build'
-              ]
+              description: 'Specific command to execute'
             },
             parameters: {
               type: 'object',
@@ -280,18 +195,18 @@ export class VSCodeHierarchicalTools {
 
     // Create dispatch handlers for each parent tool
     const parentTools = this.getParentTools();
-    
+
     parentTools.forEach(parentTool => {
       handlers[parentTool.name] = async (args: any) => {
         const { command, parameters = {} } = args;
-        
+
         if (!command) {
           throw new Error(`Command parameter is required for ${parentTool.name}`);
         }
 
         // Map command to actual tool name
         const actualToolName = this.mapCommandToToolName(command);
-        
+
         // Call the original tool handler
         return await this.fullHandler.callTool(actualToolName, parameters);
       };
@@ -346,7 +261,7 @@ export class VSCodeHierarchicalTools {
       'env_select': 'pp_env_select',
       'env_update_settings': 'pp_env_update_settings',
       'env_who': 'pp_env_who',
-      
+
       // Solution commands
       'export_solution': 'pp_export_solution',
       'import_solution': 'pp_import_solution',
@@ -365,7 +280,7 @@ export class VSCodeHierarchicalTools {
       'solution_online_version': 'pp_solution_online_version',
       'solution_sync': 'pp_solution_sync',
       'solution_upgrade': 'pp_solution_upgrade',
-      
+
       // Application commands
       'canvas_help': 'pp_canvas_help',
       'canvas_create': 'pp_canvas_create',
@@ -400,7 +315,7 @@ export class VSCodeHierarchicalTools {
       'deploy_package': 'pp_deploy_package',
       'install_catalog': 'pp_install_catalog',
       'submit_catalog': 'pp_submit_catalog',
-      
+
       // Data commands
       'export_data': 'pp_export_data',
       'import_data': 'pp_import_data',
@@ -411,7 +326,7 @@ export class VSCodeHierarchicalTools {
       'sql_insert_data': 'sql_insert_data',
       'sql_read_data': 'sql_read_data',
       'sql_update_data': 'sql_update_data',
-      
+
       // Connector commands
       'connection_help': 'pp_connection_help',
       'connection_create': 'pp_connection_create',
@@ -434,7 +349,7 @@ export class VSCodeHierarchicalTools {
       'adaptivecard_test_rendering': 'pp_adaptivecard_test_rendering',
       'adaptivecard_extract_from_copilot': 'pp_adaptivecard_extract_from_copilot',
       'adaptivecard_data_binding': 'pp_adaptivecard_data_binding',
-      
+
       // Security commands
       'auth_help': 'pp_auth_help',
       'auth_clear': 'pp_auth_clear',
@@ -446,7 +361,7 @@ export class VSCodeHierarchicalTools {
       'auth_update': 'pp_auth_update',
       'assign_user': 'pp_assign_user',
       'assign_group': 'pp_assign_group',
-      
+
       // Utility commands
       'tool_help': 'pp_tool_help',
       'tool_admin': 'pp_tool_admin',
@@ -463,7 +378,7 @@ export class VSCodeHierarchicalTools {
       'telemetry_disable': 'pp_telemetry_disable',
       'telemetry_enable': 'pp_telemetry_enable',
       'telemetry_status': 'pp_telemetry_status',
-      
+
       // Pipeline commands
       'pipeline_help': 'pp_pipeline_help',
       'pipeline_deploy': 'pp_pipeline_deploy',
@@ -476,7 +391,7 @@ export class VSCodeHierarchicalTools {
       'package_version': 'pp_package_version',
       'download_portal': 'pp_download_portal',
       'upload_portal': 'pp_upload_portal',
-      
+
       // Quality commands
       'solution_checker': 'pp_solution_checker',
       'test_help': 'pp_test_help',
@@ -496,7 +411,7 @@ export class VSCodeHierarchicalTools {
     if (!mappedName) {
       throw new Error(`Unknown command: ${command}`);
     }
-    
+
     return mappedName;
   }
 }

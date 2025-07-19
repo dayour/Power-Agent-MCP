@@ -2,8 +2,10 @@
 
 <div align="center">
 
-[![PullRequest](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml/badge.svg)](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml)
-[![Official Build](https://dev.azure.com/dynamicscrm/OneCRM/_apis/build/status%2FDPX-Tools%2Fpowerplatform-build-tools%20Official%20Build?branchName=main)](https://dev.azure.com/dynamicscrm/OneCRM/_build/latest?definitionId=15006&branchName=main)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
+[![VSCode Marketplace](https://img.shields.io/visual-studio-marketplace/v/darbotlabs.power-agent-mcp?label=VS%20Code%20Extension)](https://marketplace.visualstudio.com/items?itemName=darbotlabs.power-agent-mcp)
+[![NuGet Package](https://img.shields.io/nuget/v/DarBotLabs.PowerAgent.MCP?label=NuGet)](https://www.nuget.org/packages/DarBotLabs.PowerAgent.MCP/)
 
 **🚀 Enterprise AI SDK for Microsoft Power Platform**
 
