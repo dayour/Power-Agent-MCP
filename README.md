@@ -202,7 +202,7 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
      "mcpServers": {
        "power-agent-mcp": {
          "command": "node",
-         "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
+         "args": ["/path/to/Power-Agent-MCP/dist/mcp/standalone-server.js"],
          "env": {
            "POWERPLATFORM_TENANT_ID": "your-tenant-id",
            "POWERPLATFORM_APPLICATION_ID": "your-app-id",
@@ -367,7 +367,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "power-agent-mcp": {
       "command": "node",
-      "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
+  "args": ["/path/to/Power-Agent-MCP/dist/mcp/standalone-server.js"],
       "env": {
         "POWERPLATFORM_TENANT_ID": "your-tenant-id",
         "POWERPLATFORM_APPLICATION_ID": "your-app-id",

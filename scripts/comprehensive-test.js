@@ -7,10 +7,12 @@ console.log('🔍 Comprehensive MCP Server Test\n');
 console.log('📱 Testing VSCode Mode (Hierarchical Tools)...');
 process.env.POWERPLATFORM_MCP_MODE = 'vscode';
 
-import('./dist/mcp/server.js').then(() => {
+// Prefer root dist path; gracefully skip if not built
+import('../dist/mcp/server.js').then(() => {
     console.log('✅ VSCode mode server loaded successfully');
 }).catch(error => {
     console.log('❌ VSCode mode server load failed:', error.message);
+    console.log('ℹ️ Hint: run "npm run build:full" to build the modular server');
 });
 
 // Test 2: Full Mode (individual tools)
@@ -18,10 +20,11 @@ setTimeout(() => {
     console.log('\n🖥️ Testing Full Mode (Individual Tools)...');
     process.env.POWERPLATFORM_MCP_MODE = 'full';
 
-    import('./dist/mcp/server.js?' + Date.now()).then(() => {
+    import('../dist/mcp/server.js?' + Date.now()).then(() => {
         console.log('✅ Full mode server loaded successfully');
     }).catch(error => {
         console.log('❌ Full mode server load failed:', error.message);
+        console.log('ℹ️ Hint: run "npm run build:full" to build the modular server');
     });
 }, 1000);
 
@@ -30,9 +33,9 @@ setTimeout(async () => {
     console.log('\n🔧 Testing Tool Availability...');
 
     try {
-        // Import the handler directly
-        const { PowerPlatformToolHandler } = await import('./dist/mcp/tools/handler.js');
-        const { VSCodeHierarchicalTools } = await import('./dist/mcp/tools/vscode-hierarchy.js');
+        // Import the handler directly (modular build)
+        const { PowerPlatformToolHandler } = await import('../dist/mcp/tools/handler.js');
+        const { VSCodeHierarchicalTools } = await import('../dist/mcp/tools/vscode-hierarchy.js');
 
         // Test full mode tools
         const fullHandler = new PowerPlatformToolHandler();
@@ -71,5 +74,7 @@ setTimeout(async () => {
 
     } catch (error) {
         console.log('❌ Tool availability test failed:', error.message);
+        console.log('ℹ️ Skipping tool availability checks until modular build artifacts are present.');
+        console.log('   Run: npm run build:full');
     }
 }, 2000);
