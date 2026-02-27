@@ -590,7 +590,7 @@ class PowerPlatformMCPServer {
       
       return {
         success: true,
-        command: cmd,
+        command: sanitizedCmd,
         output: stdout,
         error: stderr || null,
         timestamp: new Date().toISOString(),
@@ -598,7 +598,7 @@ class PowerPlatformMCPServer {
     } catch (error: any) {
       return {
         success: false,
-        command: cmd,
+        command: sanitizedCmd,
         error: error.message || String(error),
         stdout: error.stdout || '',
         stderr: error.stderr || '',
