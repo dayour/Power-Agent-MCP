@@ -2,6 +2,28 @@
 /out/
 /dist/
 /bin/
+node_modules/
+
+# Generated validation/audit outputs
+.validation-output/
+**/auditlogs/
+**/reports/
+*-audit-report.json
+*-audit-report.md
+*-validation-report.json
+*-audit-log.md
+*AUDIT*.md
+*VALIDATION*SUMMARY*.md
+*SECURITY*REPORT*.md
+
+# Downloaded/generated local artifacts
+/.npmrc.temp
+/pac.tar.gz
+/packages-microsoft-prod.deb
+/package-original.json
+/package-standalone.json
+/scorch
+/scorch.cmd
 
 # Logs
 logs
