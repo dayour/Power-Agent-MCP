@@ -111,7 +111,7 @@ export class CodeTools {
       pp_code_init: async (args: any) => {
         return { content: `Code app '${args.appName}' initialized in current directory` };
       },
-      pp_code_push: async (args: any) => {
+      pp_code_push: async (_args: any) => {
         return { content: 'New version of Code app published successfully' };
       },
       pp_code_run: async (args: any) => {

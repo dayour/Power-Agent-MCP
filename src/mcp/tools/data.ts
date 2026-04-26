@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
 
 export class DataTools {
   getTools(): Tool[] {
@@ -53,39 +54,29 @@ export class DataTools {
   }
 
   private async exportData(args: any): Promise<any> {
-    const { main: exportDataMain } = await import('../../tasks/export-data/export-data-v2/index.js');
-    
-    process.env.INPUT_SCHEMAFILE = args.schemaFile;
-    process.env.INPUT_DATAFILE = args.dataFile;
-
-    try {
-      await exportDataMain();
-      return {
-        success: true,
-        message: 'Data exported successfully',
-        schemaFile: args.schemaFile,
-        dataFile: args.dataFile
-      };
-    } catch (error) {
-      throw new Error(`Failed to export data: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['data', 'export'], {
+      schemaFile: args.schemaFile,
+      dataFile: args.dataFile,
+    });
+    return {
+      success: true,
+      message: 'Data exported successfully',
+      schemaFile: args.schemaFile,
+      dataFile: args.dataFile,
+      output: result.stdout,
+    };
   }
 
   private async importData(args: any): Promise<any> {
-    const { main: importDataMain } = await import('../../tasks/import-data/import-data-v2/index.js');
-    
-    process.env.INPUT_DATAFILE = args.dataFile;
-    if (args.connectionCount) process.env.INPUT_CONNECTIONCOUNT = String(args.connectionCount);
-
-    try {
-      await importDataMain();
-      return {
-        success: true,
-        message: 'Data imported successfully',
-        dataFile: args.dataFile
-      };
-    } catch (error) {
-      throw new Error(`Failed to import data: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['data', 'import'], {
+      dataFile: args.dataFile,
+      connectionCount: args.connectionCount,
+    });
+    return {
+      success: true,
+      message: 'Data imported successfully',
+      dataFile: args.dataFile,
+      output: result.stdout,
+    };
   }
 }

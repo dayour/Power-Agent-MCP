@@ -26,8 +26,8 @@ export class DependencyManager {
     private dependencies: Dependency[] = [
         {
             name: 'dotnet',
-            displayName: '.NET SDK 6.0+',
-            version: '6.0+',
+            displayName: '.NET SDK 10.0+',
+            version: '10.0+',
             isInstalled: false,
             validator: this.validateDotNet.bind(this),
             installer: this.installDotNet.bind(this),
@@ -204,9 +204,9 @@ export class DependencyManager {
             const { stdout } = await execAsync('dotnet --version');
             const version = stdout.trim();
             
-            // Check if version is 6.0 or higher
+            // Check if version is 10.0 or higher
             const majorVersion = parseInt(version.split('.')[0]);
-            return majorVersion >= 6;
+            return majorVersion >= 10;
         } catch (error) {
             return false;
         }
@@ -236,12 +236,12 @@ export class DependencyManager {
     private async installDotNetWindows(): Promise<void> {
         // Use winget or chocolatey if available, otherwise show manual instructions
         try {
-            await execAsync('winget install Microsoft.DotNet.SDK.8 --silent');
+            await execAsync('winget install Microsoft.DotNet.SDK.10 --silent');
         } catch (wingetError) {
             try {
                 await execAsync('choco install dotnet-sdk -y');
             } catch (chocoError) {
-                throw new Error('Please install .NET SDK manually from https://dotnet.microsoft.com/download');
+                throw new Error('Please install .NET 10 SDK manually from https://dotnet.microsoft.com/download');
             }
         }
     }
@@ -250,7 +250,7 @@ export class DependencyManager {
         try {
             await execAsync('brew install --cask dotnet-sdk');
         } catch (error) {
-            throw new Error('Please install .NET SDK manually using Homebrew: brew install --cask dotnet-sdk');
+            throw new Error('Please install .NET 10 SDK manually using Homebrew: brew install --cask dotnet-sdk');
         }
     }
     
@@ -261,15 +261,15 @@ export class DependencyManager {
         switch (distro) {
             case 'ubuntu':
             case 'debian':
-                await execAsync('sudo apt-get update && sudo apt-get install -y dotnet-sdk-6.0');
+                await execAsync('sudo apt-get update && sudo apt-get install -y dotnet-sdk-10.0');
                 break;
             case 'fedora':
             case 'centos':
             case 'rhel':
-                await execAsync('sudo dnf install -y dotnet-sdk-6.0');
+                await execAsync('sudo dnf install -y dotnet-sdk-10.0');
                 break;
             default:
-                throw new Error('Please install .NET SDK manually for your Linux distribution');
+                throw new Error('Please install .NET 10 SDK manually for your Linux distribution');
         }
     }
     
@@ -381,7 +381,7 @@ export class DependencyManager {
         try {
             const { stdout } = await execAsync('cat /etc/os-release');
             const lines = stdout.split('\n');
-            const idLine = lines.find(line => line.startsWith('ID='));
+            const idLine = lines.find((line: string) => line.startsWith('ID='));
             
             if (idLine) {
                 return idLine.split('=')[1].replace(/"/g, '').toLowerCase();

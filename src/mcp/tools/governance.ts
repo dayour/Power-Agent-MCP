@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
+import { legacyTaskUnavailable } from '../runtime/legacy.js';
 
 export class GovernanceTools {
   getTools(): Tool[] {
@@ -74,69 +76,34 @@ export class GovernanceTools {
   }
 
   private async setConnectionVariables(args: any): Promise<any> {
-    const { main: setConnectionVariablesMain } = await import('../../tasks/set-connection-variables/set-connection-variables-v2/index.js');
-    
-    process.env.INPUT_CONNECTIONVARIABLESFILE = args.connectionVariablesFile;
-
-    try {
-      await setConnectionVariablesMain();
-      return {
-        success: true,
-        message: 'Connection variables set successfully',
-        connectionVariablesFile: args.connectionVariablesFile
-      };
-    } catch (error) {
-      throw new Error(`Failed to set connection variables: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    return legacyTaskUnavailable(
+      'pp_set_connection_variables',
+      `pac connection update --connection-variables-file ${args.connectionVariablesFile}`
+    );
   }
 
   private async setGovernanceConfig(args: any): Promise<any> {
-    const { main: setGovernanceConfigMain } = await import('../../tasks/set-governance-config/set-governance-config-v2/index.js');
-    
-    process.env.INPUT_CONFIGURATIONFILE = args.configurationFile;
-
-    try {
-      await setGovernanceConfigMain();
-      return {
-        success: true,
-        message: 'Governance configuration set successfully',
-        configurationFile: args.configurationFile
-      };
-    } catch (error) {
-      throw new Error(`Failed to set governance config: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    return legacyTaskUnavailable(
+      'pp_set_governance_config',
+      `pac admin governance update --configuration-file ${args.configurationFile}`
+    );
   }
 
   private async updateOrgSettings(args: any): Promise<any> {
-    const { main: updateOrgSettingsMain } = await import('../../tasks/update-org-settings/update-org-settings-v2/index.js');
-    
-    process.env.INPUT_SETTINGSFILE = args.settingsFile;
-
-    try {
-      await updateOrgSettingsMain();
-      return {
-        success: true,
-        message: 'Organization settings updated successfully',
-        settingsFile: args.settingsFile
-      };
-    } catch (error) {
-      throw new Error(`Failed to update org settings: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    return legacyTaskUnavailable(
+      'pp_update_org_settings',
+      `pac org update-settings --settings-file ${args.settingsFile}`
+    );
   }
 
   private async publishCustomizations(args: any): Promise<any> {
-    const { main: publishCustomizationsMain } = await import('../../tasks/publish-customizations/publish-customizations-v2/index.js');
-    
-    if (args.async !== undefined) process.env.INPUT_ASYNC = String(args.async);
-
-    try {
-      await publishCustomizationsMain();
-      return {
-        success: true,
-        message: 'Customizations published successfully'
-      };
-    } catch (error) {
-      throw new Error(`Failed to publish customizations: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'publish'], {
+      async: args.async,
+    });
+    return {
+      success: true,
+      message: 'Customizations published successfully',
+      output: result.stdout,
+    };
   }
 }

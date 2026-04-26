@@ -40,17 +40,17 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         config-file: ./.github/codeql/codeql-config.yml
 
     - name: Setup Node.js environment
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20
         registry-url: https://npm.pkg.github.com
@@ -58,21 +58,21 @@ jobs:
     - name: Configure npm
       run: npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GPR_ACCESS_TOKEN }}
 
-    - name: Install npm@8 globally (windows)
+    - name: Install npm@11 globally (windows)
       if: matrix.os == 'windows-latest'
-      run: npm i -g npm@8
+      run: npm i -g npm@11
 
-    - name: Install npm@9 globally (linux)
+    - name: Install npm@11 globally (linux)
       if: matrix.os != 'windows-latest'
-      run: npm i -g npm@9
+      run: npm i -g npm@11
 
     - name: Install npm dependencies
-      run: npm install
+      run: npm ci
 
     - name: Build and test
       run: npm run build
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"

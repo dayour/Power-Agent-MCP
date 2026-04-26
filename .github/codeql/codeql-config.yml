@@ -13,4 +13,3 @@ paths-ignore:
   - node_modules
   - test
   - docs
-  - examples

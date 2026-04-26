@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
 
 export class SecurityTools {
   getTools(): Tool[] {
@@ -83,48 +84,38 @@ export class SecurityTools {
   }
 
   private async assignUser(args: any): Promise<any> {
-    const { main: assignUserMain } = await import('../../tasks/assign-user/assign-user-v2/index.js');
-    
-    process.env.INPUT_USER = args.user;
-    process.env.INPUT_ROLE = args.role;
-    if (args.businessUnit) process.env.INPUT_BUSINESSUNIT = args.businessUnit;
-    if (args.applicationUser !== undefined) process.env.INPUT_APPLICATIONUSER = String(args.applicationUser);
-
-    try {
-      await assignUserMain();
-      return {
-        success: true,
-        message: 'User role assigned successfully',
-        user: args.user,
-        role: args.role
-      };
-    } catch (error) {
-      throw new Error(`Failed to assign user: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'assign-user'], {
+      user: args.user,
+      role: args.role,
+      businessUnit: args.businessUnit,
+      applicationUser: args.applicationUser,
+    });
+    return {
+      success: true,
+      message: 'User role assigned successfully',
+      user: args.user,
+      role: args.role,
+      output: result.stdout,
+    };
   }
 
   private async assignGroup(args: any): Promise<any> {
-    const { main: assignGroupMain } = await import('../../tasks/assign-group/assign-group-v2/index.js');
-    
-    process.env.INPUT_AADGROUPID = args.aadGroupId;
-    if (args.aadGroupName) process.env.INPUT_AADGROUPNAME = args.aadGroupName;
-    process.env.INPUT_DATAVERSETEAMTYPE = args.dataverseTeamType;
-    if (args.membershipType) process.env.INPUT_MEMBERSHIPTYPE = args.membershipType;
-    process.env.INPUT_TEAMNAME = args.teamName;
-    process.env.INPUT_ROLE = args.role;
-    if (args.businessUnit) process.env.INPUT_BUSINESSUNIT = args.businessUnit;
-
-    try {
-      await assignGroupMain();
-      return {
-        success: true,
-        message: 'Group assigned successfully',
-        aadGroupId: args.aadGroupId,
-        teamName: args.teamName,
-        role: args.role
-      };
-    } catch (error) {
-      throw new Error(`Failed to assign group: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'assign-group'], {
+      azureAadGroupId: args.aadGroupId,
+      groupName: args.aadGroupName,
+      teamType: args.dataverseTeamType,
+      membershipType: args.membershipType,
+      teamName: args.teamName,
+      role: args.role,
+      businessUnit: args.businessUnit,
+    });
+    return {
+      success: true,
+      message: 'Group assigned successfully',
+      aadGroupId: args.aadGroupId,
+      teamName: args.teamName,
+      role: args.role,
+      output: result.stdout,
+    };
   }
 }

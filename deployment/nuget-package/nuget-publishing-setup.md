@@ -11,7 +11,7 @@ This guide covers the complete process for publishing Power Agent MCP to NuGet.o
 - [ ] Configure organization permissions
 
 ### 2. Development Environment
-- [ ] .NET SDK 6.0+ installed
+- [ ] .NET SDK 10.0+ installed
 - [ ] NuGet CLI tools available
 - [ ] PowerShell 5.1+ or PowerShell Core
 - [ ] Git repository access

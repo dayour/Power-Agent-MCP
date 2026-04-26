@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
 
 export class EnvironmentTools {
   getTools(): Tool[] {
@@ -131,7 +132,7 @@ export class EnvironmentTools {
             },
             copyType: {
               type: 'string',
-              enum: ['Full', 'Minimal'],
+              enum: ['Full'],
               description: 'Type of copy operation'
             },
             skipAuditData: {
@@ -404,130 +405,98 @@ export class EnvironmentTools {
   }
 
   private async createEnvironment(args: any): Promise<any> {
-    // Import the actual task implementation
-    const { main: createEnvironmentMain } = await import('../../tasks/create-environment/create-environment-v2/index.js');
-    
-    // Set up task library inputs
-    process.env.INPUT_DISPLAYNAME = args.displayName;
-    process.env.INPUT_ENVIRONMENTTYPE = args.environmentType;
-    if (args.region) process.env.INPUT_REGION = args.region;
-    if (args.currency) process.env.INPUT_CURRENCY = args.currency;
-    if (args.language) process.env.INPUT_LANGUAGE = args.language;
-    if (args.domainName) process.env.INPUT_DOMAINNAME = args.domainName;
-    if (args.securityGroupId) process.env.INPUT_SECURITYGROUPID = args.securityGroupId;
-
-    try {
-      await createEnvironmentMain();
-      return {
-        success: true,
-        message: `Environment '${args.displayName}' created successfully`,
-        displayName: args.displayName,
-        environmentType: args.environmentType
-      };
-    } catch (error) {
-      throw new Error(`Failed to create environment: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'create'], {
+      name: args.displayName,
+      type: args.environmentType,
+      region: args.region,
+      currency: args.currency,
+      language: args.language,
+      domain: args.domainName,
+      securityGroupId: args.securityGroupId,
+    });
+    return {
+      success: true,
+      message: `Environment '${args.displayName}' created successfully`,
+      displayName: args.displayName,
+      environmentType: args.environmentType,
+      output: result.stdout,
+    };
   }
 
   private async deleteEnvironment(args: any): Promise<any> {
-    const { main: deleteEnvironmentMain } = await import('../../tasks/delete-environment/delete-environment-v2/index.js');
-    
-    process.env.INPUT_ENVIRONMENTURL = args.environmentUrl;
-    if (args.environmentId) process.env.INPUT_ENVIRONMENTID = args.environmentId;
-
-    try {
-      await deleteEnvironmentMain();
-      return {
-        success: true,
-        message: 'Environment deleted successfully',
-        environmentUrl: args.environmentUrl
-      };
-    } catch (error) {
-      throw new Error(`Failed to delete environment: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'delete'], {
+      environment: args.environmentUrl,
+      environmentId: args.environmentId,
+    });
+    return {
+      success: true,
+      message: 'Environment deleted successfully',
+      environmentUrl: args.environmentUrl,
+      output: result.stdout,
+    };
   }
 
   private async backupEnvironment(args: any): Promise<any> {
-    const { main: backupEnvironmentMain } = await import('../../tasks/backup-environment/backup-environment-v2/index.js');
-    
-    process.env.INPUT_ENVIRONMENTURL = args.environmentUrl;
-    process.env.INPUT_BACKUPLABEL = args.backupLabel;
-    if (args.notes) process.env.INPUT_NOTES = args.notes;
-
-    try {
-      await backupEnvironmentMain();
-      return {
-        success: true,
-        message: 'Environment backup created successfully',
-        environmentUrl: args.environmentUrl,
-        backupLabel: args.backupLabel
-      };
-    } catch (error) {
-      throw new Error(`Failed to backup environment: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'backup'], {
+      environment: args.environmentUrl,
+      label: args.backupLabel,
+      notes: args.notes,
+    });
+    return {
+      success: true,
+      message: 'Environment backup created successfully',
+      environmentUrl: args.environmentUrl,
+      backupLabel: args.backupLabel,
+      output: result.stdout,
+    };
   }
 
   private async restoreEnvironment(args: any): Promise<any> {
-    const { main: restoreEnvironmentMain } = await import('../../tasks/restore-environment/restore-environment-v2/index.js');
-    
-    process.env.INPUT_SOURCEENVIRONMENTURL = args.sourceEnvironmentUrl;
-    process.env.INPUT_TARGETENVIRONMENTURL = args.targetEnvironmentUrl;
-    if (args.backupDateTime) process.env.INPUT_BACKUPDATETIME = args.backupDateTime;
-    if (args.skipAuditData !== undefined) process.env.INPUT_SKIPAUDITDATA = String(args.skipAuditData);
-    if (args.maxAsyncWaitTimeInMin) process.env.INPUT_MAXASYNCWAITTIMEINMIN = String(args.maxAsyncWaitTimeInMin);
-
-    try {
-      await restoreEnvironmentMain();
-      return {
-        success: true,
-        message: 'Environment restored successfully',
-        sourceEnvironmentUrl: args.sourceEnvironmentUrl,
-        targetEnvironmentUrl: args.targetEnvironmentUrl
-      };
-    } catch (error) {
-      throw new Error(`Failed to restore environment: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'restore'], {
+      sourceEnvironment: args.sourceEnvironmentUrl,
+      targetEnvironment: args.targetEnvironmentUrl,
+      selectedBackup: args.backupDateTime,
+      skipAuditData: args.skipAuditData,
+      maxAsyncWaitTime: args.maxAsyncWaitTimeInMin,
+    });
+    return {
+      success: true,
+      message: 'Environment restored successfully',
+      sourceEnvironmentUrl: args.sourceEnvironmentUrl,
+      targetEnvironmentUrl: args.targetEnvironmentUrl,
+      output: result.stdout,
+    };
   }
 
   private async copyEnvironment(args: any): Promise<any> {
-    const { main: copyEnvironmentMain } = await import('../../tasks/copy-environment/copy-environment-v2/index.js');
-    
-    process.env.INPUT_SOURCEENVIRONMENTURL = args.sourceEnvironmentUrl;
-    process.env.INPUT_TARGETENVIRONMENTURL = args.targetEnvironmentUrl;
-    if (args.copyType) process.env.INPUT_COPYTYPE = args.copyType;
-    if (args.skipAuditData !== undefined) process.env.INPUT_SKIPAUDITDATA = String(args.skipAuditData);
-    if (args.maxAsyncWaitTimeInMin) process.env.INPUT_MAXASYNCWAITTIMEINMIN = String(args.maxAsyncWaitTimeInMin);
-
-    try {
-      await copyEnvironmentMain();
-      return {
-        success: true,
-        message: 'Environment copied successfully',
-        sourceEnvironmentUrl: args.sourceEnvironmentUrl,
-        targetEnvironmentUrl: args.targetEnvironmentUrl
-      };
-    } catch (error) {
-      throw new Error(`Failed to copy environment: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'copy'], {
+      sourceEnvironment: args.sourceEnvironmentUrl,
+      targetEnvironment: args.targetEnvironmentUrl,
+      type: args.copyType,
+      skipAuditData: args.skipAuditData,
+      maxAsyncWaitTime: args.maxAsyncWaitTimeInMin,
+    });
+    return {
+      success: true,
+      message: 'Environment copied successfully',
+      sourceEnvironmentUrl: args.sourceEnvironmentUrl,
+      targetEnvironmentUrl: args.targetEnvironmentUrl,
+      output: result.stdout,
+    };
   }
 
   private async resetEnvironment(args: any): Promise<any> {
-    const { main: resetEnvironmentMain } = await import('../../tasks/reset-environment/reset-environment-v2/index.js');
-    
-    process.env.INPUT_ENVIRONMENTURL = args.environmentUrl;
-    if (args.currency) process.env.INPUT_CURRENCY = args.currency;
-    if (args.language) process.env.INPUT_LANGUAGE = args.language;
-    if (args.purpose) process.env.INPUT_PURPOSE = args.purpose;
-
-    try {
-      await resetEnvironmentMain();
-      return {
-        success: true,
-        message: 'Environment reset successfully',
-        environmentUrl: args.environmentUrl
-      };
-    } catch (error) {
-      throw new Error(`Failed to reset environment: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['admin', 'reset'], {
+      environment: args.environmentUrl,
+      currency: args.currency,
+      language: args.language,
+      purpose: args.purpose,
+    });
+    return {
+      success: true,
+      message: 'Environment reset successfully',
+      environmentUrl: args.environmentUrl,
+      output: result.stdout,
+    };
   }
 }

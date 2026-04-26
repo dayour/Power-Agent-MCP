@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
@@ -27,8 +28,8 @@ class PowerPlatformMCPServer {
   constructor() {
     this.server = new Server(
       {
-        name: 'power-platform-build-tools',
-        version: '1.0.0',
+        name: 'power-agent-mcp',
+        version: '2.0.1',
       },
       {
         capabilities: {
@@ -57,7 +58,7 @@ class PowerPlatformMCPServer {
         }
       };
     } else {
-      // Use full tool exposure for Claude and other MCP clients (229 tools)
+      // Default: expose the full unified Power Agent MCP toolbox.
       this.toolProvider = new PowerPlatformToolHandler();
     }
     

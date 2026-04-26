@@ -140,12 +140,12 @@ async function startMCPServer(context: vscode.ExtensionContext) {
             vscode.window.showInformationMessage(`Power Agent MCP server started successfully (Environment: ${envName})`);
         });
 
-        mcpServer.on('error', (error) => {
+        mcpServer.on('error', (error: Error) => {
             vscode.window.showErrorMessage(`Failed to start Power Agent MCP server: ${error.message}`);
             mcpServer = undefined;
         });
 
-        mcpServer.on('exit', (code) => {
+        mcpServer.on('exit', (code: number | null) => {
             vscode.window.showInformationMessage(`Power Agent MCP server stopped (exit code: ${code})`);
             mcpServer = undefined;
         });
@@ -183,7 +183,7 @@ function validateAllTools() {
 }
 
 function getServerPath(): string {
-    const config = vscode.workspace.getConfiguration('powerAgentMcp');
+    const config = vscode.workspace.getConfiguration('power-agent-mcp');
     const configuredPath = config.get<string>('serverPath');
     
     // If user has configured a specific path, use it
@@ -203,7 +203,7 @@ function getServerPath(): string {
     }
 
     // Default to bundled server (included with extension)
-    const bundledServerPath = path.join(__dirname, '..', 'server', 'server.js');
+    const bundledServerPath = path.join(__dirname, '..', 'server', 'mcp', 'server.js');
     if (fs.existsSync(bundledServerPath)) {
         return bundledServerPath;
     }
@@ -294,7 +294,7 @@ async function performQuickSetup(context: vscode.ExtensionContext): Promise<void
 async function checkAndInitializeStreamlinedSetup(context: vscode.ExtensionContext): Promise<void> {
     // Check if this is the first run or if authentication is missing
     const authContext = await getPowerPlatformAuthenticationContext(context);
-    const hasCompletedSetup = context.globalState.get<boolean>('powerAgentMcp.setupCompleted', false);
+    const hasCompletedSetup = context.globalState.get<boolean>('power-agent-mcp.setupCompleted', false);
     
     if (!hasCompletedSetup || (!authContext.environmentUrl && !authContext.tenantId)) {
         // Show welcome message with streamlined setup option
@@ -327,7 +327,7 @@ async function checkAndInitializeStreamlinedSetup(context: vscode.ExtensionConte
         }
         
         // Check auto-start setting
-        const config = vscode.workspace.getConfiguration('powerAgentMcp');
+        const config = vscode.workspace.getConfiguration('power-agent-mcp');
         const autoStart = config.get<boolean>('autoStart', true);
         
         if (autoStart) {
@@ -345,20 +345,20 @@ async function checkAndInitializeStreamlinedSetup(context: vscode.ExtensionConte
 async function configureWithDetectedCredential(context: vscode.ExtensionContext, credential: DetectedCredential): Promise<void> {
     // Store authentication information
     if (credential.environmentUrl) {
-        await context.secrets.store('powerAgentMcp.environmentUrl', credential.environmentUrl);
+        await context.secrets.store('power-agent-mcp.environmentUrl', credential.environmentUrl);
     }
     if (credential.tenantId) {
-        await context.secrets.store('powerAgentMcp.tenantId', credential.tenantId);
+        await context.secrets.store('power-agent-mcp.tenantId', credential.tenantId);
     }
     if (credential.accessToken) {
-        await context.secrets.store('powerAgentMcp.accessToken', credential.accessToken);
+        await context.secrets.store('power-agent-mcp.accessToken', credential.accessToken);
     }
     if (credential.environmentName) {
-        await context.workspaceState.update('powerAgentMcp.environmentName', credential.environmentName);
+        await context.workspaceState.update('power-agent-mcp.environmentName', credential.environmentName);
     }
     
     // Mark setup as completed
-    await context.globalState.update('powerAgentMcp.setupCompleted', true);
+    await context.globalState.update('power-agent-mcp.setupCompleted', true);
     
     const sourceName = credential.source === 'azure-cli' ? 'Azure CLI' : 
                       credential.source === 'pac-cli' ? 'Power Platform CLI' :
@@ -374,12 +374,12 @@ async function configureWithDetectedCredential(context: vscode.ExtensionContext,
  */
 async function configureWithMSALResult(context: vscode.ExtensionContext, msalResult: MSALAuthResult): Promise<void> {
     // Store MSAL authentication information
-    await context.secrets.store('powerAgentMcp.accessToken', msalResult.accessToken);
-    await context.secrets.store('powerAgentMcp.tenantId', msalResult.account.tenantId);
-    await context.workspaceState.update('powerAgentMcp.environmentName', 'Microsoft Account');
+    await context.secrets.store('power-agent-mcp.accessToken', msalResult.accessToken);
+    await context.secrets.store('power-agent-mcp.tenantId', msalResult.account.tenantId);
+    await context.workspaceState.update('power-agent-mcp.environmentName', 'Microsoft Account');
     
     // Mark setup as completed
-    await context.globalState.update('powerAgentMcp.setupCompleted', true);
+    await context.globalState.update('power-agent-mcp.setupCompleted', true);
     
     vscode.window.showInformationMessage(
         `✅ Power Platform authentication configured using Microsoft Account (${msalResult.account.username})`
@@ -650,9 +650,9 @@ async function setupPACAuthIntegration(context: vscode.ExtensionContext) {
                         const tenantId = tenantIdMatch[1].trim();
                         
                         // Store authentication information
-                        await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
-                        await context.secrets.store('powerAgentMcp.tenantId', tenantId);
-                        await context.workspaceState.update('powerAgentMcp.environmentName', envName);
+                        await context.secrets.store('power-agent-mcp.environmentUrl', environmentUrl);
+                        await context.secrets.store('power-agent-mcp.tenantId', tenantId);
+                        await context.workspaceState.update('power-agent-mcp.environmentName', envName);
                         
                         vscode.window.showInformationMessage(`Successfully authenticated with Power Platform CLI (Environment: ${envName})`);
                         
@@ -711,9 +711,9 @@ async function setupInteractiveEnvironmentSelection(context: vscode.ExtensionCon
                 const environmentName = environment.FriendlyName || environment.UniqueName;
                 
                 // Store authentication information
-                await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
-                await context.secrets.store('powerAgentMcp.tenantId', tenantId);
-                await context.workspaceState.update('powerAgentMcp.environmentName', environmentName);
+                await context.secrets.store('power-agent-mcp.environmentUrl', environmentUrl);
+                await context.secrets.store('power-agent-mcp.tenantId', tenantId);
+                await context.workspaceState.update('power-agent-mcp.environmentName', environmentName);
                 
                 vscode.window.showInformationMessage(`Successfully configured Power Platform environment (${environmentName})`);
                 
@@ -747,9 +747,9 @@ async function setupInteractiveEnvironmentSelection(context: vscode.ExtensionCon
             }
 
             // Store manual configuration
-            await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
-            await context.secrets.store('powerAgentMcp.tenantId', tenantId);
-            await context.workspaceState.update('powerAgentMcp.environmentName', 'Custom Environment');
+            await context.secrets.store('power-agent-mcp.environmentUrl', environmentUrl);
+            await context.secrets.store('power-agent-mcp.tenantId', tenantId);
+            await context.workspaceState.update('power-agent-mcp.environmentName', 'Custom Environment');
             
             vscode.window.showInformationMessage('Power Platform environment configured successfully');
             
@@ -800,9 +800,9 @@ async function setupManualEnvironmentConfiguration(context: vscode.ExtensionCont
     }
 
     // Store manual configuration
-    await context.secrets.store('powerAgentMcp.environmentUrl', environmentUrl);
-    await context.secrets.store('powerAgentMcp.tenantId', tenantId);
-    await context.workspaceState.update('powerAgentMcp.environmentName', 'Manual Configuration');
+    await context.secrets.store('power-agent-mcp.environmentUrl', environmentUrl);
+    await context.secrets.store('power-agent-mcp.tenantId', tenantId);
+    await context.workspaceState.update('power-agent-mcp.environmentName', 'Manual Configuration');
     
     vscode.window.showInformationMessage('Manual Power Platform configuration saved.');
     
@@ -821,10 +821,10 @@ async function loginToPowerPlatform(context: vscode.ExtensionContext) {
 }
 
 async function logoutFromPowerPlatform(context: vscode.ExtensionContext) {
-    await context.secrets.delete('powerAgentMcp.environmentUrl');
-    await context.secrets.delete('powerAgentMcp.tenantId');
-    await context.secrets.delete('powerAgentMcp.accessToken');
-    await context.workspaceState.update('powerAgentMcp.environmentName', undefined);
+    await context.secrets.delete('power-agent-mcp.environmentUrl');
+    await context.secrets.delete('power-agent-mcp.tenantId');
+    await context.secrets.delete('power-agent-mcp.accessToken');
+    await context.workspaceState.update('power-agent-mcp.environmentName', undefined);
     
     vscode.window.showInformationMessage('Successfully logged out from Power Platform');
     
@@ -839,10 +839,10 @@ async function selectPowerPlatformEnvironment(context: vscode.ExtensionContext) 
 }
 
 async function getPowerPlatformAuthenticationContext(context: vscode.ExtensionContext): Promise<PowerPlatformAuthContext> {
-    const environmentUrl = await context.secrets.get('powerAgentMcp.environmentUrl');
-    const tenantId = await context.secrets.get('powerAgentMcp.tenantId');
-    const accessToken = await context.secrets.get('powerAgentMcp.accessToken');
-    const environmentName = context.workspaceState.get<string>('powerAgentMcp.environmentName');
+    const environmentUrl = await context.secrets.get('power-agent-mcp.environmentUrl');
+    const tenantId = await context.secrets.get('power-agent-mcp.tenantId');
+    const accessToken = await context.secrets.get('power-agent-mcp.accessToken');
+    const environmentName = context.workspaceState.get<string>('power-agent-mcp.environmentName');
     
     return {
         environmentUrl,

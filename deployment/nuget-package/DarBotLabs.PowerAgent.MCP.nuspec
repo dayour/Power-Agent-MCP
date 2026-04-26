@@ -2,16 +2,16 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>DarBotLabs.PowerAgent.MCP</id>
-    <version>1.0.0</version>
+    <version>2.0.1</version>
     <title>Power Agent MCP - Enterprise AI SDK for Microsoft Power Platform</title>
     <authors>DarBot Labs</authors>
     <owners>DarBot Labs</owners>
     <description>
-      Enterprise-grade Model Context Protocol (MCP) server providing AI assistants with comprehensive programmatic access to the Microsoft Power Platform ecosystem. Features 254+ specialized tools spanning Power Platform CLI operations, native Dataverse management, SQL Server integration, and Copilot Studio adaptive cards for complete AI-driven enterprise automation.
+      Enterprise-grade Model Context Protocol (MCP) server providing AI assistants with comprehensive programmatic access to the Microsoft Power Platform ecosystem. Features 253 specialized tools spanning Power Platform CLI operations, native Dataverse management, SQL Server integration, and Copilot Studio adaptive cards for complete AI-driven enterprise automation.
     </description>
     <releaseNotes>
       Initial release featuring:
-      - 254 specialized tools for complete Power Platform coverage
+      - 253 specialized tools for complete Power Platform coverage
       - Native Dataverse integration with 25 dedicated operations
       - SQL Server integration with 7 database management tools
       - Adaptive Cards SDK with 10 Copilot Studio tools
@@ -19,7 +19,7 @@
       - Production-ready error handling and monitoring
       - Comprehensive API documentation and examples
     </releaseNotes>
-    <summary>Enterprise AI SDK enabling natural language automation across Microsoft Power Platform, Dataverse, SQL Server, and Copilot Studio through 254+ specialized MCP tools.</summary>    <language>en-US</language>
+    <summary>Enterprise AI SDK enabling natural language automation across Microsoft Power Platform, Dataverse, SQL Server, and Copilot Studio through 253 specialized MCP tools.</summary>    <language>en-US</language>
     <projectUrl>https://github.com/dayour/Power-Agent-MCP</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/dayour/Power-Agent-MCP/main/deployment/nuget-package/assets/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

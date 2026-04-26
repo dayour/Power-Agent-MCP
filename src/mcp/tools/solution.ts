@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
 
 export class SolutionTools {
   getTools(): Tool[] {
@@ -451,186 +452,143 @@ export class SolutionTools {
   }
 
   private async exportSolution(args: any): Promise<any> {
-    const { main: exportSolutionMain } = await import('../../tasks/export-solution/export-solution-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONNAME = args.solutionName;
-    process.env.INPUT_SOLUTIONOUTPUTFILE = args.solutionOutputFile;
-    if (args.managed !== undefined) process.env.INPUT_MANAGED = String(args.managed);
-    if (args.exportAutoNumberingSettings !== undefined) process.env.INPUT_EXPORTAUTONUMBERINGSETTINGS = String(args.exportAutoNumberingSettings);
-    if (args.exportCalendarSettings !== undefined) process.env.INPUT_EXPORTCALENDARSETTINGS = String(args.exportCalendarSettings);
-    if (args.exportCustomizationSettings !== undefined) process.env.INPUT_EXPORTCUSTOMIZATIONSETTINGS = String(args.exportCustomizationSettings);
-    if (args.exportEmailTrackingSettings !== undefined) process.env.INPUT_EXPORTEMAILTRACKINGSETTINGS = String(args.exportEmailTrackingSettings);
-    if (args.exportGeneralSettings !== undefined) process.env.INPUT_EXPORTGENERALSETTINGS = String(args.exportGeneralSettings);
-    if (args.exportMarketingSettings !== undefined) process.env.INPUT_EXPORTMARKETINGSETTINGS = String(args.exportMarketingSettings);
-    if (args.exportOutlookSynchronizationSettings !== undefined) process.env.INPUT_EXPORTOUTLOOKSYNCHRONIZATIONSETTINGS = String(args.exportOutlookSynchronizationSettings);
-    if (args.exportRelationshipRoles !== undefined) process.env.INPUT_EXPORTRELATIONSHIPROLES = String(args.exportRelationshipRoles);
-    if (args.exportIsvConfig !== undefined) process.env.INPUT_EXPORTISVCONFIG = String(args.exportIsvConfig);
-    if (args.exportSales !== undefined) process.env.INPUT_EXPORTSALES = String(args.exportSales);
-    if (args.exportExternalApplications !== undefined) process.env.INPUT_EXPORTEXTERNALAPPLICATIONS = String(args.exportExternalApplications);
-
-    try {
-      await exportSolutionMain();
-      return {
-        success: true,
-        message: `Solution '${args.solutionName}' exported successfully`,
-        solutionName: args.solutionName,
-        outputFile: args.solutionOutputFile,
-        managed: args.managed || false
-      };
-    } catch (error) {
-      throw new Error(`Failed to export solution: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'export'], {
+      name: args.solutionName,
+      path: args.solutionOutputFile,
+      managed: args.managed,
+      autonumberSettings: args.exportAutoNumberingSettings,
+      calendarSettings: args.exportCalendarSettings,
+      customizationSettings: args.exportCustomizationSettings,
+      emailTrackingSettings: args.exportEmailTrackingSettings,
+      generalSettings: args.exportGeneralSettings,
+      marketingSettings: args.exportMarketingSettings,
+      outlookSynchronizationSettings: args.exportOutlookSynchronizationSettings,
+      relationshipRoles: args.exportRelationshipRoles,
+      isvConfig: args.exportIsvConfig,
+      sales: args.exportSales,
+      externalApplications: args.exportExternalApplications,
+    });
+    return {
+      success: true,
+      message: `Solution '${args.solutionName}' exported successfully`,
+      solutionName: args.solutionName,
+      outputFile: args.solutionOutputFile,
+      managed: args.managed || false,
+      output: result.stdout,
+    };
   }
 
   private async importSolution(args: any): Promise<any> {
-    const { main: importSolutionMain } = await import('../../tasks/import-solution/import-solution-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONINPUTFILE = args.solutionInputFile;
-    if (args.publishWorkflows !== undefined) process.env.INPUT_PUBLISHWORKFLOWS = String(args.publishWorkflows);
-    if (args.overwriteUnmanagedCustomizations !== undefined) process.env.INPUT_OVERWRITEUNMANAGEDCUSTOMIZATIONS = String(args.overwriteUnmanagedCustomizations);
-    if (args.skipProductUpdateDependencies !== undefined) process.env.INPUT_SKIPPRODUCTUPDATEDEPENDENCIES = String(args.skipProductUpdateDependencies);
-    if (args.importAsHolding !== undefined) process.env.INPUT_IMPORTASHOLDING = String(args.importAsHolding);
-    if (args.stageAndUpgrade !== undefined) process.env.INPUT_STAGEANDUPGRADE = String(args.stageAndUpgrade);
-    if (args.forceOverwrite !== undefined) process.env.INPUT_FORCEOVERWRITE = String(args.forceOverwrite);
-    if (args.useAsyncMode !== undefined) process.env.INPUT_USEASYNCMODE = String(args.useAsyncMode);
-    if (args.maxAsyncWaitTime) process.env.INPUT_MAXASYNCWAITTIME = args.maxAsyncWaitTime;
-    if (args.deploymentSettingsFile) process.env.INPUT_DEPLOYMENTSETTINGSFILE = args.deploymentSettingsFile;
-
-    try {
-      await importSolutionMain();
-      return {
-        success: true,
-        message: 'Solution imported successfully',
-        inputFile: args.solutionInputFile,
-        importAsHolding: args.importAsHolding || false
-      };
-    } catch (error) {
-      throw new Error(`Failed to import solution: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'import'], {
+      path: args.solutionInputFile,
+      publishChanges: args.publishWorkflows,
+      forceOverwrite: args.forceOverwrite,
+      skipDependencyCheck: args.skipProductUpdateDependencies,
+      importAsHolding: args.importAsHolding,
+      stageAndUpgrade: args.stageAndUpgrade,
+      async: args.useAsyncMode,
+      maxAsyncWaitTime: args.maxAsyncWaitTime,
+      settingsFile: args.deploymentSettingsFile,
+    });
+    return {
+      success: true,
+      message: 'Solution imported successfully',
+      inputFile: args.solutionInputFile,
+      importAsHolding: args.importAsHolding || false,
+      output: result.stdout,
+    };
   }
 
   private async packSolution(args: any): Promise<any> {
-    const { main: packSolutionMain } = await import('../../tasks/pack-solution/pack-solution-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONOUTPUTFILE = args.solutionOutputFile;
-    process.env.INPUT_SOLUTIONSOURCEFOLDER = args.solutionSourceFolder;
-    if (args.solutionType) process.env.INPUT_SOLUTIONTYPE = args.solutionType;
-    if (args.processCanvasApps !== undefined) process.env.INPUT_PROCESSCANVASAPPS = String(args.processCanvasApps);
-    if (args.packageType) process.env.INPUT_PACKAGETYPE = args.packageType;
-
-    try {
-      await packSolutionMain();
-      return {
-        success: true,
-        message: 'Solution packed successfully',
-        outputFile: args.solutionOutputFile,
-        sourceFolder: args.solutionSourceFolder,
-        solutionType: args.solutionType || 'Unmanaged'
-      };
-    } catch (error) {
-      throw new Error(`Failed to pack solution: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'pack'], {
+      zipFile: args.solutionOutputFile,
+      folder: args.solutionSourceFolder,
+      packageType: args.solutionType || args.packageType,
+      processCanvasApps: args.processCanvasApps,
+    });
+    return {
+      success: true,
+      message: 'Solution packed successfully',
+      outputFile: args.solutionOutputFile,
+      sourceFolder: args.solutionSourceFolder,
+      solutionType: args.solutionType || 'Unmanaged',
+      output: result.stdout,
+    };
   }
 
   private async unpackSolution(args: any): Promise<any> {
-    const { main: unpackSolutionMain } = await import('../../tasks/unpack-solution/unpack-solution-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONINPUTFILE = args.solutionInputFile;
-    process.env.INPUT_SOLUTIONTARGETFOLDER = args.solutionTargetFolder;
-    if (args.solutionType) process.env.INPUT_SOLUTIONTYPE = args.solutionType;
-    if (args.processCanvasApps !== undefined) process.env.INPUT_PROCESSCANVASAPPS = String(args.processCanvasApps);
-    if (args.packageType) process.env.INPUT_PACKAGETYPE = args.packageType;
-    if (args.allowDelete !== undefined) process.env.INPUT_ALLOWDELETE = String(args.allowDelete);
-    if (args.allowWrite !== undefined) process.env.INPUT_ALLOWWRITE = String(args.allowWrite);
-
-    try {
-      await unpackSolutionMain();
-      return {
-        success: true,
-        message: 'Solution unpacked successfully',
-        inputFile: args.solutionInputFile,
-        targetFolder: args.solutionTargetFolder,
-        solutionType: args.solutionType || 'Unmanaged'
-      };
-    } catch (error) {
-      throw new Error(`Failed to unpack solution: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'unpack'], {
+      zipFile: args.solutionInputFile,
+      folder: args.solutionTargetFolder,
+      packageType: args.solutionType || args.packageType,
+      processCanvasApps: args.processCanvasApps,
+      allowDelete: args.allowDelete,
+      allowWrite: args.allowWrite,
+    });
+    return {
+      success: true,
+      message: 'Solution unpacked successfully',
+      inputFile: args.solutionInputFile,
+      targetFolder: args.solutionTargetFolder,
+      solutionType: args.solutionType || 'Unmanaged',
+      output: result.stdout,
+    };
   }
 
   private async setSolutionVersion(args: any): Promise<any> {
-    const { main: setSolutionVersionMain } = await import('../../tasks/set-solution-version/set-solution-version-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONNAME = args.solutionName;
-    process.env.INPUT_SOLUTIONVERSIONNUMBER = args.solutionVersionNumber;
-
-    try {
-      await setSolutionVersionMain();
-      return {
-        success: true,
-        message: `Solution version set successfully`,
-        solutionName: args.solutionName,
-        versionNumber: args.solutionVersionNumber
-      };
-    } catch (error) {
-      throw new Error(`Failed to set solution version: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'version'], {
+      solutionName: args.solutionName,
+      solutionVersion: args.solutionVersionNumber,
+    });
+    return {
+      success: true,
+      message: `Solution version set successfully`,
+      solutionName: args.solutionName,
+      versionNumber: args.solutionVersionNumber,
+      output: result.stdout,
+    };
   }
 
   private async addSolutionComponent(args: any): Promise<any> {
-    const { main: addSolutionComponentMain } = await import('../../tasks/add-solution-component/add-solution-component-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONNAME = args.solutionName;
-    process.env.INPUT_COMPONENT = args.component;
-    process.env.INPUT_COMPONENTTYPE = args.componentType;
-    if (args.addRequiredComponents !== undefined) process.env.INPUT_ADDREQUIREDCOMPONENTS = String(args.addRequiredComponents);
-
-    try {
-      await addSolutionComponentMain();
-      return {
-        success: true,
-        message: 'Component added to solution successfully',
-        solutionName: args.solutionName,
-        component: args.component,
-        componentType: args.componentType
-      };
-    } catch (error) {
-      throw new Error(`Failed to add solution component: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'add-solution-component'], {
+      solutionUniqueName: args.solutionName,
+      component: args.component,
+      componentType: args.componentType,
+      addRequiredComponents: args.addRequiredComponents,
+    });
+    return {
+      success: true,
+      message: 'Component added to solution successfully',
+      solutionName: args.solutionName,
+      component: args.component,
+      componentType: args.componentType,
+      output: result.stdout,
+    };
   }
 
   private async applySolutionUpgrade(args: any): Promise<any> {
-    const { main: applySolutionUpgradeMain } = await import('../../tasks/apply-solution-upgrade/apply-solution-upgrade-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONNAME = args.solutionName;
-    if (args.async !== undefined) process.env.INPUT_ASYNC = String(args.async);
-    if (args.maxAsyncWaitTime) process.env.INPUT_MAXASYNCWAITTIME = args.maxAsyncWaitTime;
-
-    try {
-      await applySolutionUpgradeMain();
-      return {
-        success: true,
-        message: 'Solution upgrade applied successfully',
-        solutionName: args.solutionName
-      };
-    } catch (error) {
-      throw new Error(`Failed to apply solution upgrade: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'upgrade'], {
+      solutionName: args.solutionName,
+      async: args.async,
+      maxAsyncWaitTime: args.maxAsyncWaitTime,
+    });
+    return {
+      success: true,
+      message: 'Solution upgrade applied successfully',
+      solutionName: args.solutionName,
+      output: result.stdout,
+    };
   }
 
   private async deleteSolution(args: any): Promise<any> {
-    const { main: deleteSolutionMain } = await import('../../tasks/delete-solution/delete-solution-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONNAME = args.solutionName;
-
-    try {
-      await deleteSolutionMain();
-      return {
-        success: true,
-        message: 'Solution deleted successfully',
-        solutionName: args.solutionName
-      };
-    } catch (error) {
-      throw new Error(`Failed to delete solution: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'delete'], {
+      solutionName: args.solutionName,
+    });
+    return {
+      success: true,
+      message: 'Solution deleted successfully',
+      solutionName: args.solutionName,
+      output: result.stdout,
+    };
   }
 }

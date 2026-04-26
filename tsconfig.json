@@ -15,7 +15,8 @@
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": ["out", "bin", "dist", "node_modules"]
 }

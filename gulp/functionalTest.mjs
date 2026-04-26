@@ -2,20 +2,39 @@
 // Licensed under the MIT License.
 
 import gulp from "gulp";
-import mocha from "gulp-mocha";
 import eslint from "gulp-eslint-new";
+import { spawn } from "node:child_process";
 
-export default function functionalTest() {
+function runMocha(args) {
+  return new Promise((resolve, reject) => {
+    const child = spawn("npx", ["mocha", ...args], {
+      shell: true,
+      stdio: "inherit",
+    });
+    child.on("error", reject);
+    child.on("exit", (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Mocha exited with code ${code}`));
+      }
+    });
+  });
+}
+
+export default async function functionalTest() {
+  await runMocha([
+    "--require",
+    "ts-node/register",
+    "--ui",
+    "bdd",
+    "--color",
+    "--timeout",
+    "999999",
+    "--bail",
+    "test/functional-test/*.test.ts",
+  ]);
   return gulp
     .src("test/functional-test/*.test.ts", { read: false })
-    .pipe(
-      mocha({
-        require: ["ts-node/register"],
-        ui: 'bdd',
-        color: true,
-        timeout: 999999,
-        bail: true,
-      }).on('error', process.exit.bind(process, 1))
-    )
     .pipe(eslint.format());
 };

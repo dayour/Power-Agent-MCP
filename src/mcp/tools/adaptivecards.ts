@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
-import { executeCommand } from '../utils/commandExecutor.js';
 
 export class AdaptiveCardTools {
   getTools(): Tool[] {
@@ -447,6 +446,8 @@ export class AdaptiveCardTools {
       data: {
         entityName,
         templateType,
+        fieldMapping,
+        environmentUrl,
         description: templates[templateType as keyof typeof templates],
         outputPath,
         generatedFeatures: [
@@ -469,6 +470,7 @@ export class AdaptiveCardTools {
         copilotId,
         topicName,
         deploymentType,
+        environmentUrl,
         deploymentDetails: {
           cardPath,
           status: "Deployed successfully",
@@ -540,6 +542,7 @@ export class AdaptiveCardTools {
       success: true,
       data: {
         inputFormat,
+        inputPath,
         targetVersion,
         conversionResults: {
           elementsConverted: 5,
@@ -550,7 +553,7 @@ export class AdaptiveCardTools {
           ]
         },
         outputPath,
-        message: `Successfully converted ${inputFormat} to Adaptive Card format`
+        message: `Successfully converted ${inputFormat} from '${inputPath}' to Adaptive Card format`
       }
     };
   }
@@ -601,6 +604,7 @@ export class AdaptiveCardTools {
       success: true,
       data: {
         copilotId,
+        environmentUrl,
         extractionScope: extractAll ? 'All topics' : `Topic: ${topicName}`,
         extractedCards: [
           {
@@ -635,8 +639,10 @@ export class AdaptiveCardTools {
     return {
       success: true,
       data: {
+        cardPath,
         dataSource,
         bindingConfig,
+        environmentUrl,
         configuredFeatures: dataSourceFeatures[dataSource as keyof typeof dataSourceFeatures] || [],
         dataBindingPoints: [
           "Card title bound to entity name",

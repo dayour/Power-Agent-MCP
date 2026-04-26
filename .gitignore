@@ -1,8 +1,16 @@
 /node_modules/
+deployment/**/node_modules/
+deployment/**/dist/
+deployment/**/*.nupkg
+deployment/mcp-package/
 /out/
 /dist/
 /bin/
 node_modules/
+
+# Generated MCP build outputs
+src/mcp/**/*.js
+src/mcp/**/*.js.map
 
 # Generated validation/audit outputs
 .validation-output/

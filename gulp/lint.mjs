@@ -6,11 +6,7 @@ export default async function lint() {
     ["src", "test"].map(async (folder) =>
       gulp
         .src(`${folder}/**/*.ts`)
-        .pipe(
-          eslint({
-            configType: "eslintrc"
-          })
-        )
+        .pipe(eslint())
         .pipe(eslint.format())
     )
   );

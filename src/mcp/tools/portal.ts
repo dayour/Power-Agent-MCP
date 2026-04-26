@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
 
 export class PortalTools {
   getTools(): Tool[] {
@@ -69,43 +70,33 @@ export class PortalTools {
   }
 
   private async downloadPortal(args: any): Promise<any> {
-    const { main: downloadPortalMain } = await import('../../tasks/download-paportal/download-paportal-v2/index.js');
-    
-    process.env.INPUT_WEBSITEID = args.websiteId;
-    process.env.INPUT_PATH = args.path;
-    if (args.overwriteFiles !== undefined) process.env.INPUT_OVERWRITEFILES = String(args.overwriteFiles);
-    if (args.excludeEntities) process.env.INPUT_EXCLUDEENTITIES = args.excludeEntities;
-
-    try {
-      await downloadPortalMain();
-      return {
-        success: true,
-        message: 'Portal downloaded successfully',
-        websiteId: args.websiteId,
-        path: args.path
-      };
-    } catch (error) {
-      throw new Error(`Failed to download portal: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['paportal', 'download'], {
+      websiteId: args.websiteId,
+      path: args.path,
+      overwriteFiles: args.overwriteFiles,
+      excludeEntities: args.excludeEntities,
+    });
+    return {
+      success: true,
+      message: 'Portal downloaded successfully',
+      websiteId: args.websiteId,
+      path: args.path,
+      output: result.stdout,
+    };
   }
 
   private async uploadPortal(args: any): Promise<any> {
-    const { main: uploadPortalMain } = await import('../../tasks/upload-paportal/upload-paportal-v2/index.js');
-    
-    process.env.INPUT_PATH = args.path;
-    if (args.deploymentProfile) process.env.INPUT_DEPLOYMENTPROFILE = args.deploymentProfile;
-    if (args.modelVersion) process.env.INPUT_MODELVERSION = args.modelVersion;
-    if (args.excludeEntities) process.env.INPUT_EXCLUDEENTITIES = args.excludeEntities;
-
-    try {
-      await uploadPortalMain();
-      return {
-        success: true,
-        message: 'Portal uploaded successfully',
-        path: args.path
-      };
-    } catch (error) {
-      throw new Error(`Failed to upload portal: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['paportal', 'upload'], {
+      path: args.path,
+      deploymentProfile: args.deploymentProfile,
+      modelVersion: args.modelVersion,
+      excludeEntities: args.excludeEntities,
+    });
+    return {
+      success: true,
+      message: 'Portal uploaded successfully',
+      path: args.path,
+      output: result.stdout,
+    };
   }
 }

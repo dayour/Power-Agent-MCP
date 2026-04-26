@@ -1,191 +1,214 @@
-# Power Agent MCP
+ Power Agent MCP
 
 <div align="center">
 
 [![PullRequest](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml/badge.svg)](https://github.com/microsoft/powerplatform-build-tools/actions/workflows/PullRequest.yml)
 [![Official Build](https://dev.azure.com/dynamicscrm/OneCRM/_apis/build/status%2FDPX-Tools%2Fpowerplatform-build-tools%20Official%20Build?branchName=main)](https://dev.azure.com/dynamicscrm/OneCRM/_build/latest?definitionId=15006&branchName=main)
 
-**🚀 Enterprise AI SDK for Microsoft Power Platform**
+ Enterprise AI SDK for Microsoft Power Platform
 
-*Production-ready Model Context Protocol server enabling natural language automation across Power Platform, Dataverse, SQL Server, and Copilot Studio*
+Production-ready Model Context Protocol server enabling natural language automation across Power Platform, Dataverse, SQL Server, and Copilot Studio
 
-[Quick Start](#-quick-start) • [SDK Reference](#-sdk-reference) • [Integration Guide](#-integration--setup) • [API Documentation](#-complete-api-reference) • [Examples](#-usage-examples)
+[Quick Start](-quick-start) • [SDK Reference](-sdk-reference) • [Integration Guide](-integration--setup) • [API Documentation](-complete-api-reference) • [Examples](-usage-examples)
 
 </div>
 
 ---
 
-## 🎯 Overview
+ Overview
 
-**Power Agent MCP** is a production-ready Model Context Protocol (MCP) server providing AI assistants with programmatic access to core Microsoft Power Platform operations. The current implementation focuses on essential Power Platform CLI operations including environment management and solution lifecycle automation, delivering a solid foundation for AI-driven Power Platform automation.
+Power Agent MCP is a production-ready Model Context Protocol (MCP) server providing AI assistants with programmatic access to core Microsoft Power Platform operations. The current implementation focuses on essential Power Platform CLI operations including environment management and solution lifecycle automation, delivering a solid foundation for AI-driven Power Platform automation.
 
-**Current Implementation:**
-- **Standalone Mode**: 12 core Power Platform tools covering essential operations
-- **Enterprise Mode**: Extensible architecture ready for additional tool categories
+Current Implementation:
+- Standalone Mode: 12 core Power Platform tools covering essential operations
+- Enterprise Mode: Extensible architecture ready for additional tool categories
 
-## 🆕 What's New - Standalone Production Release
+ 🆕 What's New - Standalone Production Release
 
-**Latest Release**: Production-ready standalone MCP server with core Power Platform automation capabilities.
+Latest Release: Production-ready standalone MCP server with core Power Platform automation capabilities.
 
-### 🔥 **Current Implementation - Core 12 Tools**
-- **✅ Authentication Management**: Service Principal and user authentication (3 tools)
-- **✅ Environment Operations**: Create, list, delete environments (3 tools) 
-- **✅ Solution Lifecycle**: Export, import, pack, unpack solutions (4 tools)
-- **✅ Status & Diagnostics**: Connection validation and health checks (2 tools)
+ Current Implementation - Core 12 Tools
+- Authentication Management: Service Principal and user authentication (3 tools)
+- Environment Operations: Create, list, delete environments (3 tools) 
+- Solution Lifecycle: Export, import, pack, unpack solutions (4 tools)
+- Status & Diagnostics: Connection validation and health checks (2 tools)
 
-### Current Capabilities
-- **12 Production-Ready Tools** providing essential Power Platform automation
-- **Environment Lifecycle** - Create, list, and manage Power Platform environments
-- **Solution Management** - Export, import, pack, and unpack solutions with full DevOps support
-- **Authentication Management** - Create and manage multiple authentication profiles
-- **PAC CLI Integration** - Direct integration with Microsoft Power Platform CLI
+ Current Capabilities
+- 12 Production-Ready Tools providing essential Power Platform automation
+- Environment Lifecycle - Create, list, and manage Power Platform environments
+- Solution Management - Export, import, pack, and unpack solutions with full DevOps support
+- Authentication Management - Create and manage multiple authentication profiles
+- PAC CLI Integration - Direct integration with Microsoft Power Platform CLI
 
-See [Complete Tool Reference](#-complete-tool-reference) for detailed documentation.
+See [Complete Tool Reference](-complete-tool-reference) for detailed documentation.
 
-## 🏗️ SDK Architecture & Coverage
+ SDK Architecture & Coverage
 
 <div align="center">
 
-| **Component** | **Tools** | **Coverage** | **Status** |
+| Component | Tools | Coverage | Status |
 |---------------|-----------|--------------|------------|
-| **Power Platform CLI** | 12 core tools | Essential CLI commands | ✅ Production |
-| **Authentication** | 3 tools | Complete auth management | ✅ Production |
-| **Environment Management** | 3 tools | Full lifecycle operations | ✅ Production |
-| **Solution Operations** | 4 tools | Complete dev workflow | ✅ Production |
-| **Diagnostics** | 2 tools | Health & status checks | ✅ Production |
-| **Extended SDK** | Planned | Additional capabilities | 🚧 Roadmap |
+| Power Platform CLI | 12 core tools | Essential CLI commands |  Production |
+| Authentication | 3 tools | Complete auth management |  Production |
+| Environment Management | 3 tools | Full lifecycle operations |  Production |
+| Solution Operations | 4 tools | Complete dev workflow |  Production |
+| Diagnostics | 2 tools | Health & status checks |  Production |
+| Extended SDK | Planned | Additional capabilities |  Roadmap |
 
 </div>
 
-### Enterprise SDK Benefits
+ Enterprise SDK Benefits
 
-- **🤖 Natural Language API**: Describe operations in plain English - no CLI memorization required
-- **📈 Core Platform Coverage**: Essential Power Platform capabilities accessible through AI
-- **🏢 Production-Grade Security**: Service Principal authentication and secure credential management
-- **🔧 Zero Learning Curve**: AI handles syntax, parameters, and orchestration automatically
-- **🚀 Extensible Framework**: Proven patterns for integrating additional enterprise systems
-- **🎨 AI-First Design**: Optimized for conversational workflows and automation chains
+- Natural Language API: Describe operations in plain English - no CLI memorization required
+- Core Platform Coverage: Essential Power Platform capabilities accessible through AI
+- Production-Grade Security: Service Principal authentication and secure credential management
+- Zero Learning Curve: AI handles syntax, parameters, and orchestration automatically
+- Extensible Framework: Proven patterns for integrating additional enterprise systems
+- AI-First Design: Optimized for conversational workflows and automation chains
 
-## 📋 SDK Component Overview
+ SDK Component Overview
 
 <table>
 <tr>
 <td width="50%">
 
-### 🔧 **Core Power Platform SDK (12 tools)**
-- **Authentication Management** - Service Principal and user profiles (3 tools)
-- **Environment Operations** - Create, list, delete environments (3 tools) 
-- **Solution Development** - Full DevOps automation (4 tools)
-- **Diagnostics & Health** - Status checks and validation (2 tools)
+ Core Power Platform SDK (12 tools)
+- Authentication Management - Service Principal and user profiles (3 tools)
+- Environment Operations - Create, list, delete environments (3 tools) 
+- Solution Development - Full DevOps automation (4 tools)
+- Diagnostics & Health - Status checks and validation (2 tools)
 
-### 🚧 **Extended SDK (Roadmap)**
-- **Advanced Environment Management** - Backup, restore, copy operations
-- **Canvas App Development** - App creation and deployment
-- **AI & Copilot Management** - Agent creation and deployment
-- **Security & Governance** - DLP, compliance, auditing
+ Extended SDK (Roadmap)
+- Advanced Environment Management - Backup, restore, copy operations
+- Canvas App Development - App creation and deployment
+- AI & Copilot Management - Agent creation and deployment
+- Security & Governance - DLP, compliance, auditing
 
 </td>
 <td width="50%">
 
-### 💡 **Current Capabilities**
-- **Natural Language Interface** - Describe operations in plain English
-- **PAC CLI Integration** - Direct command execution with validation
-- **Error Handling** - Comprehensive error recovery and user guidance
-- **Authentication** - Secure credential management and validation
+ Current Capabilities
+- Natural Language Interface - Describe operations in plain English
+- PAC CLI Integration - Direct command execution with validation
+- Error Handling - Comprehensive error recovery and user guidance
+- Authentication - Secure credential management and validation
 
-### 🎯 **Production Features**
-- **Standalone Deployment** - Single executable with all dependencies
-- **Enterprise Security** - Service Principal authentication
-- **Comprehensive Logging** - Full operation audit trails
-- **CLI Validation** - Automatic PAC CLI availability checking
+ Production Features
+- Standalone Deployment - Single executable with all dependencies
+- Enterprise Security - Service Principal authentication
+- Comprehensive Logging - Full operation audit trails
+- CLI Validation - Automatic PAC CLI availability checking
 
 </td>
 </tr>
 </table>
 
-## ✅ SDK Validation & Testing Coverage
+ SDK Validation & Testing Coverage
 
 <div align="center">
 
-| **Component** | **Validation Status** | **Coverage** | **Status** |
+| Component | Validation Status | Coverage | Status |
 |---------------|---------------------|-------------|------------|
-| **MCP Tool Implementation** | 12/12 tools | 100% functional | ✅ Verified |
-| **Power Platform CLI Mapping** | 12/12 commands | Core coverage | ✅ Production |
-| **Authentication Methods** | Service Principal | Enterprise-grade | ✅ Validated |
-| **Error Handling** | Comprehensive recovery | Production-ready | ✅ Resilient |
-| **API Documentation** | Complete reference | Developer-ready | ✅ Complete |
+| MCP Tool Implementation | 12/12 tools | 100% functional |  Verified |
+| Power Platform CLI Mapping | 12/12 commands | Core coverage |  Production |
+| Authentication Methods | Service Principal | Enterprise-grade |  Validated |
+| Error Handling | Comprehensive recovery | Production-ready |  Resilient |
+| API Documentation | Complete reference | Developer-ready |  Complete |
 
 </div>
 
-### 🧪 **Continuous Integration Results**
+ Continuous Integration Results
 ```
-✅ Tool Schema Validation: 12/12 valid implementations
-✅ Handler Integration: 12/12 active handlers  
-✅ Power Platform Coverage: 12/12 PAC CLI mappings verified
-✅ Documentation: 100% API reference complete with examples
-✅ Enterprise Authentication: Service Principal verified
-✅ Server Startup: Standalone server operational
-✅ CLI Integration: PAC CLI commands executing successfully
+ Tool Schema Validation: 12/12 valid implementations
+ Handler Integration: 12/12 active handlers  
+ Power Platform Coverage: 12/12 PAC CLI mappings verified
+ Documentation: 100% API reference complete with examples
+ Enterprise Authentication: Service Principal verified
+ Server Startup: Standalone server operational
+ CLI Integration: PAC CLI commands executing successfully
 ```
 
-## 🚀 Quick Start
+ Quick Start
 
-### Prerequisites
+ Prerequisites
 - Node.js 18+ and npm
 - Power Platform CLI ([installation guide](https://aka.ms/PowerPlatformCLI))
 - Valid Microsoft 365 or Power Platform license
 - Claude Desktop or compatible MCP client
 
-### Installation
+ Installation
 
-1. **Clone and Setup**
-   ```bash
-   git clone https://github.com/dayour/Power-Agent-MCP.git
-   cd Power-Agent-MCP
-   npm install
-   npm run build
-   ```
+1. Clone and Setup
+ ```bash
+ git clone https://github.com/dayour/Power-Agent-MCP.git
+ cd Power-Agent-MCP
+ npm install
+ npm run build
+ ```
 
-2. **Configure Authentication**
+2. Configure Authentication
 
-   Create a service principal for production use:
-   ```bash
-   # Register application in Azure AD
-   az ad app create --display-name "Power-Agent-MCP"
-   
-   # Note the Application ID from the response and create client secret
-   az ad app credential reset --id your-application-id
-   ```
+Power Agent MCP uses the Power Platform CLI (`pac`) auth store for credentials. Sign in once with device-code flow and the token is reused by the MCP server automatically.
 
-   Example response:
-   ```json
-   {
-     "appId": "your-application-id",
-     "password": "your-client-secret",
-     "tenant": "your-tenant-id"
-   }
-   ```
+```bash
+pac auth create --deviceCode \
+  --name power-agent-mcp \
+  --applicationId <POWERPLATFORM_APPLICATION_ID> \
+  --tenant <POWERPLATFORM_TENANT_ID>
+```
 
-### Current Tool Set (12 Tools)
+PAC stores auth state locally under:
 
-**Authentication & Connection (3 tools):**
+```
+%LOCALAPPDATA%\Microsoft\PowerAppsCli\
+```
+
+| File | Purpose |
+|------|----------|
+| `authprofiles_v2.json` | Auth profiles: selected profile, tenant/environment/account metadata |
+| `tokencache_msalv3.dat` | MSAL user/public-client token cache |
+| `tokencache_spn_msalv3.dat` | MSAL service-principal/confidential-client token cache |
+| `pac.spn.cache.dat` | Cached service-principal credentials/secrets |
+| `pac.spn.cache.fallback.dat` | Fallback SPN credential cache (when secure OS storage is unavailable) |
+| `tokencache.dat` | Older/legacy token cache |
+
+For service-principal (non-interactive/CI) auth:
+
+```bash
+pac auth create \
+  --name power-agent-mcp-sp \
+  --applicationId <POWERPLATFORM_APPLICATION_ID> \
+  --clientSecret <POWERPLATFORM_CLIENT_SECRET> \
+  --tenant <POWERPLATFORM_TENANT_ID>
+```
+
+Verify the active profile at any time:
+
+```bash
+pac auth list
+pac auth who
+```
+
+
+
+
 - `pp_whoami` - Check authentication status and current environment
 - `pp_auth_create` - Create new authentication profiles
 - `pp_auth_list` - List available authentication profiles
 - `pp_auth_select` - Switch between authentication profiles
 
-**Environment Management (3 tools):**
+Environment Management (3 tools):
 - `pp_create_environment` - Create new Power Platform environments
 - `pp_list_environments` - List all available environments
 - `pp_delete_environment` - Delete environments (with confirmation)
 
-**Solution Operations (4 tools):**
+Solution Operations (4 tools):
 - `pp_export_solution` - Export solutions (managed or unmanaged)
 - `pp_import_solution` - Import solutions to environments
 - `pp_pack_solution` - Package solutions for deployment
 - `pp_unpack_solution` - Unpack solutions for source control
 
-**Example Commands:**
+Example Commands:
 ```
 "Check my current Power Platform connection status"
 "Create a development environment called 'Team Workspace' in the US region"
@@ -194,42 +217,43 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
 ```
 
 
-3. **Setup Claude Desktop**
+3. Setup Claude Desktop
 
-   Add to your `claude_desktop_config.json`:
-   ```json
-   {
-     "mcpServers": {
-       "power-agent-mcp": {
-         "command": "node",
-         "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
-         "env": {
-           "POWERPLATFORM_TENANT_ID": "your-tenant-id",
-           "POWERPLATFORM_APPLICATION_ID": "your-app-id",
-           "POWERPLATFORM_CLIENT_SECRET": "your-client-secret"
-         }
-       }
-     }
-   }
-   ```
+ Add to your `claude_desktop_config.json`:
+ ```json
+ {
+ "mcpServers": {
+ "power-agent-mcp": {
+ "command": "node",
+ "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
+ "env": {
+ "POWERPLATFORM_TENANT_ID": "your-tenant-id",
+ "POWERPLATFORM_APPLICATION_ID": "your-app-id"
+ }
+ }
+ }
+ }
+ ```
 
-4. **Start Using with AI**
+ NOTE: Credentials are read from the PAC CLI auth store created by `pac auth create`. `POWERPLATFORM_CLIENT_SECRET` is only required when using service-principal auth.
 
-   Open Claude Desktop and try:
-   ```
-   "Check my Power Platform authentication status"
-   "Create a new development environment called 'AI Innovation Lab' in East US region"
-   "List all my Power Platform environments and their status"
-   "Export the CustomerPortal solution and pack it for deployment"
-   ```
+4. Start Using with AI
 
-> 💡 **Quick Tip**: The current implementation provides 12 core tools for essential Power Platform automation. Additional tools and capabilities are available in the roadmap for future releases.
+ Open Claude Desktop and try:
+ ```
+ "Check my Power Platform authentication status"
+ "Create a new development environment called 'AI Innovation Lab' in East US region"
+ "List all my Power Platform environments and their status"
+ "Export the CustomerPortal solution and pack it for deployment"
+ ```
 
-## 📚 Complete SDK Reference
+> Quick Tip: The current implementation provides 12 core tools for essential Power Platform automation. Additional tools and capabilities are available in the roadmap for future releases.
+
+ Complete SDK Reference
 
 <div align="center">
 
-### 🎯 **Essential Documentation**
+ Essential Documentation
 
 </div>
 
@@ -237,151 +261,177 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
 <tr>
 <td width="50%">
 
-### 🚀 **Getting Started & Setup**
-- **[Quick Setup Guide](docs/MCP_CONNECTOR_SETUP.md)** - Complete installation and configuration
-- **[Production Deployment](docs/PRODUCTION_DEPLOYMENT_CHECKLIST.md)** - Enterprise deployment checklist
-- **[Performance & Scaling](docs/PERFORMANCE_AND_SCALABILITY.md)** - Optimization and scaling guide
-- **[VSCode Integration](docs/VSCODE_MCP_INTEGRATION.md)** - Development environment setup
+ Getting Started & Setup
+- [Quick Setup Guide](docs/MCP_CONNECTOR_SETUP.md) - Complete installation and configuration
+- [Production Deployment](docs/PRODUCTION_DEPLOYMENT_CHECKLIST.md) - Enterprise deployment checklist
+- [Performance & Scaling](docs/PERFORMANCE_AND_SCALABILITY.md) - Optimization and scaling guide
+- [VSCode Integration](docs/VSCODE_MCP_INTEGRATION.md) - Development environment setup
 
-### 🔧 **API Reference & Integration**
-- **[Core Commands Reference](power-mcp.md)** - Current 12 tools with parameters
-- **[MCP API Documentation](docs/MCP_COMMANDS_REFERENCE.md)** - Detailed parameter reference
-- **[Architecture Guide](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md)** - System design and extensibility
-- **[Standalone Server Guide](src/mcp/standalone-server.ts)** - Current implementation details
+ API Reference & Integration
+- [Core Commands Reference](power-mcp.md) - Current 12 tools with parameters
+- [MCP API Documentation](docs/MCP_COMMANDS_REFERENCE.md) - Detailed parameter reference
+- [Architecture Guide](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md) - System design and extensibility
+- [Standalone Server Guide](src/mcp/standalone-server.ts) - Current implementation details
 
 </td>
 <td width="50%">
 
-### 📊 **Roadmap & Future Integrations**
-- **[Dataverse Integration](docs/DATAVERSE_INTEGRATION_GUIDE.md)** - Planned entity and data management
-- **[SQL Server Integration](docs/MCP_COMMANDS_REFERENCE.md#sql-tools)** - Planned database operations
-- **[Adaptive Cards](docs/MCP_COMMANDS_REFERENCE.md#adaptive-cards)** - Planned Copilot Studio integration
-- **[Extended Operations](docs/DATAVERSE_MCP_REFERENCE.md)** - Additional capabilities roadmap
+ Roadmap & Future Integrations
+- [Dataverse Integration](docs/DATAVERSE_INTEGRATION_GUIDE.md) - Planned entity and data management
+- [SQL Server Integration](docs/MCP_COMMANDS_REFERENCE.mdsql-tools) - Planned database operations
+- [Adaptive Cards](docs/MCP_COMMANDS_REFERENCE.mdadaptive-cards) - Planned Copilot Studio integration
+- [Extended Operations](docs/DATAVERSE_MCP_REFERENCE.md) - Additional capabilities roadmap
 
-### 🏢 **Enterprise & Security**
-- **[Authentication Setup](docs/MCP_CONNECTOR_SETUP.md#authentication)** - Service Principal configuration
-- **[Security Configuration](docs/MCP_CONNECTOR_SETUP.md#security)** - Best practices and compliance
-- **[Usage Examples](#-usage-examples)** - Real-world scenarios and workflows
-- **[Installation Guide](#installation)** - Step-by-step setup instructions
+ Enterprise & Security
+- [Authentication Setup](docs/MCP_CONNECTOR_SETUP.mdauthentication) - Service Principal configuration
+- [Security Configuration](docs/MCP_CONNECTOR_SETUP.mdsecurity) - Best practices and compliance
+- [Usage Examples](-usage-examples) - Real-world scenarios and workflows
+- [Installation Guide](installation) - Step-by-step setup instructions
 
 </td>
 </tr>
 </table>
 
-### 📋 **Component-Specific Guides**
+ Component-Specific Guides
 
 <table>
 <tr>
 <td width="50%">
 
-### 💾 **Database Integration**
-- **[SQL Server Operations](docs/MCP_COMMANDS_REFERENCE.md#sql-tools)** - Database management guide
-- **[Data Export/Import](docs/MCP_USAGE_EXAMPLES.md#data-operations)** - Bulk data operations
-- **[Schema Management](docs/MCP_COMMANDS_REFERENCE.md#database-schema)** - Table and column operations
+ Database Integration
+- [SQL Server Operations](docs/MCP_COMMANDS_REFERENCE.mdsql-tools) - Database management guide
+- [Data Export/Import](docs/MCP_USAGE_EXAMPLES.mddata-operations) - Bulk data operations
+- [Schema Management](docs/MCP_COMMANDS_REFERENCE.mddatabase-schema) - Table and column operations
 
-### 🎨 **Copilot Studio & Adaptive Cards**
-- **[Adaptive Cards Guide](docs/MCP_COMMANDS_REFERENCE.md#adaptive-cards)** - UI component creation
-- **[Copilot Integration](docs/MCP_USAGE_EXAMPLES.md#copilot-studio)** - Agent development workflows
-- **[Card Templates](docs/MCP_COMMANDS_REFERENCE.md#card-templates)** - Reusable UI patterns
+ Copilot Studio & Adaptive Cards
+- [Adaptive Cards Guide](docs/MCP_COMMANDS_REFERENCE.mdadaptive-cards) - UI component creation
+- [Copilot Integration](docs/MCP_USAGE_EXAMPLES.mdcopilot-studio) - Agent development workflows
+- [Card Templates](docs/MCP_COMMANDS_REFERENCE.mdcard-templates) - Reusable UI patterns
 
 </td>
 <td width="50%">
 
-### 🔄 **CI/CD & Automation**
-- **[Automation Workflows](docs/MCP_USAGE_EXAMPLES.md#cicd)** - Complete pipeline examples
-- **[Solution Management](docs/MCP_USAGE_EXAMPLES.md#solution-lifecycle)** - DevOps best practices
-- **[Environment Strategies](docs/MCP_USAGE_EXAMPLES.md#environment-management)** - Multi-environment patterns
+ CI/CD & Automation
+- [Automation Workflows](docs/MCP_USAGE_EXAMPLES.mdcicd) - Complete pipeline examples
+- [Solution Management](docs/MCP_USAGE_EXAMPLES.mdsolution-lifecycle) - DevOps best practices
+- [Environment Strategies](docs/MCP_USAGE_EXAMPLES.mdenvironment-management) - Multi-environment patterns
 
-### 🛠️ **Development & Extension**
-- **[Extensibility Patterns](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md#extensibility)** - Adding new integrations
-- **[Tool Development](src/mcp/tools/)** - Implementation examples
-- **[Troubleshooting](docs/MCP_CONNECTOR_SETUP.md#troubleshooting)** - Common issues and solutions
+ Development & Extension
+- [Extensibility Patterns](docs/IMPLEMENTATION_COMPLETE_SUMMARY.mdextensibility) - Adding new integrations
+- [Tool Development](src/mcp/tools/) - Implementation examples
+- [Troubleshooting](docs/MCP_CONNECTOR_SETUP.mdtroubleshooting) - Common issues and solutions
 
 </td>
 </tr>
 </table>
 
-### 📖 **Complete Implementation Reports**
-- **[Comprehensive PAC CLI Audit](docs/COMPREHENSIVE_PAC_CLI_AUDIT.md)** - Complete CLI mapping verification
-- **[Copilot Coverage Audit](docs/COPILOT_COVERAGE_AUDIT_COMPLETE.md)** - AI integration validation
-- **[MCP Functionality Report](docs/MCP_FUNCTIONALITY_AUDIT_FINAL_REPORT.md)** - End-to-end functionality analysis
+ Complete Implementation Reports
+- [Comprehensive PAC CLI Audit](docs/COMPREHENSIVE_PAC_CLI_AUDIT.md) - Complete CLI mapping verification
+- [Copilot Coverage Audit](docs/COPILOT_COVERAGE_AUDIT_COMPLETE.md) - AI integration validation
+- [MCP Functionality Report](docs/MCP_FUNCTIONALITY_AUDIT_FINAL_REPORT.md) - End-to-end functionality analysis
 
-## 💬 Integration & Setup
+ Integration & Setup
 
-### Prerequisites
-- **Node.js 18+** and npm package manager
-- **Power Platform CLI** ([installation guide](https://aka.ms/PowerPlatformCLI))
-- **Valid Microsoft 365** or Power Platform license with appropriate permissions
-- **Claude Desktop** or compatible MCP client ([supported clients](docs/MCP_CONNECTOR_SETUP.md#supported-clients))
+ Prerequisites
+- Node.js 18+ and npm package manager
+- Power Platform CLI ([installation guide](https://aka.ms/PowerPlatformCLI))
+- Valid Microsoft 365 or Power Platform license with appropriate permissions
+- Claude Desktop or compatible MCP client ([supported clients](docs/MCP_CONNECTOR_SETUP.mdsupported-clients))
 
-### Installation & Configuration
+ Installation & Configuration
 
 <details>
-<summary><strong>📦 1. Clone and Build SDK</strong></summary>
+<summary><strong> 1. Clone and Build SDK</strong></summary>
 
 ```bash
-# Clone the repository
+ Clone the repository
 git clone https://github.com/dayour/Power-Agent-MCP.git
 cd Power-Agent-MCP
 
-# Install dependencies and build
+ Install dependencies and build
 npm install
 npm run build
 
-# Verify installation
+ Verify installation
 npm test
 ```
 
 </details>
 
 <details>
-<summary><strong>🔐 2. Enterprise Authentication Setup</strong></summary>
+<summary><strong>2. Authentication Setup</strong></summary>
 
-**Service Principal (Recommended for Production):**
+Power Agent MCP reads credentials from the PAC CLI auth store. Sign in once and the token is reused automatically.
+
+User / device-code (recommended for local development):
+
 ```bash
-# Register application in Azure AD
-az ad app create --display-name "Power-Agent-MCP-Production"
-
-# Get Application ID and create client secret
-az ad app credential reset --id <APPLICATION_ID>
-
-# Grant Power Platform permissions
-az ad app permission add --id <APPLICATION_ID> --api 00000007-0000-0000-c000-000000000000
+pac auth create --deviceCode \
+  --name power-agent-mcp \
+  --applicationId <POWERPLATFORM_APPLICATION_ID> \
+  --tenant <POWERPLATFORM_TENANT_ID>
 ```
 
-**Environment Variables:**
+Service principal (recommended for CI/CD and production):
+
 ```bash
-export POWERPLATFORM_TENANT_ID="your-tenant-id"
-export POWERPLATFORM_APPLICATION_ID="your-app-id"
-export POWERPLATFORM_CLIENT_SECRET="your-client-secret"
+pac auth create \
+  --name power-agent-mcp-sp \
+  --applicationId <POWERPLATFORM_APPLICATION_ID> \
+  --clientSecret <POWERPLATFORM_CLIENT_SECRET> \
+  --tenant <POWERPLATFORM_TENANT_ID>
 ```
+
+PAC auth state is stored under `%LOCALAPPDATA%\Microsoft\PowerAppsCli\`.
+
+Key files:
+
+| File | Purpose |
+|------|----------|
+| `authprofiles_v2.json` | Auth profiles: selected profile, tenant/environment/account metadata |
+| `tokencache_msalv3.dat` | MSAL user/public-client token cache |
+| `tokencache_spn_msalv3.dat` | MSAL service-principal/confidential-client token cache |
+| `pac.spn.cache.dat` | Cached service-principal credentials/secrets |
+| `pac.spn.cache.fallback.dat` | Fallback SPN credential cache (when secure OS storage is unavailable) |
+| `tokencache.dat` | Older/legacy token cache |
+
+Verify the active profile:
+
+```bash
+pac auth list
+pac auth who
+```
+
+NOTE: `POWERPLATFORM_CLIENT_SECRET` is only required for service-principal auth. Leave it unset when using device-code / user auth.
 
 </details>
 
 <details>
-<summary><strong>🤖 3. Claude Desktop Integration</strong></summary>
+<summary><strong> 3. Claude Desktop Integration</strong></summary>
 
-Add to your `claude_desktop_config.json`:
+First sign in via `pac auth create` (see step 2). Then add to your `claude_desktop_config.json`:
+
 ```json
 {
-  "mcpServers": {
-    "power-agent-mcp": {
-      "command": "node",
-      "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
-      "env": {
-        "POWERPLATFORM_TENANT_ID": "your-tenant-id",
-        "POWERPLATFORM_APPLICATION_ID": "your-app-id",
-        "POWERPLATFORM_CLIENT_SECRET": "your-client-secret"
-      }
-    }
-  }
+ "mcpServers": {
+ "power-agent-mcp": {
+ "command": "node",
+ "args": ["/path/to/Power-Agent-MCP/dist/mcp/server.js"],
+ "env": {
+ "POWERPLATFORM_TENANT_ID": "your-tenant-id",
+ "POWERPLATFORM_APPLICATION_ID": "your-app-id"
+ }
+ }
+ }
 }
 ```
 
+NOTE: The server reads tokens from the PAC CLI auth store (`%LOCALAPPDATA%\Microsoft\PowerAppsCli\`). No client secret is needed for user/device-code auth.
+
 </details>
 
 <details>
-<summary><strong>⚡ 4. Verify SDK Integration</strong></summary>
+<summary><strong> 4. Verify SDK Integration</strong></summary>
 
 Start Claude Desktop and test basic functionality:
 ```
@@ -394,22 +444,22 @@ See [Complete Setup Guide](docs/MCP_CONNECTOR_SETUP.md) for advanced configurati
 
 </details>
 
-## 💡 Usage Examples
+ Usage Examples
 
 <details>
-<summary><strong>🏢 Environment Management</strong></summary>
+<summary><strong> Environment Management</strong></summary>
 
 ```
 Human: "Create a new development environment for my team called 'Customer Portal Dev' in the United States region"
 
 AI: I'll create a development environment for you:
 
-*Uses pp_create_environment with appropriate parameters*
+Uses pp_create_environment with appropriate parameters
 
 Environment "Customer Portal Dev" created successfully:
-- ✅ Development type for safe experimentation
-- 🌎 Located in United States region
-- 🔗 Environment URL: https://customerportaldev.crm.dynamics.com/
+- Development type for safe experimentation
+- Located in United States region
+- Environment URL: https://customerportaldev.crm.dynamics.com/
 - 🆔 Environment ID: 12345678-1234-1234-1234-123456789012
 
 Your development environment is ready for use!
@@ -418,7 +468,7 @@ Your development environment is ready for use!
 </details>
 
 <details>
-<summary><strong>📈 Solution Development Workflow</strong></summary>
+<summary><strong> Solution Development Workflow</strong></summary>
 
 ```
 Human: "Export our CustomerPortal solution as managed and pack it for deployment"
@@ -426,15 +476,15 @@ Human: "Export our CustomerPortal solution as managed and pack it for deployment
 AI: I'll export and package your solution for deployment:
 
 Step 1: Exporting solution
-*Uses pp_export_solution with managed=true*
+Uses pp_export_solution with managed=true
 
 Step 2: Packaging for deployment
-*Uses pp_pack_solution for distribution*
+Uses pp_pack_solution for distribution
 
 Solution deployment package created:
-- 📦 CustomerPortal_1_0_0_0_managed.zip exported
-- 🔄 Packaged for production deployment
-- ✅ Ready for import to target environment
+- CustomerPortal_1_0_0_0_managed.zip exported
+- Packaged for production deployment
+- Ready for import to target environment
 
 Your solution is ready for deployment!
 ```
@@ -442,7 +492,7 @@ Your solution is ready for deployment!
 </details>
 
 <details>
-<summary><strong>🔐 Authentication & Connection Management</strong></summary>
+<summary><strong> Authentication & Connection Management</strong></summary>
 
 ```
 Human: "Set up authentication for our production environment and check connection status"
@@ -450,135 +500,135 @@ Human: "Set up authentication for our production environment and check connectio
 AI: I'll configure authentication and verify the connection:
 
 Step 1: Authentication Setup
-*Uses pp_auth_create with Service Principal credentials*
+Uses pp_auth_create with Service Principal credentials
 
 Step 2: Connection Verification
-*Uses pp_whoami to validate connection*
+Uses pp_whoami to validate connection
 
 Authentication configured successfully:
-- 🔐 Service Principal authentication active
-- 🌐 Connected to: https://prod.crm.dynamics.com/
-- ✅ Connection validated and ready
-- 👤 Authenticated as: powerapp-service@company.com
+- Service Principal authentication active
+- Connected to: https://prod.crm.dynamics.com/
+- Connection validated and ready
+- Authenticated as: powerapp-service@company.com
 
 Your production environment connection is ready!
 ```
 
 </details>
 
-## 🔧 Enterprise SDK Architecture
+ Enterprise SDK Architecture
 
 <div align="center">
 
 ```mermaid
 graph TB
-    AI[AI Assistant<br/>Claude Desktop] --> MCP[MCP Protocol Layer]
-    MCP --> PAM[Power Agent MCP SDK<br/>12 Core Tools]
+ AI[AI Assistant<br/>Claude Desktop] --> MCP[MCP Protocol Layer]
+ MCP --> PAM[Power Agent MCP SDK<br/>12 Core Tools]
 
-    PAM --> PP[Power Platform CLI<br/>12 Core Commands]
-    PAM --> FUTURE[Future Extensions<br/>Roadmap]
+ PAM --> PP[Power Platform CLI<br/>12 Core Commands]
+ PAM --> FUTURE[Future Extensions<br/>Roadmap]
 
-    PP --> AUTH[Authentication<br/>3 Tools]
-    PP --> ENV[Environment Ops<br/>3 Tools]
-    PP --> SOL[Solution Dev<br/>4 Tools]
-    PP --> DIAG[Diagnostics<br/>2 Tools]
+ PP --> AUTH[Authentication<br/>3 Tools]
+ PP --> ENV[Environment Ops<br/>3 Tools]
+ PP --> SOL[Solution Dev<br/>4 Tools]
+ PP --> DIAG[Diagnostics<br/>2 Tools]
 
-    FUTURE --> DV[Dataverse Operations<br/>Planned]
-    FUTURE --> SQL[SQL Server SDK<br/>Planned]
-    FUTURE --> AC[Adaptive Cards<br/>Planned]
-    FUTURE --> EXTEND[Additional SDKs<br/>Extensible]
+ FUTURE --> DV[Dataverse Operations<br/>Planned]
+ FUTURE --> SQL[SQL Server SDK<br/>Planned]
+ FUTURE --> AC[Adaptive Cards<br/>Planned]
+ FUTURE --> EXTEND[Additional SDKs<br/>Extensible]
 
-    PAM --> EXT[Extensible Framework<br/>Ready for Extensions]
+ PAM --> EXT[Extensible Framework<br/>Ready for Extensions]
 
-    style AI fill:#e1f5fe
-    style PAM fill:#f3e5f5
-    style PP fill:#e8f5e8
-    style FUTURE fill:#fff3e0
-    style AUTH fill:#fce4ec
-    style ENV fill:#e0f2f1
-    style SOL fill:#f3e5f5
-    style DIAG fill:#e1f5fe
+ style AI fill:e1f5fe
+ style PAM fill:f3e5f5
+ style PP fill:e8f5e8
+ style FUTURE fill:fff3e0
+ style AUTH fill:fce4ec
+ style ENV fill:e0f2f1
+ style SOL fill:f3e5f5
+ style DIAG fill:e1f5fe
 ```
 
 </div>
 
-### 🏗️ SDK Architecture Principles
+ SDK Architecture Principles
 
 <table>
 <tr>
 <td width="50%">
 
-**🔌 Current Enterprise Integrations**
-- ✅ **Power Platform CLI** - Essential DevOps operations (12 tools)
-- 🚧 **Extended Operations** - Additional capabilities in roadmap
-- 🚧 **Dataverse Native** - Entity, data, and metadata management (planned)
-- 🚧 **SQL Server** - Database operations and schema management (planned)
-- 🚧 **Adaptive Cards** - Copilot Studio UI components (planned)
+ Current Enterprise Integrations
+- Power Platform CLI - Essential DevOps operations (12 tools)
+- Extended Operations - Additional capabilities in roadmap
+- Dataverse Native - Entity, data, and metadata management (planned)
+- SQL Server - Database operations and schema management (planned)
+- Adaptive Cards - Copilot Studio UI components (planned)
 
-**📊 Current Tool Distribution**
-- **Authentication & Security**: 3 tools
-- **Environment Management**: 3 tools  
-- **Solution Development**: 4 tools
-- **Status & Diagnostics**: 2 tools
-- **Total Current Implementation**: 12 tools
-- **Roadmap Extensions**: Multiple categories planned
+ Current Tool Distribution
+- Authentication & Security: 3 tools
+- Environment Management: 3 tools  
+- Solution Development: 4 tools
+- Status & Diagnostics: 2 tools
+- Total Current Implementation: 12 tools
+- Roadmap Extensions: Multiple categories planned
 
 </td>
 <td width="50%">
 
-**⚡ Proven Enterprise Patterns**
-- **Standardized Tool Schema** - Consistent parameter validation
-- **Enterprise Authentication** - Multi-tenant security abstraction
-- **Async Operation Support** - Long-running task management
-- **Comprehensive Error Handling** - Graceful failure recovery
-- **Audit & Compliance** - Complete operation logging
+ Proven Enterprise Patterns
+- Standardized Tool Schema - Consistent parameter validation
+- Enterprise Authentication - Multi-tenant security abstraction
+- Async Operation Support - Long-running task management
+- Comprehensive Error Handling - Graceful failure recovery
+- Audit & Compliance - Complete operation logging
 
-**🎯 Future Integration Roadmap**
-- **SharePoint Integration** - Document and list management
-- **Microsoft Teams** - Collaboration and workflow automation
-- **Azure Resources** - Cloud infrastructure management
-- **Additional Databases** - PostgreSQL, MySQL, Oracle support
-- **DevOps Tools** - Azure DevOps, GitHub Actions integration
+ Future Integration Roadmap
+- SharePoint Integration - Document and list management
+- Microsoft Teams - Collaboration and workflow automation
+- Azure Resources - Cloud infrastructure management
+- Additional Databases - PostgreSQL, MySQL, Oracle support
+- DevOps Tools - Azure DevOps, GitHub Actions integration
 
 </td>
 </tr>
 </table>
 
-### 🛠️ SDK Extension Framework
+ SDK Extension Framework
 
-**Adding New Enterprise Integrations:**
+Adding New Enterprise Integrations:
 
-1. **Tool Interface Creation** - Follow established TypeScript patterns in `src/mcp/tools/`
-2. **Authentication Layer** - Implement secure credential management
-3. **Error Handling** - Add comprehensive validation and recovery
-4. **Documentation** - Create API reference with examples
-5. **Testing** - Implement unit and integration tests
+1. Tool Interface Creation - Follow established TypeScript patterns in `src/mcp/tools/`
+2. Authentication Layer - Implement secure credential management
+3. Error Handling - Add comprehensive validation and recovery
+4. Documentation - Create API reference with examples
+5. Testing - Implement unit and integration tests
 
-**Example Integration Pattern:**
+Example Integration Pattern:
 ```typescript
 // src/mcp/tools/sharepoint.ts
 export const sharepointTools: Tool[] = [
-  {
-    name: "pp_sharepoint_site_create",
-    description: "Create new SharePoint site",
-    inputSchema: {
-      type: "object",
-      properties: {
-        siteName: { type: "string" },
-        template: { type: "string" }
-      }
-    }
-  }
+ {
+ name: "pp_sharepoint_site_create",
+ description: "Create new SharePoint site",
+ inputSchema: {
+ type: "object",
+ properties: {
+ siteName: { type: "string" },
+ template: { type: "string" }
+ }
+ }
+ }
 ];
 ```
 
 See [Architecture Guide](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md) for detailed extension patterns.
 
-## 🤝 Contributing to the SDK
+ Contributing to the SDK
 
 <div align="center">
 
-**Join the growing community of enterprise developers extending AI automation across Microsoft ecosystem**
+Join the growing community of enterprise developers extending AI automation across Microsoft ecosystem
 
 </div>
 
@@ -586,151 +636,151 @@ See [Architecture Guide](docs/IMPLEMENTATION_COMPLETE_SUMMARY.md) for detailed e
 <tr>
 <td width="50%">
 
-### 🎯 **Contribution Areas**
-- 🐛 **Bug Reports** - Help improve SDK reliability with detailed reproduction steps
-- 💡 **Feature Requests** - Suggest new enterprise integrations and capabilities
-- 📝 **Documentation** - Enhance API references, guides, and examples
-- 🔧 **SDK Extensions** - Add new tools or improve existing functionality
-- 🧪 **Testing** - Expand test coverage and validation scenarios
+ Contribution Areas
+- Bug Reports - Help improve SDK reliability with detailed reproduction steps
+- Feature Requests - Suggest new enterprise integrations and capabilities
+- Documentation - Enhance API references, guides, and examples
+- SDK Extensions - Add new tools or improve existing functionality
+- Testing - Expand test coverage and validation scenarios
 
-### 🏗️ **SDK Development Patterns**
-- **Tool Implementation** - Follow TypeScript patterns in `src/mcp/tools/`
-- **Schema Validation** - Implement comprehensive input validation
-- **Error Handling** - Add graceful failure recovery mechanisms
-- **Authentication** - Follow enterprise security best practices
-- **Documentation** - Create complete API references with examples
+ SDK Development Patterns
+- Tool Implementation - Follow TypeScript patterns in `src/mcp/tools/`
+- Schema Validation - Implement comprehensive input validation
+- Error Handling - Add graceful failure recovery mechanisms
+- Authentication - Follow enterprise security best practices
+- Documentation - Create complete API references with examples
 
 </td>
 <td width="50%">
 
-### 🚀 **Getting Started as Contributor**
+ Getting Started as Contributor
 
-1. **📋 Fork & Setup**
-   ```bash
-   git fork https://github.com/dayour/Power-Agent-MCP.git
-   cd Power-Agent-MCP
-   npm install && npm run build
-   ```
+1. Fork & Setup
+ ```bash
+ git fork https://github.com/dayour/Power-Agent-MCP.git
+ cd Power-Agent-MCP
+ npm install && npm run build
+ ```
 
-2. **🔧 Development Environment**
-   ```bash
-   # Run tests
-   npm test
+2. Development Environment
+ ```bash
+ Run tests
+ npm test
 
-   # Build and validate
-   npm run build && npm run lint
-   ```
+ Build and validate
+ npm run build && npm run lint
+ ```
 
-3. **📝 Create & Document**
-   - Follow established patterns for new tool categories
-   - Add comprehensive tests for new functionality
-   - Update documentation and API references
-   - Include usage examples and best practices
+3. Create & Document
+ - Follow established patterns for new tool categories
+ - Add comprehensive tests for new functionality
+ - Update documentation and API references
+ - Include usage examples and best practices
 
-4. **🎯 Submit & Review**
-   - Create detailed pull request with examples
-   - Include test coverage for new features
-   - Follow our contribution guidelines
+4. Submit & Review
+ - Create detailed pull request with examples
+ - Include test coverage for new features
+ - Follow our contribution guidelines
 
 </td>
 </tr>
 </table>
 
-### 📋 **Enterprise Development Guidelines**
+ Enterprise Development Guidelines
 
-- **Security First** - All tools must implement proper authentication and validation
-- **Documentation Complete** - Every tool requires API reference and usage examples
-- **Production Ready** - Comprehensive error handling and recovery mechanisms
-- **Extensible Design** - Follow established patterns for future integration ease
-- **Test Coverage** - Unit tests and integration tests for all new functionality
+- Security First - All tools must implement proper authentication and validation
+- Documentation Complete - Every tool requires API reference and usage examples
+- Production Ready - Comprehensive error handling and recovery mechanisms
+- Extensible Design - Follow established patterns for future integration ease
+- Test Coverage - Unit tests and integration tests for all new functionality
 
 For detailed contribution guidelines and SDK patterns, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
-## 📊 SDK Impact & Metrics
+ SDK Impact & Metrics
 
 <div align="center">
 
-### **Enterprise Transformation Results**
+ Enterprise Transformation Results
 
-| **Metric** | **Before Power Agent MCP** | **After Integration** | **Improvement** |
+| Metric | Before Power Agent MCP | After Integration | Improvement |
 |------------|---------------------------|---------------------|-----------------|
-| **Platform Access** | Manual CLI commands | Natural language AI | **100% AI-driven** |
-| **Tool Coverage** | Limited PAC CLI knowledge | 12 core tools | **Essential operations** |
-| **Learning Curve** | Weeks to master CLI | Immediate natural language | **Zero learning time** |
-| **Development Speed** | Hours per operation | Minutes with AI guidance | **10x faster execution** |
-| **Error Reduction** | Manual syntax errors | AI-validated operations | **Near-zero mistakes** |
-| **Integration Complexity** | Custom scripting required | Built-in SDK patterns | **Plug-and-play ready** |
+| Platform Access | Manual CLI commands | Natural language AI | 100% AI-driven |
+| Tool Coverage | Limited PAC CLI knowledge | 12 core tools | Essential operations |
+| Learning Curve | Weeks to master CLI | Immediate natural language | Zero learning time |
+| Development Speed | Hours per operation | Minutes with AI guidance | 10x faster execution |
+| Error Reduction | Manual syntax errors | AI-validated operations | Near-zero mistakes |
+| Integration Complexity | Custom scripting required | Built-in SDK patterns | Plug-and-play ready |
 
 </div>
 
-### 🎯 **Production Adoption Metrics**
-- **📈 12 Core Tools Available** - Essential Power Platform automation coverage
-- **🏢 Enterprise Authentication** - Service Principal authentication support
-- **🤖 AI Integration Ready** - Optimized for Claude Desktop and MCP clients
-- **📚 Complete Documentation** - 100% API reference with examples
-- **🔒 Security Validated** - Enterprise-grade compliance and audit trails
-- **⚡ Production Ready** - Standalone server operational and tested
+ Production Adoption Metrics
+- 12 Core Tools Available - Essential Power Platform automation coverage
+- Enterprise Authentication - Service Principal authentication support
+- AI Integration Ready - Optimized for Claude Desktop and MCP clients
+- Complete Documentation - 100% API reference with examples
+- Security Validated - Enterprise-grade compliance and audit trails
+- Production Ready - Standalone server operational and tested
 
 ---
 
-## 📄 Legal & Compliance
+ Legal & Compliance
 
-### 🔒 **Security**
+ Security
 Security issues should be reported following our [Security Policy](SECURITY.md). Please do not report security vulnerabilities through public GitHub issues.
 
-### 📜 **Code of Conduct**
+ Code of Conduct
 This project follows the Microsoft Open Source [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold this code.
 
-### ⚖️ **License**
+ License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### 🏷️ **Trademarks**
+ Trademarks
 This project may contain trademarks or logos for projects, products, or services. Use of Microsoft trademarks or logos must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 
 ---
 
 <div align="center">
 
-## 🚀 **Start Building with Power Agent MCP SDK**
+ Start Building with Power Agent MCP SDK
 
-**⭐ Star this repository if Power Agent MCP accelerates your enterprise automation!**
+ Star this repository if Power Agent MCP accelerates your enterprise automation!
 
 <table>
 <tr>
 <td align="center">
-<strong>📖 Documentation</strong><br/>
+<strong> Documentation</strong><br/>
 <a href="docs/MCP_CONNECTOR_SETUP.md">Complete Setup Guide</a>
 </td>
 <td align="center">
-<strong>🔧 API Reference</strong><br/>
+<strong> API Reference</strong><br/>
 <a href="power-mcp.md">12 Core Tools Documentation</a>
 </td>
 <td align="center">
-<strong>📊 Dataverse SDK</strong><br/>
+<strong> Dataverse SDK</strong><br/>
 <a href="docs/DATAVERSE_MCP_REFERENCE.md">25 Dataverse Tools</a>
 </td>
 </tr>
 <tr>
 <td align="center">
-<strong>🐛 Issues</strong><br/>
+<strong> Issues</strong><br/>
 <a href="https://github.com/dayour/Power-Agent-MCP/issues">Report Issues</a>
 </td>
 <td align="center">
-<strong>💡 Features</strong><br/>
+<strong> Features</strong><br/>
 <a href="https://github.com/dayour/Power-Agent-MCP/discussions">Request Features</a>
 </td>
 <td align="center">
-<strong>👥 Community</strong><br/>
+<strong> Community</strong><br/>
 <a href="https://aka.ms/community/home">Join Community</a>
 </td>
 </tr>
 </table>
 
-*Enterprise SDK built with ❤️ for the Microsoft Power Platform developer community*
+Enterprise SDK built with for the Microsoft Power Platform developer community
 
-**Latest Release:** Complete Dataverse integration with 25 new tools • [Release Notes](docs/DATAVERSE_INTEGRATION_GUIDE.md)
+Latest Release: Complete Dataverse integration with 25 new tools • [Release Notes](docs/DATAVERSE_INTEGRATION_GUIDE.md)
 
 </div>
 

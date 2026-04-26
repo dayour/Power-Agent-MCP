@@ -123,7 +123,7 @@ export class EnvTools {
       pp_env_select: async (args: any) => {
         return { content: `Environment selected as default: ${args.environment || args.name}` };
       },
-      pp_env_update_settings: async (args: any) => {
+      pp_env_update_settings: async (_args: any) => {
         return { content: 'Environment settings updated successfully' };
       },
       pp_env_who: async () => {

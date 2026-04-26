@@ -9,7 +9,7 @@ on:
 
 env:
   NODE_VERSION: '20'
-  DOTNET_VERSION: '8.0'
+  DOTNET_VERSION: '10.0.x'
 
 jobs:
   # Continuous Integration
@@ -37,59 +37,25 @@ jobs:
     - name: Install Dependencies
       run: |
         npm ci
-        # Skip PowerPlatform CLI wrapper dependency for CI
-        npm install --no-optional || true
     
     - name: Lint Code
       run: |
-        npm run lint || echo "Linting completed with warnings"
+        npm run lint
     
     - name: Build Application
       run: |
-        # Build TypeScript to JavaScript
-        npx tsc --build tsconfig.json || echo "Build completed with warnings"
-        
-        # Create dist directory structure
-        mkdir -p dist/mcp
-        
-        # Copy essential files for MCP server
-        cp src/mcp/server.ts dist/mcp/server.js 2>/dev/null || echo "Server file handled"
+        npm run build
     
     - name: Run Tests
       run: |
-        npm test || echo "Tests completed"
+        npm test
     
     - name: Validate MCP Server
       run: |
-        cd /tmp
-        mkdir -p mcp-test
-        cd mcp-test
-        npm init -y
-        npm install @modelcontextprotocol/sdk
-        
-        # Create and test minimal MCP server
-        cat > server.js << 'EOF'
-        import { Server } from '@modelcontextprotocol/sdk/server/index.js';
-        import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-        
-        const server = new Server({
-          name: 'power-agent-mcp-test',
-          version: '1.0.0'
-        }, {
-          capabilities: { tools: {} }
-        });
-        
-        console.log('✅ MCP Server validation passed');
-        process.exit(0);
-        EOF
-        
-        timeout 10s node server.js || echo "MCP validation completed"
+        node -e "import('./dist/mcp/tools/handler.js').then(m => { const h = new m.PowerPlatformToolHandler(); const tools = h.getAllTools(); if (tools.length !== 253) throw new Error('Expected 253 MCP tools, found ' + tools.length); console.log('MCP tool inventory validated: ' + tools.length); })"
     
     - name: Security Scan
-      uses: securecodewarrior/github-action-add-sarif@v1
-      with:
-        sarif-file: 'security-scan-results.sarif'
-      continue-on-error: true
+      run: npm audit --audit-level=high
     
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v4
@@ -130,22 +96,28 @@ jobs:
     
     - name: Install VSCE
       run: npm install -g @vscode/vsce
+
+    - name: Build Canonical MCP Server
+      run: |
+        npm ci
+        npm run build
+        rm -rf deployment/vscode-extension/server
+        mkdir -p deployment/vscode-extension/server
+        cp -R dist/mcp deployment/vscode-extension/server/mcp
+        rm -rf deployment/nuget-package/dist
+        mkdir -p deployment/nuget-package/dist
+        cp -R dist/mcp deployment/nuget-package/dist/mcp
     
     - name: Create VSCode Extension Package
       run: |
         cd deployment/vscode-extension
-        npm install
+        npm ci
+        npm run compile
         vsce package --out ../../power-agent-mcp.vsix
     
     - name: Create NuGet Package
       run: |
         cd deployment/nuget-package
-        # Create empty binaries for demo
-        mkdir -p bin/Release/net6.0 bin/Release/net8.0
-        echo "// Placeholder" > bin/Release/net6.0/PowerAgentMCP.dll
-        echo "// Placeholder" > bin/Release/net8.0/PowerAgentMCP.dll
-        
-        # Create package
         nuget pack DarBotLabs.PowerAgent.MCP.nuspec
     
     - name: Upload Packages
@@ -185,7 +157,7 @@ jobs:
         # Power Agent MCP v$VERSION
         
         ## What's New
-        - 254+ specialized tools for Power Platform automation
+        - 253 specialized tools for Power Platform automation
         - Native Dataverse integration with 25 dedicated operations
         - SQL Server integration with 7 database management tools
         - Adaptive Cards SDK with 10 Copilot Studio tools
@@ -240,22 +212,12 @@ jobs:
     
     - name: Deploy to Production Server
       run: |
-        echo "🚀 Production deployment would execute here"
-        echo "Target: Production environment"
-        echo "Deployment script: deployment/production-setup/deploy-production.sh"
-        
-        # In real scenario, this would:
-        # 1. SSH to production server
-        # 2. Run deployment script
-        # 3. Verify deployment health
-        # 4. Notify team of deployment status
-    
-    - name: Notify Deployment Status
-      run: |
-        echo "✅ Deployment notification sent"
-        # Send notifications to team channels
-        # Update deployment dashboard
-        # Log deployment metrics
+        chmod +x deployment/production-setup/deploy-production.sh
+        deployment/production-setup/deploy-production.sh production
+      env:
+        POWERPLATFORM_TENANT_ID: ${{ secrets.POWERPLATFORM_TENANT_ID }}
+        POWERPLATFORM_APPLICATION_ID: ${{ secrets.POWERPLATFORM_APPLICATION_ID }}
+        POWERPLATFORM_CLIENT_SECRET: ${{ secrets.POWERPLATFORM_CLIENT_SECRET }}
 
   # Publish to Marketplaces
   publish:
@@ -276,23 +238,12 @@ jobs:
     
     - name: Publish VSCode Extension
       run: |
-        echo "📦 Publishing to VSCode Marketplace"
-        # vsce publish --packagePath *.vsix
-        echo "VSCode extension published successfully"
+        vsce publish --packagePath *.vsix
       env:
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
     
     - name: Publish NuGet Package
       run: |
-        echo "📦 Publishing to NuGet.org"
-        # dotnet nuget push deployment/nuget-package/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-        echo "NuGet package published successfully"
+        dotnet nuget push deployment/nuget-package/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
-    
-    - name: Update Package Registries
-      run: |
-        echo "📋 Updating package registries and documentation"
-        # Update package listings
-        # Refresh documentation sites
-        # Notify community channels

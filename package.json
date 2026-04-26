@@ -1,38 +1,39 @@
 {
   "name": "@darbotlabs/power-agent-mcp",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
-  "description": "Enterprise AI SDK for Microsoft Power Platform - MCP Server enabling natural language automation",
-  "main": "dist/mcp/standalone-server.js",
+  "description": "Unified standalone Power Platform toolbox MCP server. Natural-language access to PAC CLI, Dataverse, solutions, environments, governance, Copilot Studio, and more.",
+  "main": "dist/mcp/server.js",
   "bin": {
-    "power-agent-mcp": "dist/mcp/standalone-server.js"
+    "power-agent-mcp": "dist/mcp/server.js"
   },
   "files": [
-    "dist/mcp/standalone-server.js",
-    "dist/mcp/standalone-server.js.map",
+    "dist/mcp/**/*.js",
+    "dist/mcp/**/*.js.map",
     "README.md",
     "LICENSE",
+    "power-mcp.md",
     "docs/"
   ],
   "scripts": {
-    "build": "npm run build:standalone",
-    "build:standalone": "npx tsc src/mcp/standalone-server.ts --outDir dist/mcp --target ES2022 --module ESNext --moduleResolution node --allowSyntheticDefaultImports --esModuleInterop --skipLibCheck --declaration false --sourceMap true",
-    "build:full": "npx tsc src/mcp/server.ts src/mcp/tools/*.ts --outDir dist/mcp --target ES2022 --module ESNext --moduleResolution node --allowSyntheticDefaultImports --esModuleInterop --skipLibCheck --declaration false --sourceMap true",
-    "dev": "tsx src/mcp/standalone-server.ts",
-    "dev:full": "tsx src/mcp/server.ts",
-    "start": "node dist/mcp/standalone-server.js",
-    "start:full": "node dist/mcp/server.js",
-    "test": "node production-audit.js",
-    "test:full": "node comprehensive-test.js",
-    "lint": "echo \"Linting disabled for now\"",
-    "clean": "rm -rf dist",
-    "prepare": "npm run build"
+    "build": "tsc -p tsconfig-mcp-full.json",
+    "build:legacy": "gulp",
+    "dev": "tsx src/mcp/server.ts",
+    "start": "node dist/mcp/server.js",
+    "test": "node -e \"import('./dist/mcp/tools/handler.js').then(m => { const h = new m.PowerPlatformToolHandler(); const tools = h.getAllTools(); if (tools.length !== 253) throw new Error('Expected 253 MCP tools, found ' + tools.length); console.log('MCP tool inventory validated: ' + tools.length); })\"",
+    "test:legacy": "mocha --require ts-node/register 'test/unit-test/**/*.test.ts'",
+    "lint": "eslint src/mcp",
+    "lint:legacy": "eslint src test",
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm run lint && npm test && npm audit"
   },
   "keywords": [
     "power-platform",
+    "pac-cli",
     "mcp",
     "ai",
     "copilot",
@@ -53,13 +54,61 @@
     "url": "https://github.com/dayour/Power-Agent-MCP/issues"
   },
   "dependencies": {
-    "@microsoft/teams.mcp": "^0.2.14",
-    "@microsoft/teams.mcpclient": "^2.0.0-preview.7",
-    "@modelcontextprotocol/sdk": "^1.15.0"
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "mssql": "^12.5.0"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
-    "tsx": "^4.7.0",
-    "typescript": "^5.3.0"
+    "@eslint/js": "^10.0.1",
+    "@types/chai": "^5.2.3",
+    "@types/debug": "^4.1.13",
+    "@types/fs-extra": "^11.0.4",
+    "@types/mocha": "^10.0.10",
+    "@types/mssql": "^12.3.0",
+    "@types/node": "^25.6.0",
+    "@types/semver": "^7.7.1",
+    "@types/sinon": "^21.0.1",
+    "@types/sinon-chai": "^4.0.0",
+    "@types/sinonjs__fake-timers": "^15.0.1",
+    "@types/unzip-stream": "^0.3.4",
+    "@types/webpack": "^5.28.5",
+    "@typescript-eslint/eslint-plugin": "^8.59.0",
+    "@typescript-eslint/parser": "^8.59.0",
+    "azure-pipelines-task-lib": "^5.2.10",
+    "chai": "^6.2.2",
+    "debug": "^4.4.3",
+    "dotenv": "^17.4.2",
+    "eslint": "^10.2.1",
+    "fancy-log": "^2.0.0",
+    "find": "^0.3.0",
+    "fs-extra": "^11.3.4",
+    "gulp": "^5.0.1",
+    "gulp-eslint-new": "^2.6.2",
+    "mocha": "^11.7.5",
+    "node-fetch": "^3.3.2",
+    "ps-list": "^9.0.0",
+    "release-it": "^20.0.1",
+    "semver": "^7.7.4",
+    "sinon": "^21.1.2",
+    "sinon-chai": "^4.0.1",
+    "tar": "^7.5.13",
+    "tfx-cli": "^0.23.1",
+    "ts-loader": "^9.5.7",
+    "ts-node": "^10.9.2",
+    "ts-sinon": "^2.0.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "unzip-stream": "^0.3.4",
+    "webpack": "^5.106.2",
+    "webpack-cli": "^7.0.2",
+    "webpack-node-externals": "^3.0.0",
+    "yargs": "^18.0.0"
+  },
+  "overrides": {
+    "@hono/node-server": "^2.0.0",
+    "hono": "^4.12.15",
+    "@types/node": "^25.6.0",
+    "diff": "^9.0.0",
+    "serialize-javascript": "^7.0.5",
+    "uuid": "^14.0.0"
   }
 }

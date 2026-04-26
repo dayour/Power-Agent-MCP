@@ -1,3 +1,0 @@
-🚀 Power Agent MCP Server running...
-💡 Provides 12 core Power Platform tools via natural language
-📋 Type "list tools" in your MCP client to see available tools

@@ -180,7 +180,7 @@ See [Complete Tool Reference](#-complete-tool-reference) for detailed documentat
     "supportUrl": null,
     "termsOfServiceUrl": null
   },
-  "isDeviceOnlyAuthSupported": null,
+  "isDeviceOnlyAuthSupported": true,
   "isFallbackPublicClient": null,
   "keyCredentials": [],
   "nativeAuthenticationApisEnabled": null,

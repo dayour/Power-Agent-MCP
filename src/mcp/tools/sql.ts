@@ -319,7 +319,7 @@ export class SqlTools {
       return result;
     } catch (importError) {
       // Fallback if mssql package is not available
-      throw new Error(`SQL Server functionality requires the 'mssql' package to be installed. Please run: npm install mssql\nOriginal error: ${importError instanceof Error ? importError.message : String(importError)}`);
+      throw new Error(`SQL Server functionality requires the 'mssql' package to be installed. Please run: npm install mssql\nOriginal error: ${importError instanceof Error ? importError.message : String(importError)}`, { cause: importError });
     }
   }
 }

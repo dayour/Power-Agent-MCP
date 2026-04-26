@@ -6,3 +6,10 @@ extends:
   - eslint:recommended
   - plugin:@typescript-eslint/eslint-recommended
   - plugin:@typescript-eslint/recommended
+rules:
+  # MCP tool handlers receive arbitrary client-supplied JSON; permitting `any`
+  # for those argument bags is intentional and pervasive across the toolbox.
+  "@typescript-eslint/no-explicit-any": off
+  "@typescript-eslint/no-unused-vars":
+    - warn
+    - argsIgnorePattern: "^_"

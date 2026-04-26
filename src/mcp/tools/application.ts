@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
 
 export class ApplicationTools {
   getTools(): Tool[] {
@@ -144,82 +145,62 @@ export class ApplicationTools {
   }
 
   private async installApplication(args: any): Promise<any> {
-    const { main: installApplicationMain } = await import('../../tasks/install-application/install-application-v2/index.js');
-    
-    process.env.INPUT_APPLICATIONNAME = args.applicationName;
-    if (args.applicationId) process.env.INPUT_APPLICATIONID = args.applicationId;
-    if (args.targetEnvironment) process.env.INPUT_TARGETENVIRONMENT = args.targetEnvironment;
-
-    try {
-      await installApplicationMain();
-      return {
-        success: true,
-        message: 'Application installed successfully',
-        applicationName: args.applicationName
-      };
-    } catch (error) {
-      throw new Error(`Failed to install application: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['application', 'install'], {
+      applicationName: args.applicationName,
+      applicationId: args.applicationId,
+      environment: args.targetEnvironment,
+    });
+    return {
+      success: true,
+      message: 'Application installed successfully',
+      applicationName: args.applicationName,
+      output: result.stdout,
+    };
   }
 
   private async deployPackage(args: any): Promise<any> {
-    const { main: deployPackageMain } = await import('../../tasks/deploy-package/deploy-package-v2/index.js');
-    
-    process.env.INPUT_PACKAGEFILE = args.packageFile;
-    if (args.packageName) process.env.INPUT_PACKAGENAME = args.packageName;
-    if (args.useDeploymentSettingsFile !== undefined) process.env.INPUT_USEDEPLOYMENTSETTINGSFILE = String(args.useDeploymentSettingsFile);
-    if (args.deploymentSettingsFile) process.env.INPUT_DEPLOYMENTSETTINGSFILE = args.deploymentSettingsFile;
-    if (args.packageRuntimeSettingsFile) process.env.INPUT_PACKAGERUNTIMESETTINGSFILE = args.packageRuntimeSettingsFile;
-
-    try {
-      await deployPackageMain();
-      return {
-        success: true,
-        message: 'Package deployed successfully',
-        packageFile: args.packageFile
-      };
-    } catch (error) {
-      throw new Error(`Failed to deploy package: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['package', 'deploy'], {
+      packageFile: args.packageFile,
+      packageName: args.packageName,
+      useDeploymentSettingsFile: args.useDeploymentSettingsFile,
+      settingsFile: args.deploymentSettingsFile,
+      packageRuntimeSettingsFile: args.packageRuntimeSettingsFile,
+    });
+    return {
+      success: true,
+      message: 'Package deployed successfully',
+      packageFile: args.packageFile,
+      output: result.stdout,
+    };
   }
 
   private async installCatalog(args: any): Promise<any> {
-    const { main: installCatalogMain } = await import('../../tasks/install-catalog/install-catalog-v2/index.js');
-    
-    process.env.INPUT_CATALOGITEMID = args.catalogItemId;
-    if (args.targetEnvironment) process.env.INPUT_TARGETENVIRONMENT = args.targetEnvironment;
-    if (args.targetVersion) process.env.INPUT_TARGETVERSION = args.targetVersion;
-
-    try {
-      await installCatalogMain();
-      return {
-        success: true,
-        message: 'Catalog item installed successfully',
-        catalogItemId: args.catalogItemId
-      };
-    } catch (error) {
-      throw new Error(`Failed to install catalog item: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['catalog', 'install'], {
+      catalogItemId: args.catalogItemId,
+      targetEnvironment: args.targetEnvironment,
+      targetVersion: args.targetVersion,
+    });
+    return {
+      success: true,
+      message: 'Catalog item installed successfully',
+      catalogItemId: args.catalogItemId,
+      output: result.stdout,
+    };
   }
 
   private async submitCatalog(args: any): Promise<any> {
-    const { main: submitCatalogMain } = await import('../../tasks/submit-catalog/submit-catalog-v2/index.js');
-    
-    process.env.INPUT_CATALOGSUBMISSIONFILE = args.catalogSubmissionFile;
-    if (args.packageSolutionZipFile) process.env.INPUT_PACKAGESOLUTIONZIPFILE = args.packageSolutionZipFile;
-    if (args.packageZipFile) process.env.INPUT_PACKAGEZIPFILE = args.packageZipFile;
-    if (args.solutionZipFile) process.env.INPUT_SOLUTIONZIPFILE = args.solutionZipFile;
-    if (args.pollStatus !== undefined) process.env.INPUT_POLLSTATUS = String(args.pollStatus);
-
-    try {
-      await submitCatalogMain();
-      return {
-        success: true,
-        message: 'Catalog submission completed',
-        catalogSubmissionFile: args.catalogSubmissionFile
-      };
-    } catch (error) {
-      throw new Error(`Failed to submit to catalog: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['catalog', 'submit'], {
+      submissionFile: args.catalogSubmissionFile,
+      packageSolutionZipFile: args.packageSolutionZipFile,
+      packageZipFile: args.packageZipFile,
+      solutionZipFile: args.solutionZipFile,
+      pollStatus: args.pollStatus,
+    });
+    return {
+      success: true,
+      message: 'Catalog submission completed',
+      catalogSubmissionFile: args.catalogSubmissionFile,
+      output: result.stdout,
+    };
   }
 }

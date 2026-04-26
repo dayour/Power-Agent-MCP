@@ -748,7 +748,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to create entity: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to create entity: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -759,7 +759,7 @@ export class DataverseTools {
         message: `Entity '${args.entityName}' deleted successfully`
       };
     } catch (error) {
-      throw new Error(`Failed to delete entity: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to delete entity: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -775,7 +775,7 @@ export class DataverseTools {
         ]
       };
     } catch (error) {
-      throw new Error(`Failed to list entities: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to list entities: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -791,7 +791,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to get entity metadata: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to get entity metadata: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -809,7 +809,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to create column: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to create column: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -820,7 +820,7 @@ export class DataverseTools {
         message: `Column '${args.columnName}' deleted from entity '${args.entityName}'`
       };
     } catch (error) {
-      throw new Error(`Failed to delete column: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to delete column: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -835,7 +835,7 @@ export class DataverseTools {
         ]
       };
     } catch (error) {
-      throw new Error(`Failed to list columns: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to list columns: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -849,7 +849,7 @@ export class DataverseTools {
         data: args.data
       };
     } catch (error) {
-      throw new Error(`Failed to create record: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to create record: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -862,7 +862,7 @@ export class DataverseTools {
         data: args.data
       };
     } catch (error) {
-      throw new Error(`Failed to update record: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to update record: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -873,7 +873,7 @@ export class DataverseTools {
         message: `Record '${args.recordId}' deleted from entity '${args.entityName}'`
       };
     } catch (error) {
-      throw new Error(`Failed to delete record: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to delete record: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -889,7 +889,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to get record: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to get record: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -906,7 +906,7 @@ export class DataverseTools {
         outputFile: args.outputFile
       };
     } catch (error) {
-      throw new Error(`Failed to execute FetchXML query: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to execute FetchXML query: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -922,7 +922,7 @@ export class DataverseTools {
         outputFile: args.outputFile
       };
     } catch (error) {
-      throw new Error(`Failed to execute OData query: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to execute OData query: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -937,7 +937,7 @@ export class DataverseTools {
         batchSize: args.batchSize || 100
       };
     } catch (error) {
-      throw new Error(`Failed to perform bulk import: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to perform bulk import: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -951,7 +951,7 @@ export class DataverseTools {
         format: args.format || 'csv'
       };
     } catch (error) {
-      throw new Error(`Failed to perform bulk export: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to perform bulk export: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -969,7 +969,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to create relationship: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to create relationship: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -984,7 +984,7 @@ export class DataverseTools {
         ]
       };
     } catch (error) {
-      throw new Error(`Failed to list relationships: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to list relationships: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -1002,7 +1002,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to create choice: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to create choice: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -1017,7 +1017,7 @@ export class DataverseTools {
         ]
       };
     } catch (error) {
-      throw new Error(`Failed to list choices: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to list choices: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -1034,7 +1034,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to create security role: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to create security role: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -1050,7 +1050,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to assign security role: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to assign security role: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -1067,7 +1067,7 @@ export class DataverseTools {
         }
       };
     } catch (error) {
-      throw new Error(`Failed to create business rule: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to create business rule: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
@@ -1082,13 +1082,13 @@ export class DataverseTools {
         outputFile: args.outputFile
       };
     } catch (error) {
-      throw new Error(`Failed to execute Web API request: ${error instanceof Error ? error.message : String(error)}`);
+      throw new Error(`Failed to execute Web API request: ${error instanceof Error ? error.message : String(error)}`, { cause: error });
     }
   }
 
   // Help Implementation
   private async showHelp(args: any): Promise<any> {
-    const helpContent = {
+    const helpContent: Record<string, string> = {
       entities: 'Entity management commands: create, delete, list, metadata',
       columns: 'Column management commands: create, delete, list attributes',
       records: 'Record operations: create, read, update, delete individual records',

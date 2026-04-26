@@ -4,7 +4,8 @@ extends:
   - plugin:node/recommended
 env:
   node: true
+  es2022: true
 rules:
   node/no-unpublished-require: off
 parserOptions:
-  ecmaVersion: 2020
+  ecmaVersion: 2022

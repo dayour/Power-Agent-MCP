@@ -6,12 +6,16 @@
     "lib": [
       "ES2022"
     ],
+    "types": [
+      "node"
+    ],
     "sourceMap": true,
     "rootDir": "src",
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "ignoreDeprecations": "6.0"
   },
   "exclude": [
     "node_modules",

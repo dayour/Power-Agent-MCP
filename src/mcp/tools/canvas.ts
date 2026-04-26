@@ -139,7 +139,7 @@ export class CanvasTools {
       pp_canvas_download: async (args: any) => {
         return { content: `Canvas app downloaded to: ${args.outputFile}` };
       },
-      pp_canvas_list: async (args: any) => {
+      pp_canvas_list: async (_args: any) => {
         return { content: 'Canvas apps listed from environment' };
       },
       pp_canvas_pack: async (args: any) => {

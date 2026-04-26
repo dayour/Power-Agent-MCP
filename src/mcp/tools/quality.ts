@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { runPacCommand } from '../runtime/pac.js';
 
 export class QualityTools {
   getTools(): Tool[] {
@@ -52,25 +53,20 @@ export class QualityTools {
   }
 
   private async runSolutionChecker(args: any): Promise<any> {
-    const { main: checkerMain } = await import('../../tasks/checker/checker-v2/index.js');
-    
-    process.env.INPUT_SOLUTIONINPUTFILE = args.solutionInputFile;
-    if (args.solutionCheckerResult) process.env.INPUT_SOLUTIONCHECKERRESULT = args.solutionCheckerResult;
-    if (args.ruleSet) process.env.INPUT_RULESET = args.ruleSet;
-    if (args.level) process.env.INPUT_LEVEL = args.level;
-    if (args.geography) process.env.INPUT_GEOGRAPHY = args.geography;
-    if (args.excludedFiles) process.env.INPUT_EXCLUDEDFILES = args.excludedFiles;
-
-    try {
-      await checkerMain();
-      return {
-        success: true,
-        message: 'Solution checker analysis completed',
-        solutionInputFile: args.solutionInputFile,
-        ruleSet: args.ruleSet || 'Solution Checker'
-      };
-    } catch (error) {
-      throw new Error(`Failed to run solution checker: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const result = await runPacCommand(['solution', 'check'], {
+      path: args.solutionInputFile,
+      outputDirectory: args.solutionCheckerResult,
+      ruleSet: args.ruleSet,
+      level: args.level,
+      geo: args.geography,
+      excludedFiles: args.excludedFiles,
+    });
+    return {
+      success: true,
+      message: 'Solution checker analysis completed',
+      solutionInputFile: args.solutionInputFile,
+      ruleSet: args.ruleSet || 'Solution Checker',
+      output: result.stdout,
+    };
   }
 }

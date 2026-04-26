@@ -1,8 +1,8 @@
 {
   "name": "power-agent-mcp",
   "displayName": "Power Agent MCP",
-  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 254 tools for environments, solutions, apps, copilots, and data operations. Power Platform authentication with automatic environment discovery.",
-  "version": "2.0.0",
+  "description": "Complete Power Platform automation for AI assistants - Bundled MCP server with 253 tools for environments, solutions, apps, copilots, Dataverse, SQL, and data operations. Power Platform authentication with automatic environment discovery.",
+  "version": "2.0.1",
   "publisher": "darbotlabs",
   "engines": {
     "vscode": "^1.74.0",
@@ -142,17 +142,17 @@
     "configuration": {
       "title": "Power Agent MCP",
       "properties": {
-        "powerAgentMcp.serverPath": {
+        "power-agent-mcp.serverPath": {
           "type": "string",
           "default": "",
           "description": "Path to Power Agent MCP server executable (leave empty to use bundled server)"
         },
-        "powerAgentMcp.autoStart": {
+        "power-agent-mcp.autoStart": {
           "type": "boolean",
           "default": true,
           "description": "Automatically start MCP server when VSCode opens"
         },
-        "powerAgentMcp.logLevel": {
+        "power-agent-mcp.logLevel": {
           "type": "string",
           "enum": [
             "error",
@@ -163,22 +163,22 @@
           "default": "info",
           "description": "Logging level for MCP server"
         },
-        "powerAgentMcp.environment.url": {
+        "power-agent-mcp.environment.url": {
           "type": "string",
           "default": "",
           "description": "Power Platform Environment URL (e.g., https://yourorg.crm.dynamics.com)"
         },
-        "powerAgentMcp.autoDetectCredentials": {
+        "power-agent-mcp.autoDetectCredentials": {
           "type": "boolean",
           "default": true,
           "description": "Automatically detect Microsoft credentials from Azure CLI, PAC CLI, and Windows Credential Manager"
         },
-        "powerAgentMcp.enableMSAL": {
+        "power-agent-mcp.enableMSAL": {
           "type": "boolean",
           "default": true,
           "description": "Enable Microsoft Authentication Library (MSAL) for Microsoft 365/Azure integration"
         },
-        "powerAgentMcp.backgroundService": {
+        "power-agent-mcp.backgroundService": {
           "type": "boolean",
           "default": true,
           "description": "Run MCP server as background service with pre-warming and intelligent caching"
@@ -199,12 +199,12 @@
         {
           "id": "power-agent-mcp-tools",
           "name": "Available Tools",
-          "when": "extension.powerAgentMcp.enabled"
+          "when": "extension.power-agent-mcp.enabled"
         },
         {
           "id": "power-agent-mcp-status",
           "name": "Server Status",
-          "when": "extension.powerAgentMcp.enabled"
+          "when": "extension.power-agent-mcp.enabled"
         }
       ]
     }
@@ -220,16 +220,26 @@
     "compile": "tsc -p ./",
     "package": "vsce package",
     "publish": "vsce publish",
-    "install-extension": "code --install-extension power-agent-mcp-1.0.0.vsix"
+    "install-extension": "node -e \"const fs=require('node:fs');const {spawnSync}=require('node:child_process');const vsix=fs.readdirSync('.').find(file=>/^power-agent-mcp-.*\\.vsix$/.test(file));if(!vsix){throw new Error('VSIX package not found. Run npm run package first.');}const result=spawnSync('code',['--install-extension',vsix],{stdio:'inherit',shell:true});process.exit(result.status ?? 0);\""
   },
   "devDependencies": {
-    "@types/vscode": "^1.74.0",
-    "@types/node": "18.x",
-    "@vscode/vsce": "^2.22.0",
-    "typescript": "^5.0.0"
+    "@types/vscode": "^1.116.0",
+    "@types/node": "^25.6.0",
+    "@vscode/vsce": "^3.9.1",
+    "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "@hono/node-server": "^2.0.0",
+    "hono": "^4.12.15",
+    "jws": "^4.0.1",
+    "tar-fs": "^3.1.2",
+    "tmp": "^0.2.5",
+    "underscore": "^1.13.8",
+    "undici": "^8.1.0",
+    "uuid": "^14.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.5.0",
-    "axios": "^1.6.0"
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "axios": "^1.15.2"
   }
 }

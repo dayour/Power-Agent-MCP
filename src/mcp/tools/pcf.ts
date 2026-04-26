@@ -85,7 +85,7 @@ export class PcfTools {
       pp_pcf_init: async (args: any) => {
         return { content: `PCF component project initialized: ${args.namespace}.${args.name} using template ${args.template}` };
       },
-      pp_pcf_push: async (args: any) => {
+      pp_pcf_push: async (_args: any) => {
         return { content: 'PCF component imported into Dataverse successfully' };
       },
       pp_pcf_version: async (args: any) => {
