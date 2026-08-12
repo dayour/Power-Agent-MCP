@@ -55,7 +55,7 @@
   "dependencies": {
     "@microsoft/teams.mcp": "^0.2.14",
     "@microsoft/teams.mcpclient": "^2.0.0-preview.7",
-    "@modelcontextprotocol/sdk": "^1.27.1"
+    "@modelcontextprotocol/sdk": "^1.30.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
