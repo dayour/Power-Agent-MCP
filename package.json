@@ -54,7 +54,7 @@
     "url": "https://github.com/dayour/Power-Agent-MCP/issues"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.32.0",
     "mssql": "^12.5.0"
   },
   "devDependencies": {
